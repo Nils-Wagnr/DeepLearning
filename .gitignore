@@ -1,2 +1,4 @@
 RQ1 (Woche2)/data/
 .venv/
+requirements.txt
+requirements-gpu.txt
