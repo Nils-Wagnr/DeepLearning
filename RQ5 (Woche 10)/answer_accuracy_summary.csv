@@ -1,0 +1,4 @@
+configuration_name,answer_accuracy,n_questions,n_correct
+best_bi_encoder_sentence_128_overlap_0,0.4,40,16
+best_reranked_sentence_512_overlap_0,0.05,40,2
+weaker_bi_encoder_fixed_1024_overlap_0,0.0,40,0
