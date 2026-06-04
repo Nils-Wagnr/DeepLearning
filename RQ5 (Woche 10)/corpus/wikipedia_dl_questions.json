@@ -1,0 +1,322 @@
+[
+  {
+    "id": "q01",
+    "question": "In what year was artificial intelligence founded as an academic discipline?",
+    "answer": "Artificial intelligence was founded as an academic discipline in 1956, at a workshop at Dartmouth College.",
+    "source_article": "article_01",
+    "source_article_title": "Artificial intelligence",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q02",
+    "question": "Who coined the term 'machine learning' and in what year?",
+    "answer": "The term machine learning was coined in 1959 by Arthur Samuel, an IBM employee and pioneer in the field of computer gaming and artificial intelligence.",
+    "source_article": "article_02",
+    "source_article_title": "Machine learning",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q03",
+    "question": "What does the adjective 'deep' refer to in deep learning?",
+    "answer": "The adjective 'deep' refers to the use of multiple layers (ranging from three to several hundred or thousands) in the network.",
+    "source_article": "article_03",
+    "source_article_title": "Deep learning",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q04",
+    "question": "What is an artificial neuron's output computed by?",
+    "answer": "The output of each neuron is computed by some non-linear function of the totality of its inputs, called the activation function.",
+    "source_article": "article_04",
+    "source_article_title": "Neural network (machine learning)",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q05",
+    "question": "What is backpropagation an efficient application of?",
+    "answer": "Backpropagation is an efficient application of the chain rule to neural networks.",
+    "source_article": "article_05",
+    "source_article_title": "Backpropagation",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q06",
+    "question": "What was the name of the simulation of Rogerian psychotherapy developed in the 1960s for natural language processing?",
+    "answer": "ELIZA, a simulation of Rogerian psychotherapy, was written by Joseph Weizenbaum between 1964 and 1966.",
+    "source_article": "article_06",
+    "source_article_title": "Natural language processing",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q07",
+    "question": "What was the title of the 2017 paper that proposed the original transformer architecture?",
+    "answer": "The original transformer architecture was proposed in the 2017 paper 'Attention Is All You Need' by Ashish Vaswani and colleagues at Google.",
+    "source_article": "article_07",
+    "source_article_title": "Transformer (deep learning)",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q08",
+    "question": "What two tasks was BERT pre-trained on simultaneously?",
+    "answer": "BERT was pre-trained simultaneously on masked language modeling (MLM) and next sentence prediction (NSP).",
+    "source_article": "article_08",
+    "source_article_title": "BERT (language model)",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q09",
+    "question": "On what date was GPT-4 released?",
+    "answer": "GPT-4 was released on March 14, 2023.",
+    "source_article": "article_09",
+    "source_article_title": "GPT-4",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q10",
+    "question": "What does RAG stand for in the context of language models?",
+    "answer": "RAG stands for Retrieval-Augmented Generation, a technique that enables large language models to retrieve and incorporate new information from external data sources.",
+    "source_article": "article_13",
+    "source_article_title": "Retrieval-augmented generation",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q11",
+    "question": "Who created Word2vec and in what year?",
+    "answer": "In 2013, a team at Google led by Tomas Mikolov created Word2vec, a word embedding toolkit that can train vector space models faster than previous approaches.",
+    "source_article": "article_14",
+    "source_article_title": "Word embedding",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q12",
+    "question": "What is chain-of-thought prompting?",
+    "answer": "Chain-of-thought (CoT) prompting is a technique that allows large language models to solve a problem as a series of intermediate steps before giving a final answer.",
+    "source_article": "article_15",
+    "source_article_title": "Prompt engineering",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q13",
+    "question": "What are CNNs also known as, due to their shared-weight architecture?",
+    "answer": "CNNs are also known as shift invariant or space invariant artificial neural networks, based on the shared-weight architecture of the convolution kernels or filters.",
+    "source_article": "article_17",
+    "source_article_title": "Convolutional neural network",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q14",
+    "question": "What problem do traditional RNNs suffer from that limits their ability to learn long-range dependencies?",
+    "answer": "Traditional RNNs suffer from the vanishing gradient problem, which limits their ability to learn long-range dependencies.",
+    "source_article": "article_18",
+    "source_article_title": "Recurrent neural network",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q15",
+    "question": "When was ChatGPT publicly released, triggering the popularization of generative AI?",
+    "answer": "ChatGPT was publicly released in November 2022, popularizing generative AI for general-purpose text-based tasks.",
+    "source_article": "article_19",
+    "source_article_title": "Generative AI",
+    "difficulty": "easy"
+  },
+  {
+    "id": "q16",
+    "question": "How many parameters does BERT-BASE have, and what datasets was it trained on?",
+    "answer": "BERT-BASE has 110 million parameters. Both BERT-BASE and BERT-LARGE were trained on the Toronto BookCorpus (800M words) and English Wikipedia (2,500M words).",
+    "source_article": "article_08",
+    "source_article_title": "BERT (language model)",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q17",
+    "question": "What technique allows efficient fine-tuning of models by adding low-rank matrices to the original model weights?",
+    "answer": "Low-rank adaptation (LoRA) is an adapter-based technique that adds low-rank matrices to a base model for efficient fine-tuning, allowing performance that approaches full-model fine-tuning with lower space requirements.",
+    "source_article": "article_12",
+    "source_article_title": "Fine-tuning (deep learning)",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q18",
+    "question": "What are the three main types of chunking strategies used in RAG systems?",
+    "answer": "The three types are: (1) fixed length with overlap, (2) syntax-based chunks that break documents into sentences, and (3) file format-based chunking that respects natural document structure like functions in code or tables in HTML.",
+    "source_article": "article_13",
+    "source_article_title": "Retrieval-augmented generation",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q19",
+    "question": "What was the estimated cost of training GPT-4 according to Sam Altman?",
+    "answer": "Sam Altman stated that the cost of training GPT-4 was more than $100 million.",
+    "source_article": "article_09",
+    "source_article_title": "GPT-4",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q20",
+    "question": "What year did the Georgetown experiment demonstrate fully automatic translation of Russian sentences into English?",
+    "answer": "The Georgetown experiment in 1954 involved fully automatic translation of more than sixty Russian sentences into English.",
+    "source_article": "article_06",
+    "source_article_title": "Natural language processing",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q21",
+    "question": "What is the difference between how BERT and context-free models like Word2vec represent words?",
+    "answer": "Context-free models like Word2vec generate a single word embedding representation for each word in the vocabulary, whereas BERT takes into account the context for each occurrence of a given word, providing a contextualized embedding that differs according to the sentence.",
+    "source_article": "article_08",
+    "source_article_title": "BERT (language model)",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q22",
+    "question": "What limitation of word embeddings related to words with multiple meanings was addressed by contextual models like ELMo and BERT?",
+    "answer": "One of the main limitations of static word embeddings is that words with multiple meanings (polysemy and homonymy) are conflated into a single representation. Contextually-meaningful embeddings like ELMo and BERT are at the token-level, so each occurrence of a word has its own embedding that reflects its context.",
+    "source_article": "article_14",
+    "source_article_title": "Word embedding",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q23",
+    "question": "What benchmark dataset has been used to compare the performance of CNNs against humans in object classification?",
+    "answer": "The ImageNet Large Scale Visual Recognition Challenge is a benchmark in object classification and detection, with millions of images and 1000 object classes. Performance of convolutional neural networks on the ImageNet tests is now close to that of humans.",
+    "source_article": "article_16",
+    "source_article_title": "Computer vision",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q24",
+    "question": "What RNN architecture was introduced in 1997 to address the vanishing gradient problem and handle long-term dependencies?",
+    "answer": "The long short-term memory (LSTM) architecture was introduced in 1997 to address the vanishing gradient problem, making it the standard RNN variant for handling long-term dependencies.",
+    "source_article": "article_18",
+    "source_article_title": "Recurrent neural network",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q25",
+    "question": "What incident involving Google's LLM tool Bard demonstrated the problem of AI hallucinations and how much did it cost Google in stock value?",
+    "answer": "When Google first demonstrated Bard, the LLM provided incorrect information about the James Webb Space Telescope, contributing to a $100 billion decline in Google's stock value.",
+    "source_article": "article_13",
+    "source_article_title": "Retrieval-augmented generation",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q26",
+    "question": "What is the name of the international AI safety report published in 2025 and who chaired the expert team?",
+    "answer": "The first International AI Safety Report was published by an international team of 96 experts chaired by Yoshua Bengio. The report was commissioned by 30 nations and the United Nations.",
+    "source_article": "article_20",
+    "source_article_title": "AI safety",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q27",
+    "question": "How does transfer learning differ from traditional machine learning in terms of the relationship between training and target tasks?",
+    "answer": "Transfer learning reuses knowledge from source tasks to improve learning of target predictive functions, even when source and target domains or tasks differ. Traditional machine learning trains from scratch for each new task.",
+    "source_article": "article_11",
+    "source_article_title": "Transfer learning",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q28",
+    "question": "What does the 'o' in GPT-4o stand for and what new modalities does it support?",
+    "answer": "The 'o' in GPT-4o stands for 'omni'. It processes and generates outputs across text, audio, and image modalities in real time, with rapid response times comparable to human reaction in conversations.",
+    "source_article": "article_09",
+    "source_article_title": "GPT-4",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q29",
+    "question": "What phenomenon causes AI image classifiers to pay attention to irrelevant features, and what example was discovered during the COVID-19 pandemic?",
+    "answer": "At the beginning of the 2020 COVID-19 pandemic, researchers used transparency tools to show that medical image classifiers were 'paying attention' to irrelevant hospital labels rather than medical features in the images.",
+    "source_article": "article_20",
+    "source_article_title": "AI safety",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q30",
+    "question": "What ethical concern about word embeddings was demonstrated by the analogy 'man is to computer programmer as woman is to homemaker'?",
+    "answer": "Word embeddings trained on Google News texts showed disproportionate word associations reflecting gender and racial biases, with the analogy 'man is to computer programmer as woman is to homemaker' demonstrating that embeddings absorb and can amplify societal stereotypes from training data.",
+    "source_article": "article_14",
+    "source_article_title": "Word embedding",
+    "difficulty": "medium"
+  },
+  {
+    "id": "q31",
+    "question": "How do transformers handle long-range dependencies differently from recurrent neural networks, and why was this a breakthrough for natural language processing?",
+    "answer": "Transformers use self-attention mechanisms instead of recurrence, allowing them to model relationships between all positions in a sequence simultaneously and process tokens in parallel. This is different from RNNs which process sequentially and suffer from vanishing gradients for long sequences. The parallel processing also greatly improves training efficiency and scalability.",
+    "source_article": "article_07",
+    "source_article_title": "Transformer (deep learning)",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q32",
+    "question": "Explain how RAG systems can still produce incorrect information even when retrieving factually correct sources. Provide an example.",
+    "answer": "RAG systems may retrieve factually correct but misleading sources, leading to errors in interpretation. For example, an AI-generated response stated 'The United States has had one Muslim president, Barack Hussein Obama' after retrieving content from an academic book rhetorically titled 'Barack Hussein Obama: America's First Muslim President?' -- the LLM did not understand the rhetorical context of the title, generating a false statement.",
+    "source_article": "article_13",
+    "source_article_title": "Retrieval-augmented generation",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q33",
+    "question": "What trade-off exists between BERT's bidirectional training advantage and its ability to generate text, and how does this relate to its architecture?",
+    "answer": "BERT's bidirectional training allows it to learn context from both left and right sides simultaneously, giving deep contextual understanding. However, because it uses an encoder-only architecture without a decoder, BERT cannot be easily prompted and cannot generate text. Bidirectional models do not work effectively without the right side context, making them difficult to prompt. Naive attempts to use BERT for generation by masking out many tokens leads to dataset shift and degraded performance.",
+    "source_article": "article_08",
+    "source_article_title": "BERT (language model)",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q34",
+    "question": "How might competitive dynamics between AI developers lead to safety risks, and what analogy has been drawn to historical geopolitical conflicts?",
+    "answer": "Some scholars have compared AI race dynamics to the cold war. In a 'race to the bottom' scenario, countries or companies race to build more capable AI systems and neglect safety, leading to catastrophic accidents. Allan Dafoe emphasized that if actors are competing with large returns to first-movers, they will be pressured to choose a sub-optimal level of caution. This is considered a structural or systemic risk factor rather than a simple misuse or accident.",
+    "source_article": "article_20",
+    "source_article_title": "AI safety",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q35",
+    "question": "How does the concept of 'model collapse' relate to the use of AI-generated content for training new AI models?",
+    "answer": "If AI-generated content is included in new data crawls from the Internet for additional training of AI models, defects in the resulting models may occur. Training an AI model exclusively on the output of another AI model produces a lower-quality model. Repeating this process leads to progressive degradation and eventually results in 'model collapse' after multiple iterations.",
+    "source_article": "article_19",
+    "source_article_title": "Generative AI",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q36",
+    "question": "Explain the relationship between fine-tuning, transfer learning, and catastrophic forgetting in the context of adapting pre-trained models.",
+    "answer": "Fine-tuning is a form of transfer learning where a pre-trained model is adapted to a new task through additional training. However, fine-tuning can degrade a model's robustness to distribution shifts. One mitigation is to linearly interpolate fine-tuned model weights with the original model weights, which can increase out-of-distribution performance while retaining in-distribution performance. The frozen layers approach preserves lower-level features while adapting higher-level ones.",
+    "source_article": "article_12",
+    "source_article_title": "Fine-tuning (deep learning)",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q37",
+    "question": "Why did the shift from symbolic NLP approaches to statistical and neural network methods represent a fundamental change in how language processing systems handle ambiguity and errors?",
+    "answer": "Symbolic NLP relied on hand-written rules that needed to handle both rare and common cases equally, were costly to produce, and could not handle unfamiliar or erroneous input well. Statistical and neural network methods focus on the most common patterns from data, are more robust to unfamiliar and erroneous input, and improve with more data -- in contrast to rule-based systems that gain accuracy only by increasing rule complexity, leading to intractability. The statistical revolution was also driven by increased computational power and a decline in the dominance of Chomskyan linguistic theories.",
+    "source_article": "article_06",
+    "source_article_title": "Natural language processing",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q38",
+    "question": "How do adversarial examples pose a threat to AI safety, and how does the problem extend beyond image classification to reward models used in training language models?",
+    "answer": "Adversarial examples are inputs intentionally designed to cause models to make mistakes, such as imperceptible perturbations to images causing misclassification. The threat extends to reward models: if a language model is trained for long enough to maximize a reward model's score, it will leverage the reward model's vulnerabilities to achieve higher scores while performing worse on the intended task. Any AI system used to evaluate another AI system must be adversarially robust, including monitoring tools that could be tampered with.",
+    "source_article": "article_20",
+    "source_article_title": "AI safety",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q39",
+    "question": "What evidence suggests that CNNs process visual information in a hierarchical manner similar to biological visual systems, and what inspired this architectural design?",
+    "answer": "In CNNs, earlier layers capture lower-level features while later layers discern high-level features. For image processing, lower layers typically identify simple local patterns such as edges and curves, with subsequent layers detecting more complex patterns like textures, and eventually whole objects. This hierarchical processing was inspired by biological neuroscience, specifically the primary visual cortex. The Neocognitron, developed in the 1970s by Kunihiko Fukushima, was an early example of computer vision taking direct inspiration from neurobiology.",
+    "source_article": "article_17",
+    "source_article_title": "Convolutional neural network",
+    "difficulty": "hard"
+  },
+  {
+    "id": "q40",
+    "question": "How do the concepts of in-context learning, few-shot prompting, and prompt sensitivity interact to affect the reliability of large language models?",
+    "answer": "In-context learning is a temporary, emergent ability of large language models that allows them to learn from examples provided in the prompt, scaling differently in larger models. Few-shot prompting provides examples in the prompt for the model to learn from. However, LLMs are highly sensitive to prompt formatting, structure, and linguistic properties -- with accuracy shifts of more than 40 percent from simply reordering examples, and up to 76 accuracy points across formatting changes. This sensitivity persists even with larger model sizes, additional examples, or instruction tuning, making prompt engineering unreliable without careful evaluation.",
+    "source_article": "article_15",
+    "source_article_title": "Prompt engineering",
+    "difficulty": "hard"
+  }
+]
