@@ -1,6 +1,6 @@
 {
   "tool": "ClaimGuard",
-  "generated_at": "2026-06-17T21:12:04.554030+00:00",
+  "generated_at": "2026-06-17T21:17:16.197022+00:00",
   "input_path": "data\\sample_input\\sample_bad_paper.txt",
   "summary": {
     "sentences": 5,
@@ -227,22 +227,34 @@
     {
       "claim_index": 0,
       "status": "contradicted",
-      "confidence": 0.614,
+      "confidence": 0.409,
       "evidence": [
         {
           "text": "Abstract: Large language models can generate fluent text but may hallucinate unsupported facts and do not eliminate errors.",
           "source": "1",
-          "score": 0.364,
-          "reference_index": "1"
+          "score": 0.373,
+          "reference_index": "1",
+          "chunk_id": "evidence:0:chunk:0",
+          "retrieval_method": "lexical",
+          "metadata": {
+            "chunk_index": 0,
+            "word_count": 18
+          }
         },
         {
-          "text": "Language Models Are Few-Shot Learners. Year: 2020. [1] Brown, T., Mann, B., Ryder, N. (2020). Language Models Are Few-Shot Learners. Advances in Neural Information Processing Systems. doi:10.5555/claimguard.2020.001",
+          "text": "Language Models Are Few-Shot Learners. Authors: Brown, Mann, Ryder. Year: 2020. DOI: 10.5555/claimguard.2020.001. [1] Brown, T., Mann, B., Ryder, N. (2020). Language Models Are Few-Shot Learners. Advances in Neural Information Processing Systems. doi:10.5555/claimguard.2020.001",
           "source": "reference:1",
-          "score": 0.139,
-          "reference_index": "1"
+          "score": 0.123,
+          "reference_index": "1",
+          "chunk_id": "reference:1:chunk:0",
+          "retrieval_method": "lexical",
+          "metadata": {
+            "chunk_index": 0,
+            "word_count": 33
+          }
         }
       ],
-      "rationale": "Retrieved evidence contains negation or opposite-direction language for the claim.",
+      "rationale": "Retrieved evidence contains negation, caveats, or opposite-direction language for the cited claim.",
       "cited_reference_indices": [
         "1"
       ]
@@ -250,22 +262,34 @@
     {
       "claim_index": 1,
       "status": "contradicted",
-      "confidence": 0.9,
+      "confidence": 0.644,
       "evidence": [
         {
           "text": "Abstract: Deep learning performance often depends on careful data preprocessing and representation choices.",
           "source": "2",
-          "score": 0.657,
-          "reference_index": "2"
+          "score": 0.592,
+          "reference_index": "2",
+          "chunk_id": "evidence:1:chunk:0",
+          "retrieval_method": "lexical",
+          "metadata": {
+            "chunk_index": 0,
+            "word_count": 13
+          }
         },
         {
-          "text": "Deep Learning. Year: 2015. [2] LeCun, Y., Bengio, Y., Hinton, G. (2015). Deep Learning. Nature.",
+          "text": "Deep Learning. Authors: LeCun, Bengio, Hinton. Year: 2015. [2] LeCun, Y., Bengio, Y., Hinton, G. (2015). Deep Learning. Nature.",
           "source": "reference:2",
-          "score": 0.354,
-          "reference_index": "2"
+          "score": 0.326,
+          "reference_index": "2",
+          "chunk_id": "reference:2:chunk:0",
+          "retrieval_method": "lexical",
+          "metadata": {
+            "chunk_index": 0,
+            "word_count": 19
+          }
         }
       ],
-      "rationale": "Retrieved evidence contains negation or opposite-direction language for the claim.",
+      "rationale": "Retrieved evidence contains negation, caveats, or opposite-direction language for the cited claim.",
       "cited_reference_indices": [
         "2"
       ]

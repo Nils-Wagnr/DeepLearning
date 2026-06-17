@@ -1,4 +1,4 @@
-"""RAG-style claim verification heuristics."""
+"""RAG-style claim verification with top-k evidence and clear labels."""
 
 from __future__ import annotations
 
@@ -6,7 +6,18 @@ import re
 
 from claimguard.claims.citations import strip_citations
 from claimguard.models import Claim, ClaimVerification, EvidencePassage, Reference, ReferenceValidation
-from claimguard.rag.retriever import EvidenceRetriever, build_evidence_passages
+from claimguard.rag.retriever import EvidenceRetriever, build_evidence_passages, chunk_text, tokenize
+
+TOP_K_EVIDENCE = 5
+MIN_EVIDENCE_SCORE = 0.08
+
+SUPPORT_LABELS = {
+    "supported",
+    "partially_supported",
+    "not_supported",
+    "contradicted",
+    "insufficient_evidence",
+}
 
 
 class ClaimVerifier:
@@ -19,10 +30,10 @@ class ClaimVerifier:
         validations: list[ReferenceValidation] | None = None,
         evidence_text: str = "",
     ) -> list[ClaimVerification]:
-        """Verify all cited factual claims in a document."""
+        """Verify all factual claims in a document."""
 
-        del validations  # Reserved for future weighting with API metadata.
         passages = build_evidence_passages(evidence_text, references)
+        passages.extend(_validation_abstract_passages(validations or []))
         retriever = EvidenceRetriever(passages)
         return [
             self.verify_claim(claim, references, retriever)
@@ -36,7 +47,7 @@ class ClaimVerifier:
         references: list[Reference],
         retriever: EvidenceRetriever,
     ) -> ClaimVerification:
-        """Verify one claim against the evidence index."""
+        """Verify one claim against a retrieval index."""
 
         if not claim.citations:
             return ClaimVerification(
@@ -49,14 +60,20 @@ class ClaimVerifier:
 
         cited_indices = map_citations_to_references(claim, references)
         query = strip_citations(claim.sentence)
-        evidence = retriever.retrieve(query, set(cited_indices) if cited_indices else None)
+        evidence = retriever.retrieve(
+            query,
+            set(cited_indices) if cited_indices else None,
+            top_k=TOP_K_EVIDENCE,
+        )
+
+        evidence = [passage for passage in evidence if passage.score >= MIN_EVIDENCE_SCORE]
         if not evidence:
             return ClaimVerification(
                 claim_index=claim.sentence_index,
                 status="insufficient_evidence",
                 confidence=0.0,
                 evidence=[],
-                rationale="No evidence passages were available for the cited source.",
+                rationale="No relevant evidence chunks were retrieved for the cited source.",
                 cited_reference_indices=cited_indices,
             )
 
@@ -75,9 +92,10 @@ def map_citations_to_references(claim: Claim, references: list[Reference]) -> li
     """Map citation markers to parsed reference indices when possible."""
 
     matched: list[str] = []
+    indexed_references = {reference.index: reference for reference in references if reference.index}
     for citation in claim.citations:
         if citation.citation_type == "numeric":
-            if any(reference.index == citation.marker for reference in references):
+            if citation.marker in indexed_references:
                 matched.append(citation.marker)
             continue
 
@@ -95,60 +113,150 @@ def map_citations_to_references(claim: Claim, references: list[Reference]) -> li
 
 
 def _judge_support(claim_text: str, evidence: list[EvidencePassage]) -> tuple[str, float, str]:
-    combined = " ".join(passage.text for passage in evidence[:3])
+    combined = " ".join(passage.text for passage in evidence[:TOP_K_EVIDENCE])
     best_score = max((passage.score for passage in evidence), default=0.0)
+    mean_top_score = sum(passage.score for passage in evidence[:3]) / max(1, len(evidence[:3]))
+    coverage = _claim_coverage(claim_text, combined)
     lowered_claim = claim_text.lower()
     lowered_evidence = combined.lower()
 
-    if _has_not_supported_cue(lowered_evidence):
-        return (
-            "not_supported",
-            round(max(0.35, min(0.85, best_score + 0.25)), 3),
-            "Retrieved evidence explicitly says the tested relationship was not evaluated or supported.",
-        )
+    contradiction_strength = _contradiction_strength(lowered_claim, lowered_evidence)
+    not_supported_strength = _not_supported_strength(lowered_evidence)
 
-    if _has_contradiction(lowered_claim, lowered_evidence):
+    if contradiction_strength >= 0.45:
+        confidence = _confidence(best_score, mean_top_score, coverage, contradiction_strength)
         return (
             "contradicted",
-            round(max(0.45, min(0.9, best_score + 0.25)), 3),
-            "Retrieved evidence contains negation or opposite-direction language for the claim.",
+            confidence,
+            "Retrieved evidence contains negation, caveats, or opposite-direction language for the cited claim.",
         )
 
-    if best_score >= 0.46:
+    if not_supported_strength >= 0.45:
+        confidence = _confidence(best_score, mean_top_score, coverage, not_supported_strength)
+        return (
+            "not_supported",
+            confidence,
+            "Retrieved evidence says the cited source did not test or does not mention the claim.",
+        )
+
+    if best_score < 0.14 and coverage < 0.25:
+        return (
+            "insufficient_evidence",
+            round(max(0.05, best_score), 3),
+            "Retrieved chunks were too weakly related to assess support.",
+        )
+
+    if best_score >= 0.52 and coverage >= 0.55:
         return (
             "supported",
-            round(min(0.95, best_score + 0.25), 3),
-            "Retrieved evidence overlaps strongly with the main claim terms.",
+            _confidence(best_score, mean_top_score, coverage, 0.15),
+            "Top evidence chunks strongly match the claim and cover most key terms.",
         )
-    if best_score >= 0.24:
+
+    if best_score >= 0.25 or coverage >= 0.35:
         return (
             "partially_supported",
-            round(min(0.75, best_score + 0.20), 3),
-            "Retrieved evidence shares some key terms but does not fully establish the claim.",
+            _confidence(best_score, mean_top_score, coverage, 0.0, cap=0.78),
+            "Evidence overlaps with the claim but leaves important terms, scope, or strength only partly established.",
         )
+
     return (
         "not_supported",
-        round(min(0.6, best_score + 0.15), 3),
-        "Retrieved evidence was available but did not match the claim closely.",
+        _confidence(best_score, mean_top_score, coverage, 0.0, cap=0.62),
+        "Relevant evidence was retrieved, but it did not establish the cited claim.",
     )
 
 
-def _has_contradiction(claim: str, evidence: str) -> bool:
+def _validation_abstract_passages(validations: list[ReferenceValidation]) -> list[EvidencePassage]:
+    passages: list[EvidencePassage] = []
+    for validation in validations:
+        metadata = validation.metadata or {}
+        abstract = metadata.get("abstract") or metadata.get("raw", {}).get("abstract")
+        if not abstract:
+            continue
+        for index, chunk in enumerate(chunk_text(str(abstract))):
+            passages.append(
+                EvidencePassage(
+                    text=chunk,
+                    source=f"{validation.source}:abstract",
+                    reference_index=validation.reference_index,
+                    chunk_id=f"validation:{validation.reference_index}:abstract:{index}",
+                    retrieval_method="unscored",
+                    metadata={"validation_status": validation.status},
+                )
+            )
+    return passages
+
+
+def _claim_coverage(claim_text: str, evidence_text: str) -> float:
+    claim_tokens = _important_claim_tokens(claim_text)
+    evidence_tokens = tokenize(evidence_text)
+    if not claim_tokens or not evidence_tokens:
+        return 0.0
+    return round(len(claim_tokens & evidence_tokens) / len(claim_tokens), 3)
+
+
+def _important_claim_tokens(text: str) -> set[str]:
+    tokens = tokenize(text)
+    return {
+        token
+        for token in tokens
+        if token
+        not in {
+            "study",
+            "paper",
+            "result",
+            "show",
+            "found",
+            "report",
+            "claim",
+            "prior",
+        }
+    }
+
+
+def _contradiction_strength(claim: str, evidence: str) -> float:
+    strength = 0.0
     negation = r"\b(no|not|never|without|failed to|fails to|does not|do not|did not|cannot)\b"
+
     if re.search(r"\b(eliminate|eliminates|eliminated|all|always|never|requires no)\b", claim):
-        if re.search(negation, evidence) or re.search(r"\b(hallucinat|depends?|requires?|preprocess)\w*\b", evidence):
-            return True
-    if re.search(r"\b(improves?|increases?|reduces?|outperforms?)\b", claim):
-        return bool(re.search(r"\b(no significant|did not improve|does not improve|worse|lower)\b", evidence))
+        if re.search(negation, evidence):
+            strength = max(strength, 0.75)
+        if re.search(r"\b(hallucinat|depends?|requires?|preprocess)\w*\b", evidence):
+            strength = max(strength, 0.65)
+
+    if re.search(r"\b(improves?|improved|increases?|increased|outperforms?|higher)\b", claim):
+        if re.search(r"\b(no significant|did not improve|does not improve|worse|lower|decreased|reduced)\b", evidence):
+            strength = max(strength, 0.75)
+
+    if re.search(r"\b(reduces?|reduced|decreases?|decreased|lower)\b", claim):
+        if re.search(r"\b(increased|higher|worse|did not reduce|does not reduce)\b", evidence):
+            strength = max(strength, 0.75)
+
     if "requires no" in claim and re.search(r"\b(depends?|requires?|preprocess\w*)\b", evidence):
-        return True
-    return False
+        strength = max(strength, 0.8)
+
+    return strength
 
 
-def _has_not_supported_cue(evidence: str) -> bool:
-    return bool(
-        re.search(
-            r"\b(does not test|did not test|not evaluated|not evaluate|no evidence|not mention|unrelated)\b",
-            evidence,
-        )
-    )
+def _not_supported_strength(evidence: str) -> float:
+    if re.search(
+        r"\b(does not test|did not test|not evaluated|not evaluate|no evidence|not mention|unrelated)\b",
+        evidence,
+    ):
+        return 0.7
+    if re.search(r"\b(the source|this source|the article)\b.{0,80}\b(does not|did not|fails to)\b", evidence):
+        return 0.6
+    return 0.0
+
+
+def _confidence(
+    best_score: float,
+    mean_top_score: float,
+    coverage: float,
+    cue_strength: float,
+    cap: float = 0.92,
+) -> float:
+    value = (best_score * 0.42) + (mean_top_score * 0.20) + (coverage * 0.28) + (cue_strength * 0.10)
+    return round(max(0.05, min(cap, value)), 3)
+

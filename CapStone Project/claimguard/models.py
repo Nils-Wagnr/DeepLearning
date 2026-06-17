@@ -69,6 +69,9 @@ class EvidencePassage:
     source: str
     score: float = 0.0
     reference_index: str | None = None
+    chunk_id: str | None = None
+    retrieval_method: str = "lexical"
+    metadata: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(slots=True)
