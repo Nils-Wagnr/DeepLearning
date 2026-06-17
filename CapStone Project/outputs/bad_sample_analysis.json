@@ -1,6 +1,6 @@
 {
   "tool": "ClaimGuard",
-  "generated_at": "2026-06-17T21:05:50.146071+00:00",
+  "generated_at": "2026-06-17T21:12:04.554030+00:00",
   "input_path": "data\\sample_input\\sample_bad_paper.txt",
   "summary": {
     "sentences": 5,
