@@ -4,10 +4,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
 from pathlib import Path
 
 from claimguard.evaluation import evaluate_benchmark
 from claimguard.utils.logging import configure_logging
+
+LOGGER = logging.getLogger(__name__)
 
 
 def main() -> None:
@@ -22,8 +25,8 @@ def main() -> None:
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
+    LOGGER.info("Wrote evaluation report to %s", output)
 
 
 if __name__ == "__main__":
     main()
-

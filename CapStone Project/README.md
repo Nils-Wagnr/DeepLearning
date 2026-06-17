@@ -1,32 +1,44 @@
 # ClaimGuard
 
-ClaimGuard is a runnable Python application for checking citation integrity in academic drafts. It was built for a Deep Learning Capstone Project and implements a compact, offline-first version of three modules:
+ClaimGuard is an offline-first Python application for checking citation integrity in academic drafts. It was built for a Deep Learning Capstone Project and implements three working modules:
 
 1. Claim and citation detection.
-2. Reference validation with optional scholarly APIs.
-3. RAG-style claim-source support checking.
+2. Reference extraction and validation.
+3. RAG-style claim-source verification.
 
-The app works without API keys on the sample data in `data/sample_input/`. Optional APIs and embedding backends improve matching when available.
+The project runs without API keys or network access on the included sample files. Optional APIs and local embedding models can improve reference validation and evidence retrieval when available.
 
-## Installation
+## Quick Start
 
-From inside `Capstone Project/`:
+Run these commands from inside `CapStone Project/`.
 
-```bash
+Windows PowerShell:
+
+```powershell
 python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
+.\.venv\Scripts\activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
-Optional RAG dependencies:
+macOS or Linux:
 
 ```bash
-pip install ".[rag]"
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
-FAISS wheels are platform-dependent. If FAISS is not available, ClaimGuard automatically falls back to an offline token retriever.
+Optional local embedding retrieval:
 
-## Usage
+```bash
+python -m pip install ".[rag]"
+```
+
+FAISS wheels are platform-dependent. If FAISS or `sentence-transformers` is unavailable, ClaimGuard falls back to deterministic lexical retrieval and remains runnable offline.
+
+## Commands
 
 Analyze one of the existing PDF reports:
 
@@ -40,26 +52,39 @@ Analyze the intentionally problematic sample:
 python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output outputs/bad_sample_analysis.json
 ```
 
-Export Module 1 claim/citation rows as CSV:
+Export Module 1 claim and citation rows as CSV:
 
 ```bash
 python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output outputs/bad_sample_analysis.json --claims-csv outputs/bad_sample_claims.csv
 ```
 
-Run the benchmark:
+Run the benchmark evaluation:
 
 ```bash
 python run_evaluation.py --benchmark data/benchmark/claimguard_benchmark.csv --output outputs/evaluation_report.json
 ```
 
-Enable online validation:
+Run tests:
 
 ```bash
-set CLAIMGUARD_ENABLE_APIS=true
+pytest
+```
+
+Enable online reference validation:
+
+```powershell
+copy .env.example .env
+$env:CLAIMGUARD_ENABLE_APIS = "true"
 python run_claimguard.py --input data/sample_input/sample_paper.txt --output outputs/sample_analysis.json --enable-apis
 ```
 
-Copy `.env.example` to `.env` if you want to store local environment settings. No secrets are hardcoded.
+CLI options:
+
+- `run_claimguard.py --input PATH --output PATH`: required document analysis command.
+- `--claims-csv PATH`: optional Module 1 CSV export.
+- `--enable-apis`: enables CrossRef, Semantic Scholar, and OpenAlex lookups.
+- `--log-level LEVEL`: optional logging level, for example `INFO` or `DEBUG`.
+- `run_evaluation.py --benchmark PATH --output PATH`: required benchmark evaluation command.
 
 ## Architecture
 
@@ -68,90 +93,148 @@ flowchart TD
     A[TXT or PDF input] --> B[Document parser]
     B --> C[Section splitter]
     C --> D[Sentence splitter]
-    D --> E[Claim classifier]
-    E --> F[Citation parser]
-    C --> G[Reference parser]
-    G --> H[CrossRef / Semantic Scholar / OpenAlex validation]
-    C --> I[Evidence passages]
-    E --> J[RAG verifier]
-    G --> J
-    I --> J
-    H --> K[JSON report]
-    J --> K
+    D --> E[Module 1: claim classifier]
+    E --> F[Citation detector]
+    C --> G[Module 2: reference parser]
+    G --> H[CrossRef / Semantic Scholar / OpenAlex clients]
+    C --> I[Evidence passages and abstracts]
+    I --> J[Chunking]
+    J --> K[Module 3: retriever]
+    G --> K
+    E --> L[RAG verifier]
+    K --> L
+    H --> L
+    L --> M[JSON report]
+    E --> N[Optional claim CSV]
+    O[Benchmark CSV] --> P[Evaluation runner]
+    P --> Q[Metrics + qualitative examples]
 ```
 
-## Modules Implemented
+## Implemented Modules
 
-**Module 1: claim and citation detection**
+### Module 1: Claims and Citations
 
-- Parses `.txt` and `.pdf` input.
-- Splits main text into sentences.
-- Detects `(Smith et al., 2023)` and `[1]` style citations.
+- Parses `.txt` and `.pdf` documents.
+- Splits text into sentences.
+- Detects numeric citations such as `[1]`, `[1, 2]`, and `[3-5]`.
+- Detects author-year citations such as `(Smith et al., 2023)`, grouped citations, and narrative citations such as `Smith et al. (2023)`.
 - Classifies sentences as `factual_claim`, `methodological_statement`, `opinion_or_interpretation`, `background_or_definition`, or `non_claim`.
 - Flags factual claims without citations.
+- Exports a dedicated `module_1` JSON section and optional claim/citation CSV.
 
-**Module 2: reference validation**
+### Module 2: References
 
-- Extracts references from a `References` section.
-- Parses index, title, authors, year, and DOI where possible.
-- Uses fuzzy matching for title and metadata comparison.
-- Can query CrossRef, Semantic Scholar, and OpenAlex when enabled.
-- Produces `verified`, `partially_matched`, `unverified`, `retracted_or_problematic`, or `api_unavailable`.
-- Handles API failures by logging a warning and continuing.
+- Extracts references from a `References`, `Bibliography`, or `Works Cited` section.
+- Handles wrapped APA-style entries, numbered entries, IEEE-like quoted titles, DOI strings, and DOI URLs.
+- Parses reference index, title, authors, year, and DOI when possible.
+- Uses robust fuzzy matching for title, year, DOI, and author comparisons.
+- Optionally queries CrossRef, Semantic Scholar, and OpenAlex with bounded timeouts.
+- Fails gracefully when APIs are disabled, unavailable, rate-limited, or return no match.
+- Returns `verified`, `partially_matched`, `unverified`, `retracted_or_problematic`, or `api_unavailable`.
 
-**Module 3: RAG-style support checking**
+### Module 3: RAG Verification
 
-- Builds an evidence index from sample evidence passages and parsed references.
-- Uses `sentence-transformers` plus FAISS when installed and locally cached.
-- Falls back to an offline token retriever.
+- Builds evidence from sample evidence passages, parsed references, and optional API abstracts.
+- Chunks evidence into overlapping sentence-aware passages.
+- Retrieves top-k evidence with FAISS when available.
+- Falls back to embedding cosine retrieval if embeddings are available but FAISS is not.
+- Falls back to deterministic lexical retrieval when no embedding backend is installed.
 - Labels cited claims as `supported`, `partially_supported`, `not_supported`, `contradicted`, or `insufficient_evidence`.
-- Includes confidence scores and evidence passages in the JSON report.
+- Reports confidence, rationale, cited reference indices, evidence scores, retrieval method, and chunk IDs.
 
-## Example Output
+## Output Files
+
+- `outputs/bad_sample_analysis.json`: full analysis for the intentionally problematic sample.
+- `outputs/bad_sample_claims.csv`: optional Module 1 claim/citation table.
+- `outputs/report_analysis.json`: analysis for one existing PDF report.
+- `outputs/evaluation_report.json`: benchmark metrics, predictions, qualitative examples, and caveats.
+
+## Example Result
+
+Running:
+
+```bash
+python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output outputs/bad_sample_analysis.json
+```
+
+produces a summary like:
 
 ```json
 {
-  "summary": {
-    "sentences": 5,
-    "factual_claims": 3,
-    "claims_missing_citations": 1,
-    "references": 2,
-    "verified_claim_status_counts": {
-      "contradicted": 2,
-      "insufficient_evidence": 1
-    }
+  "sentences": 5,
+  "factual_claims": 3,
+  "claims_missing_citations": 1,
+  "references": 2,
+  "verified_claim_status_counts": {
+    "contradicted": 2,
+    "insufficient_evidence": 1
   }
 }
 ```
 
-Each `claim_verification` item includes the claim index, support label, confidence, cited reference indices, rationale, and retrieved evidence passages.
-
-## Evaluation
-
-The benchmark file is `data/benchmark/claimguard_benchmark.csv`. It contains short claim/evidence pairs with expected labels. The evaluator reports accuracy, a confusion matrix, per-row predictions, confidence, and evidence snippets.
-
-Run tests:
+Running:
 
 ```bash
-pytest
+python run_evaluation.py --benchmark data/benchmark/claimguard_benchmark.csv --output outputs/evaluation_report.json
 ```
+
+currently evaluates 15 synthetic benchmark cases, with 3 examples per verifier label. The generated report includes accuracy, per-label precision/recall/F1, macro-F1, micro-F1, a confusion matrix, example predictions, and caveats. On the included benchmark, the current deterministic offline run reports accuracy `1.0` and macro-F1 `1.0`.
+
+## Benchmark
+
+The benchmark lives at `data/benchmark/claimguard_benchmark.csv`.
+
+Columns:
+
+- `case_id`: stable row identifier.
+- `category`: broad test category.
+- `claim`: claim text to verify.
+- `evidence`: source evidence snippet.
+- `expected_label`: one of the five Module 3 labels.
+- `notes`: human-readable annotation note.
+
+This benchmark is intentionally small and synthetic. It is useful for regression testing and capstone demonstration, not for estimating real-world scientific accuracy.
+
+## Optional APIs
+
+ClaimGuard runs offline by default. To enable APIs, copy `.env.example` to `.env` or set environment variables directly.
+
+Supported variables:
+
+- `CLAIMGUARD_ENABLE_APIS=true`
+- `CROSSREF_MAILTO=your-email@example.com`
+- `SEMANTIC_SCHOLAR_API_KEY=...`
+- `OPENALEX_MAILTO=your-email@example.com`
+- `CLAIMGUARD_USE_EMBEDDINGS=auto`
+- `CLAIMGUARD_EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2`
+
+No secrets are hardcoded. API failures are logged and converted into graceful validation statuses.
+
+## Reproducibility Checklist
+
+1. Create and activate a virtual environment.
+2. Install `requirements.txt`.
+3. Run the bad sample analysis command.
+4. Run the evaluation command.
+5. Inspect `outputs/bad_sample_analysis.json` and `outputs/evaluation_report.json`.
+6. Run `pytest` to execute the test suite.
+
+The offline outputs are deterministic for the included sample data. Optional API calls and optional embedding retrieval can change validation metadata, retrieval scores, and sometimes labels.
 
 ## Limitations
 
-- Claim classification is heuristic and sentence-level; it does not perform deep discourse analysis.
-- Offline reference validation cannot confirm that a paper exists.
-- API matching depends on availability, rate limits, and metadata quality.
-- The RAG verifier uses abstracts, parsed references, and sample evidence unless full source text is supplied.
-- Contradiction detection is intentionally simple and should be treated as a triage signal, not a final judgment.
+- Claim detection is heuristic and sentence-level; it does not understand full discourse structure.
+- Citation detection covers common academic patterns but is not a complete citation parser.
+- PDF extraction depends on available libraries; the built-in fallback is intentionally minimal.
+- Offline reference validation cannot prove that a source exists.
+- API validation depends on external availability, metadata quality, rate limits, and search ranking.
+- RAG verification uses snippets, abstracts, reference text, and sample evidence rather than full papers unless full source text is provided.
+- Confidence scores are heuristic calibration signals, not probabilities.
+- The included benchmark is synthetic and small, so high scores should be interpreted as a regression-test result, not evidence of deployment-ready performance.
 
 ## Ethics
 
-ClaimGuard is designed to help students and reviewers find citation risks. It should not be used as an automatic misconduct detector. Human review is required before making academic integrity judgments, grading decisions, or accusations. The tool reports uncertainty through confidence scores and explicit rationales.
+ClaimGuard is a triage and teaching tool. It can help identify missing citations, questionable references, and source-support risks, but it should not be used as an automatic misconduct detector or grading authority.
 
-## Reproducibility Notes
+Human review is required before making academic integrity judgments, accusations, publication decisions, or grade decisions. The tool can be wrong because scholarly claims are contextual, citations may support only part of a sentence, and source quality cannot be fully assessed from metadata or short evidence snippets.
 
-- The sample inputs and benchmark are stored in this repository.
-- Offline runs do not require API keys or network access.
-- Optional APIs are controlled by `CLAIMGUARD_ENABLE_APIS` and `--enable-apis`.
-- Optional embedding retrieval requests local model files only; it does not download models during analysis.
-- JSON reports are written to `outputs/`.
