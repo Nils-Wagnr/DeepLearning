@@ -1,0 +1,18 @@
+Title: A Small Demonstration of Citation Integrity Checking
+
+Deep neural networks have improved image classification accuracy in medical imaging (Smith et al., 2021).
+Transformers are neural architectures that use attention mechanisms (Vaswani et al., 2017).
+We trained a convolutional model on a small teaching dataset.
+This project suggests that automated citation review can help students revise academic drafts.
+The teaching dataset contains 1,200 labeled examples.
+
+References
+
+Smith, A., Lee, R. (2021). Deep Learning Improves Medical Image Classification. Journal of Applied AI. doi:10.5555/claimguard.2021.001
+Vaswani, A., Shazeer, N., Parmar, N. (2017). Attention Is All You Need. Advances in Neural Information Processing Systems.
+
+Evidence Passages
+
+[Smith et al., 2021] Abstract: Deep learning improved image classification accuracy on medical imaging benchmark datasets compared with shallow baselines.
+[Vaswani et al., 2017] Abstract: The Transformer is a neural network architecture based on attention mechanisms.
+

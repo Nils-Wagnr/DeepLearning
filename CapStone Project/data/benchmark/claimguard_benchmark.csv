@@ -1,0 +1,8 @@
+claim,evidence,expected_label
+"Deep learning improves image classification accuracy.","Deep learning improved image classification accuracy on benchmark datasets.","supported"
+"Language models eliminate all hallucinations.","Language models can hallucinate unsupported facts and do not eliminate errors.","contradicted"
+"Transformers use attention mechanisms.","The Transformer architecture relies on attention mechanisms.","supported"
+"Deep learning requires no data preprocessing.","Deep learning performance often depends on data preprocessing.","contradicted"
+"ClaimGuard improves student grading.","The article discusses citation checking but does not test student grading.","not_supported"
+"Neural networks are used in medicine.","Neural networks have been applied to medical image classification.","partially_supported"
+

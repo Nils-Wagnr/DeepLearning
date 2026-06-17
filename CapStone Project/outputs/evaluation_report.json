@@ -1,0 +1,160 @@
+{
+  "benchmark": "data/benchmark/claimguard_benchmark.csv",
+  "total": 6,
+  "correct": 6,
+  "accuracy": 1.0,
+  "confusion_matrix": {
+    "supported": {
+      "supported": 2
+    },
+    "contradicted": {
+      "contradicted": 2
+    },
+    "not_supported": {
+      "not_supported": 1
+    },
+    "partially_supported": {
+      "partially_supported": 1
+    }
+  },
+  "predictions": [
+    {
+      "row": 1,
+      "claim": "Deep learning improves image classification accuracy.",
+      "expected": "supported",
+      "predicted": "supported",
+      "confidence": 0.95,
+      "correct": true,
+      "rationale": "Retrieved evidence overlaps strongly with the main claim terms.",
+      "evidence": [
+        {
+          "text": "Deep learning improved image classification accuracy on benchmark datasets.",
+          "source": "1",
+          "score": 0.772,
+          "reference_index": "1"
+        },
+        {
+          "text": "Benchmark evidence. [1] Benchmark evidence. Deep learning improved image classification accuracy on benchmark datasets.",
+          "source": "reference:1",
+          "score": 0.749,
+          "reference_index": "1"
+        }
+      ]
+    },
+    {
+      "row": 2,
+      "claim": "Language models eliminate all hallucinations.",
+      "expected": "contradicted",
+      "predicted": "contradicted",
+      "confidence": 0.766,
+      "correct": true,
+      "rationale": "Retrieved evidence contains negation or opposite-direction language for the claim.",
+      "evidence": [
+        {
+          "text": "Language models can hallucinate unsupported facts and do not eliminate errors.",
+          "source": "1",
+          "score": 0.516,
+          "reference_index": "1"
+        },
+        {
+          "text": "Benchmark evidence. [1] Benchmark evidence. Language models can hallucinate unsupported facts and do not eliminate errors.",
+          "source": "reference:1",
+          "score": 0.492,
+          "reference_index": "1"
+        }
+      ]
+    },
+    {
+      "row": 3,
+      "claim": "Transformers use attention mechanisms.",
+      "expected": "supported",
+      "predicted": "supported",
+      "confidence": 0.95,
+      "correct": true,
+      "rationale": "Retrieved evidence overlaps strongly with the main claim terms.",
+      "evidence": [
+        {
+          "text": "The Transformer architecture relies on attention mechanisms.",
+          "source": "1",
+          "score": 0.706,
+          "reference_index": "1"
+        },
+        {
+          "text": "Benchmark evidence. [1] Benchmark evidence. The Transformer architecture relies on attention mechanisms.",
+          "source": "reference:1",
+          "score": 0.649,
+          "reference_index": "1"
+        }
+      ]
+    },
+    {
+      "row": 4,
+      "claim": "Deep learning requires no data preprocessing.",
+      "expected": "contradicted",
+      "predicted": "contradicted",
+      "confidence": 0.9,
+      "correct": true,
+      "rationale": "Retrieved evidence contains negation or opposite-direction language for the claim.",
+      "evidence": [
+        {
+          "text": "Deep learning performance often depends on data preprocessing.",
+          "source": "1",
+          "score": 0.732,
+          "reference_index": "1"
+        },
+        {
+          "text": "Benchmark evidence. [1] Benchmark evidence. Deep learning performance often depends on data preprocessing.",
+          "source": "reference:1",
+          "score": 0.688,
+          "reference_index": "1"
+        }
+      ]
+    },
+    {
+      "row": 5,
+      "claim": "ClaimGuard improves student grading.",
+      "expected": "not_supported",
+      "predicted": "not_supported",
+      "confidence": 0.649,
+      "correct": true,
+      "rationale": "Retrieved evidence explicitly says the tested relationship was not evaluated or supported.",
+      "evidence": [
+        {
+          "text": "The article discusses citation checking but does not test student grading.",
+          "source": "1",
+          "score": 0.399,
+          "reference_index": "1"
+        },
+        {
+          "text": "Benchmark evidence. [1] Benchmark evidence. The article discusses citation checking but does not test student grading.",
+          "source": "reference:1",
+          "score": 0.384,
+          "reference_index": "1"
+        }
+      ]
+    },
+    {
+      "row": 6,
+      "claim": "Neural networks are used in medicine.",
+      "expected": "partially_supported",
+      "predicted": "partially_supported",
+      "confidence": 0.633,
+      "correct": true,
+      "rationale": "Retrieved evidence shares some key terms but does not fully establish the claim.",
+      "evidence": [
+        {
+          "text": "Neural networks have been applied to medical image classification.",
+          "source": "1",
+          "score": 0.433,
+          "reference_index": "1"
+        },
+        {
+          "text": "Benchmark evidence. [1] Benchmark evidence. Neural networks have been applied to medical image classification.",
+          "source": "reference:1",
+          "score": 0.408,
+          "reference_index": "1"
+        }
+      ]
+    }
+  ]
+}

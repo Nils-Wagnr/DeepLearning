@@ -1,0 +1,18 @@
+Title: Unsupported Claims in a Draft Paper
+
+Large language models eliminate all hallucinations in academic writing [1].
+Deep learning requires no data preprocessing [2].
+We trained a model on 100 documents.
+The results are probably exciting for future students.
+Citation checking systems improve grading outcomes.
+
+References
+
+[1] Brown, T., Mann, B., Ryder, N. (2020). Language Models Are Few-Shot Learners. Advances in Neural Information Processing Systems. doi:10.5555/claimguard.2020.001
+[2] LeCun, Y., Bengio, Y., Hinton, G. (2015). Deep Learning. Nature.
+
+Evidence Passages
+
+[1] Abstract: Large language models can generate fluent text but may hallucinate unsupported facts and do not eliminate errors.
+[2] Abstract: Deep learning performance often depends on careful data preprocessing and representation choices.
+

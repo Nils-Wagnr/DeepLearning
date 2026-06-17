@@ -1,0 +1,1285 @@
+{
+  "tool": "ClaimGuard",
+  "generated_at": "2026-06-17T20:58:49.329068+00:00",
+  "input_path": "Reports\\NW2_RQ1_Report.pdf",
+  "summary": {
+    "sentences": 88,
+    "factual_claims": 59,
+    "claims_missing_citations": 59,
+    "references": 8,
+    "verified_claim_status_counts": {
+      "insufficient_evidence": 59
+    }
+  },
+  "claims": [
+    {
+      "sentence": "Deep Learning (285652) Overfitting in Neural Networks Wagner Nils * & Wenzel Nick April 1, 2026 Submitted to Carsten Lanquillon * 212405, nwagner1@stud.hs-heilbronn.de 207678, nwenzel@stud.hs-heilbronn.de Deep Learning: Overfitting in Neural Networks 1 Abstract The present paper evaluates how eectively L1 regularization, L2 weight decay, Dropout, Batch Normalization, and Early Stopping control overfitting in multilayer perceptrons trained on MNIST.",
+      "sentence_index": 0,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "The experimental design varies both network depth and width and then applies reg- ularization to a fixed reference architecture, with additional experiments on selected combi- nations.",
+      "sentence_index": 1,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "Across unregularized baselines, the generalization gap is already substantial in small models, ranging from 1.48 to 2.68 percentage points.",
+      "sentence_index": 2,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Test accuracy improves with model size, but the gap remains persistent, indicating that higher capacity alone does not remove overfit- ting.",
+      "sentence_index": 3,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Among single methods, Dropout at p = 0 : 2 yields the strongest test accuracy (98.23%) [ 2 ], while L2 with weight decay 10 2 yields the smallest gap (0.236 points) at the cost of lower accuracy, indicating underfitting [ 7 ].",
+      "sentence_index": 4,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Batch Normalization produces modest but consistent gains over matched baselines, whereas Early Stopping alone has limited eect in this setup.",
+      "sentence_index": 5,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "The strongest combined result is obtained by BatchNorm+Dropout on the 4 256 architecture, reaching 98.37% test accuracy with a 0.578-point gap.",
+      "sentence_index": 6,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Regularization therefore becomes neces- sary already at modest network sizes, and the most eective solutions are balanced combinations rather than maximally strong single penalties.",
+      "sentence_index": 7,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "1 Introduction Overfitting in supervised learning occurs when a model achieves low empirical risk on the train- ing sample while failing to achieve correspondingly low risk on unseen data [ 4 , 5 ].",
+      "sentence_index": 8,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "In neural networks, this phenomenon is often measured through the generalization gap, here operational- ized as the dierence between final training accuracy and best validation accuracy.",
+      "sentence_index": 9,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "A large gap indicates that the learned parameters fit the training distribution more closely than the broader data-generating process [ 1 ].",
+      "sentence_index": 10,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "This issue is especially relevant for multilayer perceptrons (MLPs), whose representational capacity grows rapidly with width and depth.",
+      "sentence_index": 11,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "Although increased capacity can improve op- timization and representation quality, it also enables memorization of idiosyncratic training patterns.",
+      "sentence_index": 12,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Even for MNIST, a comparatively simple benchmark, high-capacity MLPs can ap- proach perfect training accuracy while still leaving a measurable validation deficit.",
+      "sentence_index": 13,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "Regularization methods address this problem through distinct mechanisms.",
+      "sentence_index": 14,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "L1 penalties encourage sparse parameter vectors, L2 weight decay discourages large weights [ 7 ], Dropout introduces stochastic feature suppression during training [ 2 ], Batch Normalization stabilizes in- termediate activations and often improves optimization [ 3 ], and Early Stopping limits training duration once validation performance ceases to improve [ 1 ].",
+      "sentence_index": 15,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Because these mechanisms act dif- ferently, their comparative behavior and possible interactions merit direct empirical evaluation.",
+      "sentence_index": 16,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "The research question examined here is: How eectively do dierent regularization techniques prevent overfitting in MLPs, and at what network size does regularization become necessary?",
+      "sentence_index": 17,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "Deep Learning: Overfitting in Neural Networks 2 The comparison matters because practical model design depends not only on raw accuracy, but also on identifying when additional capacity stops yielding robust generalization and which interventions preserve performance most eciently.",
+      "sentence_index": 18,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "2 Methods 2.1 Dataset and preprocessing The experiments use the MNIST handwritten digit dataset.",
+      "sentence_index": 19,
+      "claim_type": "methodological_statement",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "The notebook indicates a split of 50,000 training samples, 10,000 validation samples, and 10,000 test samples.",
+      "sentence_index": 20,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Inputs are converted to tensors and normalized using mean 0.1307 and standard deviation 0.3081, which is the standard normalization used for MNIST in PyTorch pipelines [ 1 ].",
+      "sentence_index": 21,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "2.2 Model architecture All models are fully connected MLPs operating on flattened 28 28 = 784 -dimensional inputs and producing 10 output logits.",
+      "sentence_index": 22,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "The architecture family varies in two dimensions: depth, defined as the number of hidden layers, and width, defined as the hidden units per layer.",
+      "sentence_index": 23,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "Baseline depth experiments evaluate 15 hidden layers at width 64 and 256.",
+      "sentence_index": 24,
+      "claim_type": "methodological_statement",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "A separate width experiment fixes depth at three hidden layers and varies width from 64 to 1024.",
+      "sentence_index": 25,
+      "claim_type": "methodological_statement",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "Depending on the configuration, parameter counts range from 50,890 to 2,913,290.",
+      "sentence_index": 26,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "2.3 Regularization techniques L1 regularization is implemented through an additive penalty proportional to the sum of abso- lute weights [ 7 ].",
+      "sentence_index": 27,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "This penalty was varied over 2 f 10 5 ; 10 4 ; 10 3 ; 10 2 g .",
+      "sentence_index": 28,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "L2 regularization is implemented as optimizer weight decay [ 7 ] with values f 10 5 ; 10 4 ; 10 3 ; 10 2 g .",
+      "sentence_index": 29,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Dropout ran- domly disables hidden activations during training [ 2 ] with rates p 2 f 0 : 1 ; 0 : 2 ; 0 : 3 ; 0 : 5 g .",
+      "sentence_index": 30,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Batch Normalization is applied to matched 2 256 and 4 256 architectures, enabling direct compar- ison against otherwise identical baselines [ 3 ].",
+      "sentence_index": 31,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Early Stopping monitors validation performance with patience values [ 1 ] 3, 5, and 10.",
+      "sentence_index": 32,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "In addition to isolated methods, four combined configu- rations are reported: L2+Dropout, BatchNorm+Dropout, L2+Dropout+Early Stopping, and a full combination of L2+BatchNorm+Dropout+Early Stopping.",
+      "sentence_index": 33,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "2.4 Training protocol The notebook trains most configurations for 30 epochs and uses 50 epochs for Early Stopping ex- periments, with termination occurring before the maximum epoch when patience is exhausted.",
+      "sentence_index": 34,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "The optimizer is Adam with learning rate 10 3 , and the batch size is 128.",
+      "sentence_index": 35,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Performance is recorded as best validation accuracy, epoch of peak validation accuracy, final training accuracy, Deep Learning: Overfitting in Neural Networks 3 test accuracy, and overfitting gap.",
+      "sentence_index": 36,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Because the available results consist of aggregate outputs from single runs, no uncertainty estimates across random seeds are available; interpretation is therefore limited to the reported runs.",
+      "sentence_index": 37,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "3 Results 3.1 Learning curves with and without regularization Across all architectures, unregularized models exhibit a characteristic divergence between train- ing and validation performance: training accuracy rapidly approaches near-perfect levels, while validation accuracy saturates early, producing a persistent generalization gap.",
+      "sentence_index": 38,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "This pattern reflects classical high-capacity overfitting behavior [ 1 ].",
+      "sentence_index": 39,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "The gap is already non-trivial in small models (approximately 1.52.7 percentage points) and remains stable throughout training, in- dicating that additional epochs do not improve generalization.",
+      "sentence_index": 40,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Figure 1 illustrates this behavior for a representative 4 Ö 256 architecture.",
+      "sentence_index": 41,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "The divergence between training and validation accuracy becomes clearly visible after approximately 6 epochs in the unregularized model, when validation accuracy stops improving while training accuracy continues to increase.",
+      "sentence_index": 42,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Across unregularized architectures, overfitting consistently emerges early, typically between epochs 5 and 8, whereas regularized models delay this divergence.",
+      "sentence_index": 43,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Figure 1 : Training and validation accuracy over epochs for unregularized, Dropout, and BatchNorm + Dropout models (4 Ö 256 MLP).",
+      "sentence_index": 44,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "In contrast, regularized models in Figure 1 display smoother and more stable convergence dynamics.",
+      "sentence_index": 45,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Techniques such as L2 weight decay and Dropout reduce the slope dierence be- tween training and validation curves, eectively narrowing the generalization gap.",
+      "sentence_index": 46,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Dropout in particular delays convergence while improving final validation performance, consistent with its stochastic regularization eect [ 2 ].",
+      "sentence_index": 47,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Early Stopping primarily truncates training before overfit- ting intensifies but does not fundamentally reshape the learning trajectory, confirming that it acts as a procedural rather than structural regularizer.",
+      "sentence_index": 48,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "Deep Learning: Overfitting in Neural Networks 4 3.2 Comparison across techniques and network sizes Increasing network size consistently improves test accuracy, but does not eliminate overfitting, indicating that capacity alone is insucient for generalization.",
+      "sentence_index": 49,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Among the evaluated methods, L2 regularization achieves the strongest reduction in generalization gap (down to approximately 0.24 percentage points at weight decay 10 2 ), but at the cost of reduced test accuracy, suggesting underfitting at higher regularization strengths.",
+      "sentence_index": 50,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Dropout provides the most eective trade-o: at moderate rates ( p = 0 : 2 ), it achieves the highest observed test accuracy (approximately 98.298.4%) while still reducing overfitting.",
+      "sentence_index": 51,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "This aligns with its ability to approximate model averaging [ 2 ].",
+      "sentence_index": 52,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Batch Normalization yields smaller but consistent improvements across architectures, stabilizing optimization and slightly improving generalization [ 3 ].",
+      "sentence_index": 53,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Early Stopping alone shows limited impact.",
+      "sentence_index": 54,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "Importantly, the best-performing configurations emerge from combinations, particularly Batch- Norm + Dropout in larger architectures (e.g., 4 256), indicating complementary eects be- tween variance reduction and optimization stabilization.",
+      "sentence_index": 55,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "A clear trade-o emerges between minimizing the generalization gap and maximizing test accuracy: configurations with very small gaps, such as strong L2 or combined regularization with Early Stopping, often achieve lower test accuracy, whereas moderately regularized models, especially Dropout and BatchNorm + Dropout, provide a better balance between both objectives.",
+      "sentence_index": 56,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "3.3 Overfitting threshold The experiments demonstrate that the overfitting threshold is reached at surprisingly small model sizes.",
+      "sentence_index": 57,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Even the smallest architecture (1 64) exhibits a generalization gap exceeding 2 percentage points, providing clear evidence that overfitting is not exclusively a large-model phenomenon.",
+      "sentence_index": 58,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "While increasing capacity slightly reduces the relative gap, it does not remove it, implying that the threshold is eectively crossed at minimal capacity.",
+      "sentence_index": 59,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Regularization shifts this threshold by mitigating gap growth: with appropriate techniques (especially Dropout or L2), larger models can be trained without proportional increases in overfitting.",
+      "sentence_index": 60,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "However, no configuration fully eliminates the gap, reinforcing the conclusion that regularization is necessary across all tested scales rather than only beyond a specific size bound- ary.",
+      "sentence_index": 61,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "Table 1 summarizes the most relevant configurations.",
+      "sentence_index": 62,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Deep Learning: Overfitting in Neural Networks 5 Method Overfitting Gap (pp) Test Accuracy (%) Key Eect Baseline 1.53 98.2 Strong overfitting BatchNorm 1.48 98.3 Stabilizes training L2 + Dropout 0.52 98.15 Strong gap reduction BN + Dropout 0.58 98.35 Best overall trade-o L2 + Dropout + ES 0.25 97.95 Minimal gap, slight underfit Table 1 : Comparison of regularization techniques on a 4 256 MLP.",
+      "sentence_index": 63,
+      "claim_type": "methodological_statement",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "4 Discussion The results show that regularization is already warranted at comparatively small network sizes.",
+      "sentence_index": 64,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Even 1 64 and 3 64 models exhibit gaps above two percentage points, and no unregularized configuration removes the discrepancy between training and validation performance.",
+      "sentence_index": 65,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Larger models improve test accuracy, but their gains arise alongside continued near-saturation of training accuracy, so increased capacity alone is not an adequate defense against overfitting [ 1 ].",
+      "sentence_index": 66,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Among individual techniques, Dropout provides the strongest overall balance between gener- alization and accuracy [ 2 ].",
+      "sentence_index": 67,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "In particular, p = 0 : 2 improves test accuracy relative to the matched 2 256 baseline while markedly reducing the gap.",
+      "sentence_index": 68,
+      "claim_type": "methodological_statement",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "This can be explained by its ability to reduce co-adaptation between neurons and implicitly approximate an ensemble of subnetworks [ 2 ].",
+      "sentence_index": 69,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "L2 is the most eective direct mechanism for shrinking the gap, but its strongest setting does so by sacrificing too much predictive performance [ 7 ].",
+      "sentence_index": 70,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "L1 is even more sensitive: small penalties are viable, but large penalties quickly become destructive.",
+      "sentence_index": 71,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "Batch Normalization behaves dierently from explicit penalties [ 3 ].",
+      "sentence_index": 72,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Its gains are modest in isolation, yet consistently positive, and its strongest contribution appears when paired with Dropout in the combined experiments [ 6 ].",
+      "sentence_index": 73,
+      "claim_type": "opinion_or_interpretation",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "A non-trivial finding is that the configuration with the smallest overfitting gap is not the one with the best test accuracy.",
+      "sentence_index": 74,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "L2+Dropout+Early Stopping reaches a 0.252-point gap, but BatchNorm+Dropout attains materially higher test accuracy at 98.37% with only a slightly larger gap of 0.578.",
+      "sentence_index": 75,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "This indicates that minimizing the gap alone is not equivalent to maximizing generalization quality; beyond a certain point, stronger regularization pushes the model toward underfitting.",
+      "sentence_index": 76,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "The negative gaps observed for very strong L1 and high-dropout settings reinforce this interpretation.",
+      "sentence_index": 77,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "Regarding interaction eects, the results indicate that combining techniques can yield sub- stantial improvements, but not all combinations are equally beneficial.",
+      "sentence_index": 78,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "In particular, the Batch- Norm + Dropout pairing consistently outperforms individual methods, suggesting that their eects are complementary rather than redundant.",
+      "sentence_index": 79,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "However, more aggressive combinations (e.g., L2 + Dropout + Early Stopping) may over-regularize the model and reduce accuracy.",
+      "sentence_index": 80,
+      "claim_type": "opinion_or_interpretation",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "The paper has several limitations.",
+      "sentence_index": 81,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "All results are based on MNIST, which is considerably Deep Learning: Overfitting in Neural Networks 6 simpler than modern large-scale image benchmarks, and all evaluated architectures are MLPs rather than convolutional networks.",
+      "sentence_index": 82,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "In addition, repeated runs of the same configuration ex- hibited slight variations in the reported metrics.",
+      "sentence_index": 83,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "These fluctuations are most likely caused by the stochastic nature of the training process, in particular the random shuing of the train- ing data ( shuffle=True in the DataLoader), which leads to dierent data orders across runs and consequently to slightly dierent optimization trajectories.",
+      "sentence_index": 84,
+      "claim_type": "non_claim",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "As a result, small performance dierences between methods should be interpreted with caution, as they may partly reflect this inherent randomness rather than systematic eects.",
+      "sentence_index": 85,
+      "claim_type": "opinion_or_interpretation",
+      "citations": [],
+      "missing_citation": false
+    },
+    {
+      "sentence": "At the current stage, no definitive fix or control mechanism for this source of variability has been implemented.",
+      "sentence_index": 86,
+      "claim_type": "factual_claim",
+      "citations": [],
+      "missing_citation": true
+    },
+    {
+      "sentence": "The conclusions should therefore be understood as valid within the reported experimental regime rather than as universally stable rankings of the methods.",
+      "sentence_index": 87,
+      "claim_type": "opinion_or_interpretation",
+      "citations": [],
+      "missing_citation": false
+    }
+  ],
+  "references": [
+    {
+      "raw_text": "[1]",
+      "index": null,
+      "title": "[1]",
+      "authors": [],
+      "year": null,
+      "doi": null
+    },
+    {
+      "raw_text": "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press https://www.deeplearningbook.org/ abgerufen am 30.03.2026 [2]",
+      "index": null,
+      "title": "MIT Press https://www",
+      "authors": [
+        "Goodfellow",
+        "Bengio",
+        "Courville"
+      ],
+      "year": 2016,
+      "doi": null
+    },
+    {
+      "raw_text": "Srivastava, N. et al. (2014). Dropout: A Simple Way to Prevent Neural Networks from Overfitting. JMLR, 15. [3]",
+      "index": null,
+      "title": "Dropout: A Simple Way to Prevent Neural Networks from Overfitting",
+      "authors": [
+        "Srivastava"
+      ],
+      "year": 2014,
+      "doi": null
+    },
+    {
+      "raw_text": "Ioe, S., & Szegedy, C. (2015). Batch Normalization. ICML. [4]",
+      "index": null,
+      "title": "Batch Normalization",
+      "authors": [
+        "Ioe",
+        "Szegedy"
+      ],
+      "year": 2015,
+      "doi": null
+    },
+    {
+      "raw_text": "Bisong, E. (2019). Machine Learning on Google Cloud Platform. Apress. [5]",
+      "index": null,
+      "title": "Machine Learning on Google Cloud Platform",
+      "authors": [
+        "Bisong"
+      ],
+      "year": 2019,
+      "doi": null
+    },
+    {
+      "raw_text": "Rajvanshi, S. et al. (2024). Overfitting in Machine Learning. Springer. [6]",
+      "index": null,
+      "title": "Overfitting in Machine Learning",
+      "authors": [
+        "Rajvanshi"
+      ],
+      "year": 2024,
+      "doi": null
+    },
+    {
+      "raw_text": "Tian, Y., & Zhang, Y. (2022). Regularization Strategies in Machine Learning. Information Fusion. [7]",
+      "index": null,
+      "title": "Regularization Strategies in Machine Learning",
+      "authors": [
+        "Tian",
+        "Zhang"
+      ],
+      "year": 2022,
+      "doi": null
+    },
+    {
+      "raw_text": "Krogh, A., & Hertz, J. A. (1992). A Simple Weight Decay Can Improve Generalization. NeurIPS.",
+      "index": null,
+      "title": "A Simple Weight Decay Can Improve Generalization",
+      "authors": [
+        "Krogh",
+        "Hertz"
+      ],
+      "year": 1992,
+      "doi": null
+    }
+  ],
+  "reference_validation": [
+    {
+      "reference_index": null,
+      "status": "api_unavailable",
+      "confidence": 0.0,
+      "source": "local",
+      "matched_title": null,
+      "matched_year": null,
+      "doi": null,
+      "details": "External APIs are disabled; parsed metadata is available only.",
+      "metadata": {}
+    },
+    {
+      "reference_index": null,
+      "status": "api_unavailable",
+      "confidence": 0.0,
+      "source": "local",
+      "matched_title": null,
+      "matched_year": null,
+      "doi": null,
+      "details": "External APIs are disabled; parsed metadata is available only.",
+      "metadata": {}
+    },
+    {
+      "reference_index": null,
+      "status": "api_unavailable",
+      "confidence": 0.0,
+      "source": "local",
+      "matched_title": null,
+      "matched_year": null,
+      "doi": null,
+      "details": "External APIs are disabled; parsed metadata is available only.",
+      "metadata": {}
+    },
+    {
+      "reference_index": null,
+      "status": "api_unavailable",
+      "confidence": 0.0,
+      "source": "local",
+      "matched_title": null,
+      "matched_year": null,
+      "doi": null,
+      "details": "External APIs are disabled; parsed metadata is available only.",
+      "metadata": {}
+    },
+    {
+      "reference_index": null,
+      "status": "api_unavailable",
+      "confidence": 0.0,
+      "source": "local",
+      "matched_title": null,
+      "matched_year": null,
+      "doi": null,
+      "details": "External APIs are disabled; parsed metadata is available only.",
+      "metadata": {}
+    },
+    {
+      "reference_index": null,
+      "status": "api_unavailable",
+      "confidence": 0.0,
+      "source": "local",
+      "matched_title": null,
+      "matched_year": null,
+      "doi": null,
+      "details": "External APIs are disabled; parsed metadata is available only.",
+      "metadata": {}
+    },
+    {
+      "reference_index": null,
+      "status": "api_unavailable",
+      "confidence": 0.0,
+      "source": "local",
+      "matched_title": null,
+      "matched_year": null,
+      "doi": null,
+      "details": "External APIs are disabled; parsed metadata is available only.",
+      "metadata": {}
+    },
+    {
+      "reference_index": null,
+      "status": "api_unavailable",
+      "confidence": 0.0,
+      "source": "local",
+      "matched_title": null,
+      "matched_year": null,
+      "doi": null,
+      "details": "External APIs are disabled; parsed metadata is available only.",
+      "metadata": {}
+    }
+  ],
+  "claim_verification": [
+    {
+      "claim_index": 0,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 2,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 3,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 4,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 6,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 8,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 10,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 12,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 15,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 18,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 20,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 21,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 22,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 26,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 27,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 28,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 29,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 30,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 31,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 32,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 33,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 34,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 35,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 36,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 37,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 38,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 39,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 40,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 41,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 42,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 43,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 44,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 45,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 46,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 47,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 49,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 50,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 51,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 52,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 53,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 55,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 57,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 58,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 59,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 60,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 62,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 64,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 65,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 66,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 67,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 69,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 70,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 72,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 75,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 77,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 79,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 82,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 83,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    },
+    {
+      "claim_index": 86,
+      "status": "insufficient_evidence",
+      "confidence": 0.0,
+      "evidence": [],
+      "rationale": "The claim has no citation to retrieve evidence from.",
+      "cited_reference_indices": []
+    }
+  ],
+  "notes": [
+    "Offline mode uses parsed references and sample evidence passages.",
+    "API validation is disabled unless CLAIMGUARD_ENABLE_APIS=true or --enable-apis is passed."
+  ]
+}
