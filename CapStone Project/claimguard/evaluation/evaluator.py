@@ -22,12 +22,16 @@ LABEL_ORDER = [
 ]
 
 
-def evaluate_benchmark(benchmark_path: str | Path) -> dict[str, Any]:
+def evaluate_benchmark(
+    benchmark_path: str | Path,
+    verifier_backend: str = "heuristic",
+    strict_backend: bool = False,
+) -> dict[str, Any]:
     """Evaluate verifier labels against a CSV benchmark."""
 
     rows = _read_rows(benchmark_path)
     classifier = ClaimClassifier()
-    verifier = ClaimVerifier()
+    verifier = ClaimVerifier(backend=verifier_backend, strict_backend=strict_backend)
     predictions: list[dict[str, Any]] = []
     confusion: dict[str, Counter[str]] = defaultdict(Counter)
 
@@ -58,6 +62,10 @@ def evaluate_benchmark(benchmark_path: str | Path) -> dict[str, Any]:
             "correct": result.status == expected,
             "rationale": result.rationale,
             "evidence": [asdict(item) for item in result.evidence],
+            "verifier": result.verifier,
+            "model": result.model,
+            "latency_ms": result.latency_ms,
+            "metadata": result.metadata,
             "notes": row.get("notes", "").strip(),
         }
         predictions.append(prediction)
@@ -75,6 +83,7 @@ def evaluate_benchmark(benchmark_path: str | Path) -> dict[str, Any]:
 
     return {
         "benchmark": str(benchmark_path),
+        "verifier": verifier_backend,
         "total": total,
         "correct": correct,
         "accuracy": round(correct / total, 3) if total else 0.0,
@@ -93,6 +102,15 @@ def evaluate_benchmark(benchmark_path: str | Path) -> dict[str, Any]:
         "qualitative_examples": _qualitative_examples(predictions),
         "caveats": _evaluation_caveats(total, macro_f1_labels),
         "predictions": predictions,
+        "runtime": {
+            "model_calls": sum(1 for item in predictions if item.get("latency_ms") is not None),
+            "total_latency_ms": sum(item.get("latency_ms") or 0 for item in predictions),
+            "mean_latency_ms": round(
+                sum(item.get("latency_ms") or 0 for item in predictions)
+                / max(1, sum(1 for item in predictions if item.get("latency_ms") is not None)),
+                1,
+            ),
+        },
     }
 
 

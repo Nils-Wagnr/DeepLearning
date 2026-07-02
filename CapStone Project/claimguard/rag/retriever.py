@@ -12,6 +12,9 @@ from typing import Iterable
 from claimguard.models import EvidencePassage, Reference
 
 LOGGER = logging.getLogger(__name__)
+_VECTOR_FALLBACK_LOGGED = False
+_EMBEDDING_MODEL_CACHE: dict[tuple[str, bool], object] = {}
+_FAISS_FALLBACK_LOGGED = False
 
 DEFAULT_TOP_K = 5
 DEFAULT_CHUNK_WORDS = 95
@@ -190,7 +193,14 @@ class EvidenceRetriever:
                 "CLAIMGUARD_EMBEDDING_MODEL",
                 "sentence-transformers/all-MiniLM-L6-v2",
             )
-            self._model = SentenceTransformer(model_name, local_files_only=True)
+            local_only = mode == "auto" or os.getenv(
+                "CLAIMGUARD_EMBEDDING_LOCAL_ONLY", "true"
+            ).lower() in {"1", "true", "yes"}
+            cache_key = (model_name, local_only)
+            self._model = _EMBEDDING_MODEL_CACHE.get(cache_key)
+            if self._model is None:
+                self._model = SentenceTransformer(model_name, local_files_only=local_only)
+                _EMBEDDING_MODEL_CACHE[cache_key] = self._model
             vectors = self._model.encode(
                 [passage.text for passage in self.passages],
                 convert_to_numpy=True,
@@ -200,10 +210,15 @@ class EvidenceRetriever:
             self._embeddings = np.asarray(vectors, dtype="float32")
             self.backend = "embedding"
         except Exception as exc:  # pragma: no cover - optional backend
+            global _VECTOR_FALLBACK_LOGGED
             self._model = None
             self._embeddings = None
             self._numpy = None
-            LOGGER.info("Using lexical retriever; embedding backend unavailable: %s", exc)
+            if not _VECTOR_FALLBACK_LOGGED:
+                LOGGER.info("Using lexical retriever; embedding backend unavailable: %s", exc)
+                _VECTOR_FALLBACK_LOGGED = True
+            else:
+                LOGGER.debug("Embedding backend remains unavailable: %s", exc)
             return
 
         try:
@@ -214,8 +229,13 @@ class EvidenceRetriever:
             self.backend = "faiss"
             LOGGER.info("Loaded sentence-transformers + FAISS retrieval backend.")
         except Exception as exc:  # pragma: no cover - optional backend
+            global _FAISS_FALLBACK_LOGGED
             self._faiss_index = None
-            LOGGER.info("Using embedding cosine fallback; FAISS unavailable: %s", exc)
+            if not _FAISS_FALLBACK_LOGGED:
+                LOGGER.info("Using embedding cosine fallback; FAISS unavailable: %s", exc)
+                _FAISS_FALLBACK_LOGGED = True
+            else:
+                LOGGER.debug("FAISS remains unavailable: %s", exc)
 
 
 def build_evidence_passages(evidence_text: str, references: list[Reference]) -> list[EvidencePassage]:
@@ -462,4 +482,3 @@ def _stem(token: str) -> str:
     if token.endswith("s") and len(token) > 3:
         return token[:-1]
     return token
-

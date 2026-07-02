@@ -1,4 +1,9 @@
 RQ1 (Woche2)/data/
 .venv/
+.env
+**/.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
 requirements.txt
 requirements-gpu.txt

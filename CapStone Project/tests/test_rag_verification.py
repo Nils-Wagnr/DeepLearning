@@ -38,7 +38,8 @@ def test_retriever_returns_top_k_ranked_evidence() -> None:
     assert results[0].retrieval_method in {"lexical", "embedding", "faiss"}
 
 
-def test_verifier_produces_clear_support_labels() -> None:
+def test_verifier_produces_clear_support_labels(monkeypatch) -> None:
+    monkeypatch.setenv("CLAIMGUARD_USE_EMBEDDINGS", "false")
     references = [
         Reference(raw_text="[1] Smith, A. (2020). Medical imaging.", index="1", authors=["Smith"], year=2020),
         Reference(raw_text="[2] Brown, B. (2021). Language models.", index="2", authors=["Brown"], year=2021),
@@ -80,4 +81,3 @@ def test_verifier_produces_clear_support_labels() -> None:
     assert not_supported.status == "not_supported"
     assert insufficient.status == "insufficient_evidence"
     assert supported.confidence > not_supported.confidence
-

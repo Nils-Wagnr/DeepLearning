@@ -91,6 +91,7 @@ class ReferenceParser:
 
         title = _extract_title(clean_without_index, year)
         authors = _extract_authors(clean_without_index, year_match)
+        venue = _extract_venue(clean_without_index, title)
 
         return Reference(
             raw_text=clean,
@@ -99,6 +100,7 @@ class ReferenceParser:
             authors=authors,
             year=year,
             doi=doi,
+            venue=venue,
         )
 
 
@@ -228,7 +230,7 @@ class ReferenceValidator:
         return _best_candidate(candidates)
 
     def _query_semantic_scholar(self, reference: Reference) -> dict[str, Any] | None:
-        fields = "title,year,externalIds,abstract,isOpenAccess,authors"
+        fields = "title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue"
         api_key = os.getenv("SEMANTIC_SCHOLAR_API_KEY")
         headers = {"User-Agent": "ClaimGuard/0.1"}
         if api_key:
@@ -300,8 +302,10 @@ def _extract_title(entry: str, year: int | None) -> str | None:
                 if _looks_like_title_candidate(sentence):
                     return _clean_title(sentence)
 
-    parts = [part.strip(" .") for part in work.split(".") if part.strip(" .")]
+    parts = _split_reference_sentences(work)
     for part in parts:
+        if _looks_like_author_block(part):
+            continue
         if _looks_like_title_candidate(part):
             return _clean_title(part)
     return _clean_title(parts[0]) if parts else None
@@ -333,6 +337,36 @@ def _extract_authors(entry: str, year_match: re.Match[str] | None) -> list[str]:
     return _dedupe([_last_author_token(piece) for piece in cleaned if _last_author_token(piece)])
 
 
+def _extract_venue(entry: str, title: str | None) -> str | None:
+    """Best-effort extraction of a journal, conference, or repository name."""
+
+    work = DOI_RE.sub("", entry)
+    if title:
+        title_pos = normalize_text(work).find(normalize_text(title))
+        if title_pos >= 0:
+            # Normalized offsets are not stable; splitting on the original title is safer
+            # when it appears verbatim and otherwise we fall back to sentence candidates.
+            parts = re.split(re.escape(title), work, maxsplit=1, flags=re.IGNORECASE)
+            if len(parts) == 2:
+                work = parts[1]
+    candidates = _split_reference_sentences(work)
+    for candidate in candidates:
+        cleaned = _clean_title(candidate)
+        if not cleaned or DOI_RE.search(cleaned) or YEAR_RE.fullmatch(cleaned):
+            continue
+        if len(cleaned.split()) <= 20:
+            return re.sub(r"^In(?=[A-Z])", "In ", cleaned)
+    return None
+
+
+def _looks_like_author_block(text: str) -> bool:
+    """Detect APA/IEEE author lists so they are not mistaken for paper titles."""
+
+    initial_last_name = re.findall(r"(?:\b[A-Z]\.\s*)+[A-Z][A-Za-z'’-]+", text)
+    last_name_initial = re.findall(r"\b[A-Z][A-Za-z'’-]+,\s*(?:[A-Z]\.\s*)+", text)
+    return len(initial_last_name) + len(last_name_initial) >= 2
+
+
 def _normalize_reference_block(text: str) -> str:
     text = text.replace("\r\n", "\n").replace("\r", "\n")
     text = re.sub(r"(?<=\w)-\n(?=\w)", "", text)
@@ -353,6 +387,9 @@ def _looks_like_reference_entry(entry: str) -> bool:
 
 
 def _split_inline_entries(entry: str) -> list[str]:
+    markers = re.findall(r"(?:^|\s)(?:\[\d+\]|\d+[\.)])\s+", entry)
+    if len(markers) <= 1:
+        return [entry]
     numbered = [
         part.strip()
         for part in re.split(r"(?=\s*(?:\[\d+\]|\d+[\.)])\s+)", entry)
@@ -383,6 +420,11 @@ def _extract_doi(entry: str) -> str | None:
 
 def _split_reference_sentences(text: str) -> list[str]:
     protected = re.sub(r"\b([A-Z])\.", r"\1<dot>", text)
+    protected = re.sub(
+        r"\.(?=(?:arXiv|Transactions|Journal|Proceedings|In[A-Z]))",
+        ". ",
+        protected,
+    )
     parts = re.split(r"\.\s+", protected)
     return [part.replace("<dot>", ".").strip(" .") for part in parts if part.strip(" .")]
 
@@ -465,8 +507,11 @@ def _first(value: Any) -> Any:
 def _year_from_crossref(item: dict[str, Any]) -> int | None:
     for key in ("published-print", "published-online", "issued", "created"):
         parts = item.get(key, {}).get("date-parts", [])
-        if parts and parts[0]:
-            return int(parts[0][0])
+        if parts and parts[0] and parts[0][0] is not None:
+            try:
+                return int(parts[0][0])
+            except (TypeError, ValueError):
+                continue
     return None
 
 
@@ -476,6 +521,7 @@ def _reference_match_score(
     year: int | None,
     doi: str | None,
     candidate_authors: list[str] | None = None,
+    candidate_venue: str | None = None,
 ) -> float:
     title_score = fuzzy_score(reference.title or reference.raw_text, title or "")
     year_score = 1.0 if reference.year and year and reference.year == year else 0.0
@@ -483,7 +529,14 @@ def _reference_match_score(
         year_score = -0.25
     doi_score = 1.0 if reference.doi and doi and normalize_text(reference.doi) == normalize_text(doi) else 0.0
     author_score = _author_match_score(reference.authors, candidate_authors or [])
-    weighted = (title_score * 0.72) + (year_score * 0.12) + (doi_score * 0.12) + (author_score * 0.04)
+    venue_score = fuzzy_score(reference.venue, candidate_venue) if reference.venue else 0.0
+    weighted = (
+        (title_score * 0.66)
+        + (year_score * 0.12)
+        + (doi_score * 0.12)
+        + (author_score * 0.06)
+        + (venue_score * 0.04)
+    )
     if doi_score == 1.0:
         weighted = max(weighted, 0.96)
     return round(max(0.0, min(1.0, weighted)), 3)
@@ -515,12 +568,14 @@ def _crossref_candidate(reference: Reference, item: dict[str, Any]) -> dict[str,
         if isinstance(author, dict) and author.get("family")
     ]
     doi = item.get("DOI")
-    score = _reference_match_score(reference, title, year, doi, authors)
+    venue = _first(item.get("container-title"))
+    score = _reference_match_score(reference, title, year, doi, authors, venue)
     return {
         "title": title,
         "year": year,
         "doi": doi,
         "authors": authors,
+        "venue": venue,
         "score": score,
         "is_retracted": _crossref_problematic(item),
         "details": "CrossRef bibliographic match.",
@@ -538,14 +593,17 @@ def _semantic_scholar_candidate(reference: Reference, item: dict[str, Any]) -> d
     title = item.get("title")
     year = item.get("year")
     doi = external_ids.get("DOI")
-    score = _reference_match_score(reference, title, year, doi, authors)
+    venue = item.get("venue")
+    score = _reference_match_score(reference, title, year, doi, authors, venue)
     return {
         "title": title,
         "year": year,
         "doi": doi,
         "authors": authors,
+        "venue": venue,
         "score": score,
         "abstract": item.get("abstract"),
+        "open_access_pdf": (item.get("openAccessPdf") or {}).get("url"),
         "is_retracted": False,
         "details": "Semantic Scholar paper match.",
         "raw": item,
@@ -562,12 +620,18 @@ def _openalex_candidate(reference: Reference, item: dict[str, Any]) -> dict[str,
     title = item.get("display_name")
     year = item.get("publication_year")
     doi = _normalize_doi(item.get("doi"))
-    score = _reference_match_score(reference, title, year, doi, authors)
+    primary_location = item.get("primary_location") or {}
+    source = primary_location.get("source") or {}
+    venue = source.get("display_name")
+    score = _reference_match_score(reference, title, year, doi, authors, venue)
     return {
         "title": title,
         "year": year,
         "doi": doi,
         "authors": authors,
+        "venue": venue,
+        "open_access_pdf": primary_location.get("pdf_url"),
+        "abstract": _openalex_abstract(item.get("abstract_inverted_index")),
         "score": score,
         "is_retracted": bool(item.get("is_retracted")),
         "details": "OpenAlex work match.",
@@ -580,6 +644,28 @@ def _normalize_doi(value: str | None) -> str | None:
         return None
     value = value.replace("https://doi.org/", "").replace("http://doi.org/", "")
     return value.strip().lower() or None
+
+
+def _openalex_abstract(inverted_index: Any) -> str | None:
+    if not isinstance(inverted_index, dict) or not inverted_index:
+        return None
+    positions = [
+        position
+        for values in inverted_index.values()
+        if isinstance(values, list)
+        for position in values
+        if isinstance(position, int)
+    ]
+    if not positions:
+        return None
+    words = [""] * (max(positions) + 1)
+    for word, values in inverted_index.items():
+        if not isinstance(values, list):
+            continue
+        for position in values:
+            if isinstance(position, int) and 0 <= position < len(words):
+                words[position] = str(word)
+    return " ".join(word for word in words if word) or None
 
 
 def _crossref_problematic(item: dict[str, Any]) -> bool:

@@ -1,0 +1,4 @@
+# Install this profile before requirements-lora.txt on Windows/NVIDIA systems.
+# Python 3.14 compatible official CUDA 12.8 wheel.
+--extra-index-url https://download.pytorch.org/whl/cu128
+torch==2.11.0+cu128

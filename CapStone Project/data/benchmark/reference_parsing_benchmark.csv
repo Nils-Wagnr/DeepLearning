@@ -1,0 +1,6 @@
+case_id,raw_reference,expected_index,expected_title,expected_authors,expected_year,expected_doi,expected_venue
+R1,"[1] Vaswani, A., Shazeer, N. (2017). Attention Is All You Need. Advances in Neural Information Processing Systems. doi:10.5555/3295222.3295349",1,Attention Is All You Need,"Vaswani;Shazeer",2017,10.5555/3295222.3295349,Advances in Neural Information Processing Systems
+R2,"[2] LeCun, Y., Bengio, Y., Hinton, G. (2015). Deep Learning. Nature. https://doi.org/10.1038/nature14539",2,Deep Learning,"LeCun;Bengio;Hinton",2015,10.1038/nature14539,Nature
+R3,"3. Brown, T., Mann, B. (2020). Language Models Are Few-Shot Learners. Advances in Neural Information Processing Systems.",3,Language Models Are Few-Shot Learners,"Brown;Mann",2020,,Advances in Neural Information Processing Systems
+R4,"[4] D. P. Kingma and J. Ba, ""Adam: A Method for Stochastic Optimization,"" International Conference on Learning Representations, 2015.",4,Adam: A Method for Stochastic Optimization,"Kingma;Ba",2015,,International Conference on Learning Representations
+R5,"[5] Srivastava, N., Hinton, G. (2014). Dropout: A Simple Way to Prevent Neural Networks from Overfitting. Journal of Machine Learning Research.",5,Dropout: A Simple Way to Prevent Neural Networks from Overfitting,"Srivastava;Hinton",2014,,Journal of Machine Learning Research

@@ -25,6 +25,8 @@ class ClaimClassifier:
         r"\b(we|our)\s+(dataset|corpus|benchmark|training set|test set|baseline|experiment|model|pipeline)\b",
         r"\b(the|this|our)\s+(dataset|corpus|benchmark)\s+(contains?|includes?|consists? of)\b",
         r"\b(hyperparameter|cross-validation|train/test split|validation split|baseline model)\b",
+        r"\b(the|our)\s+(experiments?|models?|notebook|optimizer|batch size|architecture|pipeline)\s+(use|uses|used|is|are|evaluate|evaluates|vary|varies)\b",
+        r"\b(is|are)\s+(applied|implemented|trained|evaluated|configured)\b",
     )
     OPINION_PATTERNS = (
         r"\b(we believe|i believe|arguably|probably|promising|important|interesting|notable|surprising)\b",
@@ -36,7 +38,12 @@ class ClaimClassifier:
         r"\b(can be understood as|is known as|are known as)\b",
     )
 
-    def classify_sentence(self, sentence: str, sentence_index: int) -> Claim:
+    def classify_sentence(
+        self,
+        sentence: str,
+        sentence_index: int,
+        section: str = "unknown",
+    ) -> Claim:
         """Return a structured claim classification for one sentence."""
 
         citations = extract_citations(sentence, sentence_index)
@@ -51,7 +58,8 @@ class ClaimClassifier:
             scores = self._score_sentence(lowered, has_citations=bool(citations))
             claim_type, confidence, reason = self._choose_label(scores, has_citations=bool(citations))
 
-        missing_citation = claim_type == "factual_claim" and not citations
+        citation_required = _citation_required(claim_type, section, lowered)
+        missing_citation = citation_required and not citations
         return Claim(
             sentence=normalized,
             sentence_index=sentence_index,
@@ -60,15 +68,32 @@ class ClaimClassifier:
             missing_citation=missing_citation,
             classification_confidence=confidence,
             classification_reason=reason,
+            section=section,
+            citation_context="same_sentence" if citations else "none",
+            citation_required=citation_required,
+            flag_severity=_flag_severity(lowered, missing_citation),
         )
 
     def classify_many(self, sentences: list[str]) -> list[Claim]:
         """Classify a list of sentences."""
 
-        return [
-            self.classify_sentence(sentence=sentence, sentence_index=index)
-            for index, sentence in enumerate(sentences)
-        ]
+        claims: list[Claim] = []
+        current_section = "unknown"
+        for index, sentence in enumerate(sentences):
+            current_section = _infer_section(sentence, current_section)
+            claim = self.classify_sentence(sentence, index, section=current_section)
+            if (
+                claim.missing_citation
+                and claims
+                and claims[-1].citations
+                and _can_inherit_previous_citation(claim.sentence)
+            ):
+                claim.citations = list(claims[-1].citations)
+                claim.missing_citation = False
+                claim.citation_context = "previous_sentence"
+                claim.flag_severity = "none"
+            claims.append(claim)
+        return claims
 
     @staticmethod
     def _matches(text: str, patterns: tuple[str, ...]) -> bool:
@@ -141,3 +166,50 @@ def _has_number(text: str) -> bool:
 
 def _confidence(score: int) -> float:
     return min(0.95, round(0.55 + (score * 0.1), 2))
+
+
+SECTION_NAMES = (
+    r"abstract|introduction|related work|background|methods?|methodology|"
+    r"experiments?|results?|discussion|conclusions?|limitations?"
+)
+NUMBERED_SECTION_RE = re.compile(
+    rf"(?:^|\s)\d+(?:\.\d+)*\s+({SECTION_NAMES})\b",
+    flags=re.IGNORECASE,
+)
+PLAIN_SECTION_RE = re.compile(rf"^\s*({SECTION_NAMES})\b(?:\s*[:.]|\s*$)", re.IGNORECASE)
+
+
+def _infer_section(sentence: str, current: str) -> str:
+    prefix = sentence[:240]
+    match = NUMBERED_SECTION_RE.search(prefix) or PLAIN_SECTION_RE.search(prefix)
+    return match.group(1).lower().rstrip("s") if match else current
+
+
+def _citation_required(claim_type: str, section: str, text: str) -> bool:
+    if claim_type != "factual_claim":
+        return False
+    if section in {"abstract", "method", "methodology", "experiment", "result"}:
+        return False
+    if re.search(r"\b(we|our|this study|this project|the notebook)\b", text):
+        return False
+    return True
+
+
+def _flag_severity(text: str, missing: bool) -> str:
+    if not missing:
+        return "none"
+    if re.search(r"\b(all|always|never|causes?|eliminates?|proves?|\d+(?:\.\d+)?%)\b", text):
+        return "high"
+    if re.search(r"\b(studies|research|evidence|reported|demonstrated|outperforms?)\b", text):
+        return "high"
+    return "medium"
+
+
+def _can_inherit_previous_citation(sentence: str) -> bool:
+    return bool(
+        re.match(
+            r"\s*(this|these|such|they|it|the (?:study|paper|result|finding|method))\b",
+            sentence,
+            flags=re.IGNORECASE,
+        )
+    )

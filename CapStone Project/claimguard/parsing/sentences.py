@@ -19,7 +19,13 @@ ABBREVIATIONS = (
 def split_sentences(text: str) -> list[str]:
     """Split text into sentences with a lightweight academic-text heuristic."""
 
-    cleaned = re.sub(r"\s+", " ", text).strip()
+    protected_headings = re.sub(
+        r"(?im)^\s*((?:\d+(?:\.\d+)*)?\s*(?:abstract|introduction|related work|background|"
+        r"methods?|methodology|experiments?|results?|discussion|conclusions?|limitations?))\s*$",
+        r"\1. ",
+        text,
+    )
+    cleaned = re.sub(r"\s+", " ", protected_headings).strip()
     if not cleaned:
         return []
 
@@ -40,4 +46,3 @@ def split_sentences(text: str) -> list[str]:
         if restored:
             sentences.append(restored)
     return sentences
-

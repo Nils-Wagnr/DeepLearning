@@ -39,7 +39,7 @@ class DocumentParser:
             from pypdf import PdfReader  # type: ignore
 
             reader = PdfReader(str(path))
-            return "\n".join(page.extract_text() or "" for page in reader.pages)
+            return _clean_pdf_pages([page.extract_text() or "" for page in reader.pages])
         except Exception as exc:  # pragma: no cover - depends on optional package
             errors.append(f"pypdf: {exc}")
 
@@ -47,14 +47,14 @@ class DocumentParser:
             from PyPDF2 import PdfReader  # type: ignore
 
             reader = PdfReader(str(path))
-            return "\n".join(page.extract_text() or "" for page in reader.pages)
+            return _clean_pdf_pages([page.extract_text() or "" for page in reader.pages])
         except Exception as exc:  # pragma: no cover - depends on optional package
             errors.append(f"PyPDF2: {exc}")
 
         try:
             from pdfminer.high_level import extract_text  # type: ignore
 
-            return extract_text(str(path))
+            return _clean_pdf_pages([extract_text(str(path))])
         except Exception as exc:  # pragma: no cover - depends on optional package
             errors.append(f"pdfminer.six: {exc}")
 
@@ -263,4 +263,47 @@ def _clean_pdf_text(text: str) -> str:
     text = text.replace("\x00", "")
     text = re.sub(r"[ \t]+", " ", text)
     text = re.sub(r"\s+\n", "\n", text)
+    return text.strip()
+
+
+def _clean_pdf_pages(pages: list[str]) -> str:
+    """Repair common extraction artifacts and remove repeated headers/footers."""
+
+    normalized_pages: list[list[str]] = []
+    line_counts: dict[str, int] = {}
+    for page in pages:
+        lines = [re.sub(r"\s+", " ", line).strip() for line in page.splitlines()]
+        lines = [line for line in lines if line]
+        normalized_pages.append(lines)
+        for line in set(lines):
+            if len(line) <= 120:
+                line_counts[line] = line_counts.get(line, 0) + 1
+
+    repeated_threshold = max(2, (len(pages) + 1) // 2)
+    repeated = {
+        line
+        for line, count in line_counts.items()
+        if count >= repeated_threshold and (re.fullmatch(r"\d+", line) or len(line.split()) <= 12)
+    }
+    cleaned_pages = ["\n".join(line for line in lines if line not in repeated) for lines in normalized_pages]
+    text = "\n\n".join(cleaned_pages)
+    replacements = {
+        "â€“": "–",
+        "â€”": "—",
+        "âˆ’": "−",
+        "âˆ—": "∗",
+        "Ã—": "×",
+        "Î»": "λ",
+        "â‰ˆ": "≈",
+        "â‰¤": "≤",
+        "â‰¥": "≥",
+        "â€™": "’",
+        "â€œ": "“",
+        "â€": "”",
+    }
+    for broken, repaired in replacements.items():
+        text = text.replace(broken, repaired)
+    text = re.sub(r"(?<=\w)-\s*\n\s*(?=[a-z])", "", text)
+    text = re.sub(r"[ \t]+", " ", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
     return text.strip()

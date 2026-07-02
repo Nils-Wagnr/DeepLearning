@@ -1,0 +1,316 @@
+{
+  "benchmark": "data\\benchmark\\claim_detection_benchmark.csv",
+  "total": 25,
+  "claim_type_accuracy": 1.0,
+  "claim_type_macro_f1": 1.0,
+  "claim_type_per_label": {
+    "background_or_definition": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 4
+    },
+    "factual_claim": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 8
+    },
+    "methodological_statement": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 5
+    },
+    "non_claim": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 4
+    },
+    "opinion_or_interpretation": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 4
+    }
+  },
+  "citation_needed": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "true_positive": 3,
+    "false_positive": 0,
+    "false_negative": 0
+  },
+  "confusion_matrix": {
+    "factual_claim": {
+      "factual_claim": 8
+    },
+    "methodological_statement": {
+      "methodological_statement": 5
+    },
+    "opinion_or_interpretation": {
+      "opinion_or_interpretation": 4
+    },
+    "background_or_definition": {
+      "background_or_definition": 4
+    },
+    "non_claim": {
+      "non_claim": 4
+    }
+  },
+  "errors": [],
+  "predictions": [
+    {
+      "case_id": "F1",
+      "sentence": "Transformers outperform recurrent networks on machine translation.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": true,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "F2",
+      "sentence": "Prior studies reported a significant accuracy improvement [1].",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "F3",
+      "sentence": "The treatment reduced symptoms in 62 percent of patients.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": true,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "F4",
+      "sentence": "Large language models can hallucinate unsupported references (Smith et al. 2024).",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "F5",
+      "sentence": "Data augmentation improves image classification accuracy.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": true,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "F6",
+      "sentence": "The cited study found no significant difference [2].",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "M1",
+      "sentence": "We trained the model for 30 epochs.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "methodological_statement",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "M2",
+      "sentence": "This study used a batch size of 128.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "methodological_statement",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "M3",
+      "sentence": "Our dataset contains 500 labeled examples.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "methodological_statement",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "M4",
+      "sentence": "The optimizer is Adam with a learning rate of 0.001.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "methodological_statement",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "M5",
+      "sentence": "We evaluated five baseline architectures.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "methodological_statement",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "O1",
+      "sentence": "We believe this is a promising research direction.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "opinion_or_interpretation",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "O2",
+      "sentence": "The result is arguably surprising.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "opinion_or_interpretation",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "O3",
+      "sentence": "This approach may be useful in future work.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "opinion_or_interpretation",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "O4",
+      "sentence": "The observed difference seems important.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "opinion_or_interpretation",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "B1",
+      "sentence": "A neural network is a type of computational model.",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "background_or_definition",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "B2",
+      "sentence": "Overfitting is defined as poor generalization despite strong training performance.",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "background_or_definition",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "B3",
+      "sentence": "Regularization refers to techniques that constrain model complexity.",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "background_or_definition",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "B4",
+      "sentence": "RAG is an architecture that combines retrieval and generation.",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "background_or_definition",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "N1",
+      "sentence": "Introduction",
+      "expected_claim_type": "non_claim",
+      "predicted_claim_type": "non_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "N2",
+      "sentence": "Related Work",
+      "expected_claim_type": "non_claim",
+      "predicted_claim_type": "non_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "N3",
+      "sentence": "Table 1",
+      "expected_claim_type": "non_claim",
+      "predicted_claim_type": "non_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "N4",
+      "sentence": "2026",
+      "expected_claim_type": "non_claim",
+      "predicted_claim_type": "non_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "R1",
+      "sentence": "The proposed model achieved 98.2 percent test accuracy.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "R2",
+      "sentence": "Accuracy increased as model width increased.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    }
+  ]
+}

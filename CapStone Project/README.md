@@ -1,240 +1,376 @@
 # ClaimGuard
 
-ClaimGuard is an offline-first Python application for checking citation integrity in academic drafts. It was built for a Deep Learning Capstone Project and implements three working modules:
+ClaimGuard is an end-to-end academic writing integrity checker built for the MWI Deep
+Learning Capstone Project. It accepts PDF or plain-text documents and produces both a
+machine-readable JSON report and an optional concise Markdown review.
 
-1. Claim and citation detection.
-2. Reference extraction and validation.
-3. RAG-style claim-source verification.
+The application contains all three core modules and executable paths for the three optional
+modules from the assignment:
 
-The project runs without API keys or network access on the included sample files. Optional APIs and local embedding models can improve reference validation and evidence retrieval when available.
+1. Claim extraction, citation linking, citation-needed severity, and section awareness.
+2. Bibliographic extraction and validation through CrossRef, Semantic Scholar, and OpenAlex.
+3. RAG evidence retrieval plus heuristic, Ollama, OpenAI, or SciFact-LoRA verification.
+4. Optional AI-generated-text detection through the Binoculars reference implementation.
+5. Optional LoRA fine-tuning on SciFact.
+6. Shared benchmark comparison for ClaimGuard, model backends, and external tools.
 
-## Quick Start
+All optional network and model features are opt-in. The base application remains deterministic
+and runnable offline.
 
-Run these commands from inside `CapStone Project/`.
+## 1. Base installation
 
-Windows PowerShell:
+Run from inside `CapStone Project/`:
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\activate
+.\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
+copy .env.example .env
 ```
 
-macOS or Linux:
+Dependency profiles are deliberately separated:
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
+- `requirements.txt`: small, CPU-only base application.
+- `requirements-rag.txt`: NumPy and Sentence Transformers.
+- `requirements-lora.txt`: RAG plus Torch, Datasets, PEFT, and Accelerate.
+- `requirements-binoculars.txt`: official Binoculars integration and its model stack.
+- `requirements-torch-cuda.txt`: pinned CUDA 12.8 Torch wheel for this Windows/NVIDIA setup.
+
+Keeping the large model stacks out of the base requirements makes installation and grading more
+reliable, especially on Windows.
+
+The application now loads `.env` automatically. Never commit `.env`; it is ignored by Git.
+
+## 2. Basic offline analysis
+
+```powershell
+python run_claimguard.py `
+  --input data/sample_input/sample_bad_paper.txt `
+  --output outputs/sample_analysis.json `
+  --claims-csv outputs/sample_claims.csv `
+  --markdown-output outputs/sample_report.md
 ```
 
-Optional local embedding retrieval:
+Analyze an RQ report:
 
-```bash
-python -m pip install ".[rag]"
+```powershell
+python run_claimguard.py `
+  --input "Reports/NW2_RQ1_Report.pdf" `
+  --output outputs/rq1_analysis.json `
+  --markdown-output outputs/rq1_report.md
 ```
 
-FAISS wheels are platform-dependent. If FAISS or `sentence-transformers` is unavailable, ClaimGuard falls back to deterministic lexical retrieval and remains runnable offline.
+The Markdown report is intended for humans. The larger JSON preserves every prediction,
+evidence chunk, confidence score, backend name, and API result for evaluation.
 
-## Commands
+## 3. Scholarly APIs and full-text retrieval
 
-Analyze one of the existing PDF reports:
+Edit `.env`:
 
-```bash
-python run_claimguard.py --input "Reports/NW2_RQ1_Report.pdf" --output outputs/report_analysis.json
+```dotenv
+CLAIMGUARD_ENABLE_APIS=true
+CROSSREF_MAILTO=your-real-email@example.com
+OPENALEX_MAILTO=your-real-email@example.com
+SEMANTIC_SCHOLAR_API_KEY=
+UNPAYWALL_EMAIL=your-real-email@example.com
+CLAIMGUARD_FETCH_FULL_TEXT=false
 ```
 
-Analyze the intentionally problematic sample:
+CrossRef and OpenAlex do not require API keys for normal polite use. A Semantic Scholar key is
+optional but useful for rate limits. Enable bounded open-access PDF retrieval explicitly:
 
-```bash
-python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output outputs/bad_sample_analysis.json
+```powershell
+python run_claimguard.py `
+  --input "Reports/NW2_RQ1_Report.pdf" `
+  --output outputs/rq1_api_analysis.json `
+  --enable-apis `
+  --fetch-full-text
 ```
 
-Export Module 1 claim and citation rows as CSV:
+The downloader accepts only HTTP(S) PDFs, limits downloads to 20 MB each, and fetches at most
+three sources by default. Change `CLAIMGUARD_MAX_FULL_TEXT_SOURCES` if needed.
 
-```bash
-python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output outputs/bad_sample_analysis.json --claims-csv outputs/bad_sample_claims.csv
+## 4. Embedding retrieval
+
+Install the optional RAG dependencies:
+
+```powershell
+python -m pip install -r requirements-rag.txt
 ```
 
-Run the benchmark evaluation:
+For the first model download, set:
 
-```bash
-python run_evaluation.py --benchmark data/benchmark/claimguard_benchmark.csv --output outputs/evaluation_report.json
+```dotenv
+CLAIMGUARD_USE_EMBEDDINGS=true
+CLAIMGUARD_EMBEDDING_LOCAL_ONLY=false
+CLAIMGUARD_EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
 ```
 
-Run tests:
+After the model is cached, switch `CLAIMGUARD_EMBEDDING_LOCAL_ONLY=true` for reproducible
+offline runs. ClaimGuard uses FAISS when available, embedding cosine similarity otherwise, and
+deterministic lexical retrieval as the final fallback.
 
-```bash
+## 5. Claim verification backends
+
+Every backend receives the same retrieved evidence and returns the same five labels:
+
+- `supported`
+- `partially_supported`
+- `not_supported`
+- `contradicted`
+- `insufficient_evidence`
+
+### Heuristic baseline
+
+```powershell
+python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output outputs/heuristic.json --verifier heuristic
+```
+
+This is the transparent offline baseline based on lexical coverage, negation, direction, and
+explicit absence-of-evidence cues.
+
+### Local Ollama model
+
+Install Ollama separately, then:
+
+```powershell
+ollama pull qwen3:1.7b
+ollama serve
+```
+
+Configure and run:
+
+```dotenv
+OLLAMA_BASE_URL=http://localhost:11434
+OLLAMA_MODEL=qwen3:1.7b
+```
+
+```powershell
+python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output outputs/ollama.json --verifier ollama
+```
+
+### OpenAI frontier model
+
+ChatGPT subscriptions and API billing are separate. ChatGPT Plus does not automatically provide
+API credits. Create an API project/key and configure API billing at
+https://platform.openai.com/, then put the key only in your local `.env`:
+
+```dotenv
+OPENAI_API_KEY=your-key
+OPENAI_MODEL=gpt-5.4-mini
+# Optional when you need explicit dashboard attribution:
+OPENAI_PROJECT_ID=
+OPENAI_ORGANIZATION_ID=
+```
+
+Run:
+
+```powershell
+python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output outputs/openai.json --verifier openai
+```
+
+The implementation uses the OpenAI Responses API with a strict JSON schema and `store=false`.
+API calls cost money. Keep benchmark inputs small and inspect usage in each verification's
+metadata.
+
+Run one minimal, sanitized connection and dashboard-attribution check:
+
+```powershell
+python run_openai_diagnostic.py
+```
+
+The output shows the OpenAI response ID, request ID, model, project/organization attribution,
+and token usage without printing the API key. In the OpenAI Usage Dashboard, select the same
+organization, clear the project selector to show all projects, and remember that dashboard time
+ranges use UTC.
+
+### SciFact LoRA adapter
+
+After training Module 5, configure:
+
+```dotenv
+CLAIMGUARD_LORA_MODEL=outputs/scifact-lora
+```
+
+```powershell
+python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output outputs/lora.json --verifier lora
+```
+
+## 6. Optional Module 4: AI-generated-text detection
+
+The lightweight heuristic is useful only as a baseline:
+
+```powershell
+python run_ai_detection.py `
+  --input "Reports/NW2_RQ1_Report.pdf" `
+  --output outputs/ai_heuristic.json `
+  --method heuristic
+```
+
+Install and run the ICML 2024 Binoculars integration:
+
+```powershell
+py -3.10 -m venv .venv-binoculars
+.\.venv-binoculars\Scripts\python.exe -m pip install -r requirements-binoculars.txt
+.\.venv-binoculars\Scripts\python.exe run_ai_detection.py `
+  --input "Reports/NW2_RQ1_Report.pdf" `
+  --output outputs/ai_binoculars.json `
+  --method binoculars
+```
+
+The separate environment is intentional: the official implementation pins Transformers 4.31
+and was tested with Python 3.9, whereas the main project uses a current Transformers release.
+Its calibrated pair is `tiiuae/falcon-7b` plus `tiiuae/falcon-7b-instruct` (roughly 14 billion
+parameters in total). It does not fit into an 8 GB RTX 3070 Ti; use a substantially larger GPU
+or enough system RAM for CPU inference. A smaller custom pair changes the score distribution
+and invalidates the published threshold unless it is recalibrated. AI-detection output is not
+proof of authorship and must never be used as an automatic misconduct decision.
+
+## 7. Optional Module 5: SciFact LoRA training
+
+Install training dependencies:
+
+```powershell
+python -m pip install -r requirements-torch-cuda.txt
+python -m pip install -r requirements-lora.txt
+```
+
+Train and evaluate a DeBERTa-v3-base sequence classifier with LoRA:
+
+```powershell
+python train_scifact_lora.py `
+  --base-model microsoft/deberta-v3-base `
+  --output outputs/scifact-lora `
+  --epochs 3 `
+  --batch-size 4 `
+  --gradient-accumulation 4
+```
+
+The script downloads the official `allenai/scifact` claims and corpus configurations, joins
+claims to evidence abstracts, trains only LoRA adapters, evaluates Accuracy and Macro-F1, and
+writes `training_report.json`. SciFact is CC BY-NC 2.0; review its license before use.
+
+The completed adapter in this workspace is `outputs/scifact-lora`, trained from
+`distilbert-base-uncased` on 1,261 training and 450 validation pairs. It reached 0.409 validation
+Accuracy and 0.353 Macro-F1. See `docs/FINAL_RESULTS.md` for transfer results and caveats.
+
+Training requires model downloads and substantially more compute than the base project. If GPU
+memory is limited, reduce batch size or choose a smaller compatible encoder and adjust
+`--target-modules`. The default `auto` setting detects the attention query/value projections
+without wrapping the classification head. For a
+quick real smoke run on the cached smaller model, add `--base-model distilbert-base-uncased
+--max-train-samples 200 --max-eval-samples 100 --epochs 1`.
+
+## 8. Evaluation and model comparison
+
+Evaluate Module 1 claim types and citation-needed flags separately:
+
+```powershell
+python run_claim_evaluation.py `
+  --benchmark data/benchmark/rq_claim_annotations.csv `
+  --output outputs/rq_claim_evaluation.json
+```
+
+Evaluate Module 2 reference-field extraction offline:
+
+```powershell
+python run_reference_evaluation.py `
+  --benchmark data/benchmark/reference_parsing_benchmark.csv `
+  --output outputs/reference_evaluation.json
+```
+
+The included benchmark now contains 30 labeled examples, six for each verification label:
+
+```powershell
+python run_evaluation.py `
+  --benchmark data/benchmark/claimguard_benchmark.csv `
+  --output outputs/evaluation_heuristic.json `
+  --verifier heuristic
+```
+
+Compare baseline, local, and frontier models on exactly the same cases:
+
+```powershell
+python run_model_comparison.py `
+  --benchmark data/benchmark/claimguard_benchmark.csv `
+  --output outputs/model_comparison.json `
+  --markdown-output outputs/model_comparison.md `
+  --verifiers heuristic,ollama,openai
+```
+
+The report includes per-label Precision/Recall/F1, Macro-F1, Micro-F1, confusion matrices,
+latency, qualitative examples, and backend errors. The current offline heuristic result is
+approximately 0.90 Accuracy and 0.90 Macro-F1. The dataset is still a teaching benchmark, not a
+deployment-quality estimate.
+
+The real-RQ annotation file contains 50 manually reviewed sentences, ten from each RQ report.
+It is deliberately kept separate from the synthetic regression benchmark. Current measured
+results and the exact experimental status are summarized in `docs/FINAL_RESULTS.md`.
+
+## 9. Optional Module 6: comparison with existing tools
+
+Run the benchmark through an existing tool such as Scite or SemanticCite. Record one row per
+case using `data/benchmark/external_tool_predictions_template.csv` and the columns
+`case_id,predicted,notes`.
+
+Then compare all exported predictions:
+
+```powershell
+python run_tool_comparison.py `
+  --benchmark data/benchmark/claimguard_benchmark.csv `
+  --tool ClaimGuard=outputs/evaluation_heuristic.json `
+  --tool ExistingTool=data/benchmark/existing_tool_predictions.csv `
+  --output outputs/tool_comparison.json
+```
+
+This produces a shared leaderboard, coverage, Accuracy, Macro/Micro-F1, per-label metrics, and
+error lists. External tools often require manual use or their own accounts; ClaimGuard therefore
+uses an explicit prediction import rather than pretending to automate an unavailable API.
+
+## 10. Tests
+
+```powershell
 pytest
 ```
 
-Enable online reference validation:
+The suite covers citation formats, section-aware classification, severity/context linking,
+reference parsing and venue extraction, fuzzy matching, RAG retrieval, shared model output
+schemas, AI-detection safeguards, evaluation, tool comparison, Markdown output, and full-pipeline
+smoke tests.
 
-```powershell
-copy .env.example .env
-$env:CLAIMGUARD_ENABLE_APIS = "true"
-python run_claimguard.py --input data/sample_input/sample_paper.txt --output outputs/sample_analysis.json --enable-apis
-```
-
-CLI options:
-
-- `run_claimguard.py --input PATH --output PATH`: required document analysis command.
-- `--claims-csv PATH`: optional Module 1 CSV export.
-- `--enable-apis`: enables CrossRef, Semantic Scholar, and OpenAlex lookups.
-- `--log-level LEVEL`: optional logging level, for example `INFO` or `DEBUG`.
-- `run_evaluation.py --benchmark PATH --output PATH`: required benchmark evaluation command.
+Report, presentation, and human-annotation checklists live in `docs/`. They deliberately contain
+placeholders for empirical results: run the local/frontier/external-tool experiments before
+claiming those results in the submission.
 
 ## Architecture
 
 ```mermaid
 flowchart TD
-    A[TXT or PDF input] --> B[Document parser]
-    B --> C[Section splitter]
-    C --> D[Sentence splitter]
-    D --> E[Module 1: claim classifier]
-    E --> F[Citation detector]
-    C --> G[Module 2: reference parser]
-    G --> H[CrossRef / Semantic Scholar / OpenAlex clients]
-    C --> I[Evidence passages and abstracts]
-    I --> J[Chunking]
-    J --> K[Module 3: retriever]
-    G --> K
-    E --> L[RAG verifier]
+    A[PDF or TXT] --> B[Parser and PDF cleanup]
+    B --> C[Section-aware sentence processing]
+    C --> D[Claim classifier and citation linker]
+    B --> E[Reference parser]
+    E --> F[CrossRef / Semantic Scholar / OpenAlex]
+    F --> G[Abstracts and optional OA full text]
+    G --> H[Chunking]
+    H --> I[Lexical / embeddings / FAISS retrieval]
+    D --> J[Heuristic / Ollama / OpenAI / LoRA verifier]
+    I --> J
+    B --> K[Heuristic / Binoculars AI detection]
+    J --> L[JSON + CSV + Markdown]
     K --> L
-    H --> L
-    L --> M[JSON report]
-    E --> N[Optional claim CSV]
-    O[Benchmark CSV] --> P[Evaluation runner]
-    P --> Q[Metrics + qualitative examples]
+    M[30-case benchmark] --> N[Model and external-tool comparisons]
 ```
 
-## Implemented Modules
+## Limitations and ethics
 
-### Module 1: Claims and Citations
-
-- Parses `.txt` and `.pdf` documents.
-- Splits text into sentences.
-- Detects numeric citations such as `[1]`, `[1, 2]`, and `[3-5]`.
-- Detects author-year citations such as `(Smith et al., 2023)`, grouped citations, and narrative citations such as `Smith et al. (2023)`.
-- Classifies sentences as `factual_claim`, `methodological_statement`, `opinion_or_interpretation`, `background_or_definition`, or `non_claim`.
-- Flags factual claims without citations.
-- Exports a dedicated `module_1` JSON section and optional claim/citation CSV.
-
-### Module 2: References
-
-- Extracts references from a `References`, `Bibliography`, or `Works Cited` section.
-- Handles wrapped APA-style entries, numbered entries, IEEE-like quoted titles, DOI strings, and DOI URLs.
-- Parses reference index, title, authors, year, and DOI when possible.
-- Uses robust fuzzy matching for title, year, DOI, and author comparisons.
-- Optionally queries CrossRef, Semantic Scholar, and OpenAlex with bounded timeouts.
-- Fails gracefully when APIs are disabled, unavailable, rate-limited, or return no match.
-- Returns `verified`, `partially_matched`, `unverified`, `retracted_or_problematic`, or `api_unavailable`.
-
-### Module 3: RAG Verification
-
-- Builds evidence from sample evidence passages, parsed references, and optional API abstracts.
-- Chunks evidence into overlapping sentence-aware passages.
-- Retrieves top-k evidence with FAISS when available.
-- Falls back to embedding cosine retrieval if embeddings are available but FAISS is not.
-- Falls back to deterministic lexical retrieval when no embedding backend is installed.
-- Labels cited claims as `supported`, `partially_supported`, `not_supported`, `contradicted`, or `insufficient_evidence`.
-- Reports confidence, rationale, cited reference indices, evidence scores, retrieval method, and chunk IDs.
-
-## Output Files
-
-- `outputs/bad_sample_analysis.json`: full analysis for the intentionally problematic sample.
-- `outputs/bad_sample_claims.csv`: optional Module 1 claim/citation table.
-- `outputs/report_analysis.json`: analysis for one existing PDF report.
-- `outputs/evaluation_report.json`: benchmark metrics, predictions, qualitative examples, and caveats.
-
-## Example Result
-
-Running:
-
-```bash
-python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output outputs/bad_sample_analysis.json
-```
-
-produces a summary like:
-
-```json
-{
-  "sentences": 5,
-  "factual_claims": 3,
-  "claims_missing_citations": 1,
-  "references": 2,
-  "verified_claim_status_counts": {
-    "contradicted": 2,
-    "insufficient_evidence": 1
-  }
-}
-```
-
-Running:
-
-```bash
-python run_evaluation.py --benchmark data/benchmark/claimguard_benchmark.csv --output outputs/evaluation_report.json
-```
-
-currently evaluates 15 synthetic benchmark cases, with 3 examples per verifier label. The generated report includes accuracy, per-label precision/recall/F1, macro-F1, micro-F1, a confusion matrix, example predictions, and caveats. On the included benchmark, the current deterministic offline run reports accuracy `1.0` and macro-F1 `1.0`.
-
-## Benchmark
-
-The benchmark lives at `data/benchmark/claimguard_benchmark.csv`.
-
-Columns:
-
-- `case_id`: stable row identifier.
-- `category`: broad test category.
-- `claim`: claim text to verify.
-- `evidence`: source evidence snippet.
-- `expected_label`: one of the five Module 3 labels.
-- `notes`: human-readable annotation note.
-
-This benchmark is intentionally small and synthetic. It is useful for regression testing and capstone demonstration, not for estimating real-world scientific accuracy.
-
-## Optional APIs
-
-ClaimGuard runs offline by default. To enable APIs, copy `.env.example` to `.env` or set environment variables directly.
-
-Supported variables:
-
-- `CLAIMGUARD_ENABLE_APIS=true`
-- `CROSSREF_MAILTO=your-email@example.com`
-- `SEMANTIC_SCHOLAR_API_KEY=...`
-- `OPENALEX_MAILTO=your-email@example.com`
-- `CLAIMGUARD_USE_EMBEDDINGS=auto`
-- `CLAIMGUARD_EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2`
-
-No secrets are hardcoded. API failures are logged and converted into graceful validation statuses.
-
-## Reproducibility Checklist
-
-1. Create and activate a virtual environment.
-2. Install `requirements.txt`.
-3. Run the bad sample analysis command.
-4. Run the evaluation command.
-5. Inspect `outputs/bad_sample_analysis.json` and `outputs/evaluation_report.json`.
-6. Run `pytest` to execute the test suite.
-
-The offline outputs are deterministic for the included sample data. Optional API calls and optional embedding retrieval can change validation metadata, retrieval scores, and sometimes labels.
-
-## Limitations
-
-- Claim detection is heuristic and sentence-level; it does not understand full discourse structure.
-- Citation detection covers common academic patterns but is not a complete citation parser.
-- PDF extraction depends on available libraries; the built-in fallback is intentionally minimal.
-- Offline reference validation cannot prove that a source exists.
-- API validation depends on external availability, metadata quality, rate limits, and search ranking.
-- RAG verification uses snippets, abstracts, reference text, and sample evidence rather than full papers unless full source text is provided.
-- Confidence scores are heuristic calibration signals, not probabilities.
-- The included benchmark is synthetic and small, so high scores should be interpreted as a regression-test result, not evidence of deployment-ready performance.
-
-## Ethics
-
-ClaimGuard is a triage and teaching tool. It can help identify missing citations, questionable references, and source-support risks, but it should not be used as an automatic misconduct detector or grading authority.
-
-Human review is required before making academic integrity judgments, accusations, publication decisions, or grade decisions. The tool can be wrong because scholarly claims are contextual, citations may support only part of a sentence, and source quality cannot be fully assessed from metadata or short evidence snippets.
-
+- PDF extraction is never perfect, especially for scanned or multi-column documents.
+- The baseline claim classifier is heuristic; methods and original results can still be
+  misclassified.
+- Bibliographic API matches depend on metadata quality and service availability.
+- Abstracts may not contain enough information to verify detailed claims.
+- LLM verifier outputs are nondeterministic and can be wrong.
+- AI-generated-text detection is unreliable for edited, paraphrased, short, and non-English text.
+- Confidence values are calibration signals, not probabilities of misconduct.
+- Human review is mandatory before grading, publication, or integrity decisions.

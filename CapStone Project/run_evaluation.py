@@ -8,6 +8,7 @@ import logging
 from pathlib import Path
 
 from claimguard.evaluation import evaluate_benchmark
+from claimguard.config import load_environment
 from claimguard.utils.logging import configure_logging
 
 LOGGER = logging.getLogger(__name__)
@@ -18,10 +19,16 @@ def main() -> None:
     parser.add_argument("--benchmark", required=True, help="Path to benchmark CSV.")
     parser.add_argument("--output", required=True, help="Path for evaluation JSON.")
     parser.add_argument("--log-level", default="INFO", help="Logging level.")
+    parser.add_argument(
+        "--verifier",
+        choices=["heuristic", "ollama", "openai", "lora"],
+        default="heuristic",
+    )
     args = parser.parse_args()
 
+    load_environment()
     configure_logging(args.log_level)
-    report = evaluate_benchmark(args.benchmark)
+    report = evaluate_benchmark(args.benchmark, verifier_backend=args.verifier, strict_backend=True)
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")

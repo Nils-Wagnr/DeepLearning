@@ -32,6 +32,10 @@ class Claim:
     missing_citation: bool = False
     classification_confidence: float = 0.0
     classification_reason: str = ""
+    section: str = "unknown"
+    citation_context: str = "none"
+    citation_required: bool = False
+    flag_severity: str = "none"
 
 
 @dataclass(slots=True)
@@ -44,6 +48,7 @@ class Reference:
     authors: list[str] = field(default_factory=list)
     year: int | None = None
     doi: str | None = None
+    venue: str | None = None
 
 
 @dataclass(slots=True)
@@ -84,6 +89,23 @@ class ClaimVerification:
     evidence: list[EvidencePassage] = field(default_factory=list)
     rationale: str = ""
     cited_reference_indices: list[str] = field(default_factory=list)
+    verifier: str = "heuristic"
+    model: str | None = None
+    latency_ms: int | None = None
+    metadata: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass(slots=True)
+class AIDetectionResult:
+    """AI-generated-text detection result for one paragraph."""
+
+    paragraph_index: int
+    text: str
+    label: str
+    score: float
+    confidence: float
+    method: str
+    rationale: str
 
 
 @dataclass(slots=True)

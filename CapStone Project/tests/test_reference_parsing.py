@@ -75,3 +75,17 @@ def test_reference_validator_offline_and_api_failures_are_graceful() -> None:
 
     assert failed.status == "api_unavailable"
     assert "timeout" in failed.details
+
+
+def test_reference_parser_handles_unquoted_ieee_author_lists() -> None:
+    text = (
+        "[1] P. Lewis, E. Perez, A. Piktus, and D. Kiela. "
+        "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. "
+        "InAdvances in Neural Information Processing Systems, 33:9459-9474, 2020."
+    )
+
+    reference = ReferenceParser().parse(text)[0]
+
+    assert reference.title == "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"
+    assert reference.year == 2020
+    assert reference.venue.startswith("In Advances")

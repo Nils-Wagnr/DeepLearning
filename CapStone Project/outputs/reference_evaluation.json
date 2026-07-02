@@ -1,0 +1,127 @@
+{
+  "benchmark": "data\\benchmark\\reference_parsing_benchmark.csv",
+  "total": 5,
+  "field_accuracy": {
+    "index": 1.0,
+    "title": 1.0,
+    "authors": 1.0,
+    "year": 1.0,
+    "doi": 1.0,
+    "venue": 1.0
+  },
+  "all_fields_accuracy": 1.0,
+  "errors": [],
+  "predictions": [
+    {
+      "case_id": "R1",
+      "checks": {
+        "index": true,
+        "title": true,
+        "authors": true,
+        "year": true,
+        "doi": true,
+        "venue": true
+      },
+      "parsed": {
+        "index": "1",
+        "title": "Attention Is All You Need",
+        "authors": [
+          "Vaswani",
+          "Shazeer"
+        ],
+        "year": 2017,
+        "doi": "10.5555/3295222.3295349",
+        "venue": "Advances in Neural Information Processing Systems"
+      }
+    },
+    {
+      "case_id": "R2",
+      "checks": {
+        "index": true,
+        "title": true,
+        "authors": true,
+        "year": true,
+        "doi": true,
+        "venue": true
+      },
+      "parsed": {
+        "index": "2",
+        "title": "Deep Learning",
+        "authors": [
+          "LeCun",
+          "Bengio",
+          "Hinton"
+        ],
+        "year": 2015,
+        "doi": "10.1038/nature14539",
+        "venue": "Nature"
+      }
+    },
+    {
+      "case_id": "R3",
+      "checks": {
+        "index": true,
+        "title": true,
+        "authors": true,
+        "year": true,
+        "doi": true,
+        "venue": true
+      },
+      "parsed": {
+        "index": "3",
+        "title": "Language Models Are Few-Shot Learners",
+        "authors": [
+          "Brown",
+          "Mann"
+        ],
+        "year": 2020,
+        "doi": null,
+        "venue": "Advances in Neural Information Processing Systems"
+      }
+    },
+    {
+      "case_id": "R4",
+      "checks": {
+        "index": true,
+        "title": true,
+        "authors": true,
+        "year": true,
+        "doi": true,
+        "venue": true
+      },
+      "parsed": {
+        "index": "4",
+        "title": "Adam: A Method for Stochastic Optimization",
+        "authors": [
+          "Kingma",
+          "Ba"
+        ],
+        "year": 2015,
+        "doi": null,
+        "venue": "International Conference on Learning Representations, 2015"
+      }
+    },
+    {
+      "case_id": "R5",
+      "checks": {
+        "index": true,
+        "title": true,
+        "authors": true,
+        "year": true,
+        "doi": true,
+        "venue": true
+      },
+      "parsed": {
+        "index": "5",
+        "title": "Dropout: A Simple Way to Prevent Neural Networks from Overfitting",
+        "authors": [
+          "Srivastava",
+          "Hinton"
+        ],
+        "year": 2014,
+        "doi": null,
+        "venue": "Journal of Machine Learning Research"
+      }
+    }
+  ]
+}

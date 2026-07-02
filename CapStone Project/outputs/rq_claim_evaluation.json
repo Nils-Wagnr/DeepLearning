@@ -1,0 +1,810 @@
+{
+  "benchmark": "data\\benchmark\\rq_claim_annotations.csv",
+  "total": 50,
+  "claim_type_accuracy": 0.52,
+  "claim_type_macro_f1": 0.437,
+  "claim_type_per_label": {
+    "background_or_definition": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "support": 7
+    },
+    "factual_claim": {
+      "precision": 0.455,
+      "recall": 0.833,
+      "f1": 0.588,
+      "support": 18
+    },
+    "methodological_statement": {
+      "precision": 1.0,
+      "recall": 0.4,
+      "f1": 0.571,
+      "support": 15
+    },
+    "non_claim": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "support": 0
+    },
+    "opinion_or_interpretation": {
+      "precision": 0.714,
+      "recall": 0.5,
+      "f1": 0.588,
+      "support": 10
+    }
+  },
+  "citation_needed": {
+    "precision": 0.25,
+    "recall": 0.286,
+    "f1": 0.267,
+    "true_positive": 2,
+    "false_positive": 6,
+    "false_negative": 5
+  },
+  "confusion_matrix": {
+    "factual_claim": {
+      "factual_claim": 15,
+      "opinion_or_interpretation": 2,
+      "non_claim": 1
+    },
+    "opinion_or_interpretation": {
+      "factual_claim": 4,
+      "opinion_or_interpretation": 5,
+      "non_claim": 1
+    },
+    "background_or_definition": {
+      "factual_claim": 5,
+      "non_claim": 2
+    },
+    "methodological_statement": {
+      "methodological_statement": 6,
+      "factual_claim": 9
+    }
+  },
+  "errors": [
+    {
+      "case_id": "RQ1-02",
+      "sentence": "Test accuracy improves with model size, but the gap remains persistent, indicating that higher capacity alone does not remove overfitting.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ1-05",
+      "sentence": "Overfitting in supervised learning occurs when a model achieves low empirical risk on the training sample while failing to achieve correspondingly low risk on unseen data [4, 5].",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ1-06",
+      "sentence": "In neural networks, this phenomenon is often measured through the generalization gap, here operationalized as the difference between final training accuracy and best validation accuracy.",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": true,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ1-09",
+      "sentence": "Depending on the configuration, parameter counts range from 50,890 to 2,913,290.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": true,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ1-10",
+      "sentence": "Because the available results consist of aggregate outputs from single runs, no uncertainty estimates across random seeds are available; interpretation is therefore limited to the reported runs.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": true,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ2-03",
+      "sentence": "In practice, images may be shifted, rotated, blurred, noisy, or written in styles that differ from the training distribution.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "opinion_or_interpretation",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ2-04",
+      "sentence": "An MLP treats the input as a flattened pixel vector and has no explicit notion of locality or feature reuse across space.",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "non_claim",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ2-05",
+      "sentence": "A CNN instead applies shared filters to local neighborhoods and aggregates them through pooling, introducing inductive biases toward local feature detection and partial translation tolerance [1].",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ2-09",
+      "sentence": "Both models were trained with cross-entropy loss and the Adam optimizer (learning rate 0.001), using batch size 128 for 20 epochs.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": true,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ2-10",
+      "sentence": "Rotation and translation probe geometric invariance, noise and blur test tolerance to corrupted local evidence, erosion probes dependence on stroke thickness and continuity, inversion tests sensitivity to foreground-background polarity, and hand-drawn digits assess whether the models learned a transferable concept of digit identity.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": true,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ3-01",
+      "sentence": "Longer inputs reveal architectural differences: TextCNN improves steadily, suggesting that local sentiment patterns remain highly predictive when more review content is available.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ3-04",
+      "sentence": "Sentiment evidence may appear as short local phrases or may depend on longer discourse structure, such as an initially positive description followed by a negative conclusion.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "opinion_or_interpretation",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ3-05",
+      "sentence": "TextCNN applies convolutional filters over local n-gram windows and aggregates the strongest activations through max pooling, which makes it well suited to local pattern detection [1].",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ3-07",
+      "sentence": "LSTM networks address this limitation using gated memory cells that provide a more stable path for information and gradients [2].",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ3-09",
+      "sentence": "This variation tests both content incompleteness and architectural limits: only 0.3%, 4.8%, 24.1%, 70.0%, and 92.1% of training reviews are fully contained at these respective lengths.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": true,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ3-10",
+      "sentence": "Although RNNs and LSTMs are sequential over time, CUDA accelerates the dense matrix operations inside each recurrent step by parallelizing them across the batch and hidden dimensions.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "non_claim",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ4-03",
+      "sentence": "Due to runtime constraints, GPT-2 prompting is reported as a separate approximate zero-training baseline on the first 200 IMDB test examples, with unparsed outputs excluded from the accuracy and macro-F1 computation.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ4-04",
+      "sentence": "Practically, BiLSTM+GloVe+Attn is attractive at 50 labels or under strict latency constraints, while DistilBERT is preferable from 200 labels onward if compute is available.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ4-06",
+      "sentence": "We expect static GloVe embeddings to help when labels are scarce, but less than contextual pretraining.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "non_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ4-08",
+      "sentence": "For each reduced size, balanced subsets with equal positive and negative examples are sampled using three seeds.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": true,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ4-10",
+      "sentence": "We keep the prompting results in the report because they still provide a useful zero-training reference point, but we do not use them for direct statistical comparisons with the trained models.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ5-03",
+      "sentence": "Dense retrieval uses all-MiniLM-L6-v2 embeddings with a normalized IndexFlatIP FAISS index.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ5-06",
+      "sentence": "Answer accuracy was evaluated with google/flan-t5-small for three representative configurations and reached 0.40, 0.05, and 0.00, showing that strong retrieval alone does not guarantee strong generation.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ5-10",
+      "sentence": "A cross-encoder jointly scores a query-chunk pair and can therefore refine the ranking, but it is too slow to apply to the full corpus.",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "non_claim",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": false
+    }
+  ],
+  "predictions": [
+    {
+      "case_id": "RQ1-01",
+      "sentence": "Across unregularized baselines, the generalization gap is already substantial in small models, ranging from 1.48 to 2.68 percentage points.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ1-02",
+      "sentence": "Test accuracy improves with model size, but the gap remains persistent, indicating that higher capacity alone does not remove overfitting.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ1-03",
+      "sentence": "Among single methods, Dropout at p = 0.2 yields the strongest test accuracy (98.23%) [2], while L2 with weight decay 10^-2 yields the smallest gap (0.236 points) at the cost of lower accuracy, indicating underfitting [7].",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ1-04",
+      "sentence": "The strongest combined result is obtained by BatchNorm+Dropout on the 4x256 architecture, reaching 98.37% test accuracy with a 0.578-point gap.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ1-05",
+      "sentence": "Overfitting in supervised learning occurs when a model achieves low empirical risk on the training sample while failing to achieve correspondingly low risk on unseen data [4, 5].",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ1-06",
+      "sentence": "In neural networks, this phenomenon is often measured through the generalization gap, here operationalized as the difference between final training accuracy and best validation accuracy.",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": true,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ1-07",
+      "sentence": "L1 penalties encourage sparse parameter vectors, L2 weight decay discourages large weights [7], Dropout introduces stochastic feature suppression during training [2], Batch Normalization stabilizes intermediate activations and often improves optimization [3], and Early Stopping limits training duration once validation performance ceases to improve [1].",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ1-08",
+      "sentence": "The experiments use the MNIST handwritten digit dataset.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "methodological_statement",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ1-09",
+      "sentence": "Depending on the configuration, parameter counts range from 50,890 to 2,913,290.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": true,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ1-10",
+      "sentence": "Because the available results consist of aggregate outputs from single runs, no uncertainty estimates across random seeds are available; interpretation is therefore limited to the reported runs.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": true,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ2-01",
+      "sentence": "On the clean test set, both achieved strong baseline performance (MLP: 98.03%, CNN: 99.11%).",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ2-02",
+      "sentence": "The CNN was clearly more robust to translation, blur, erosion, and inversion; for example, at a translation of 3 pixels it still reached 72.22% accuracy, whereas the MLP dropped to 21.27%.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ2-03",
+      "sentence": "In practice, images may be shifted, rotated, blurred, noisy, or written in styles that differ from the training distribution.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "opinion_or_interpretation",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ2-04",
+      "sentence": "An MLP treats the input as a flattened pixel vector and has no explicit notion of locality or feature reuse across space.",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "non_claim",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ2-05",
+      "sentence": "A CNN instead applies shared filters to local neighborhoods and aggregates them through pooling, introducing inductive biases toward local feature detection and partial translation tolerance [1].",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ2-06",
+      "sentence": "We therefore expect CNNs to be more robust when digit identity is preserved but position or local appearance changes, whereas MLPs should be more sensitive to perturbations that disrupt fixed pixel arrangements.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "opinion_or_interpretation",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ2-07",
+      "sentence": "At the same time, prior work shows that convolution alone does not guarantee invariance to simple transformations [3, 4].",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ2-08",
+      "sentence": "The experiments use MNIST, a dataset of 28x28 grayscale images of handwritten digits [2].",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "methodological_statement",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ2-09",
+      "sentence": "Both models were trained with cross-entropy loss and the Adam optimizer (learning rate 0.001), using batch size 128 for 20 epochs.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": true,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ2-10",
+      "sentence": "Rotation and translation probe geometric invariance, noise and blur test tolerance to corrupted local evidence, erosion probes dependence on stroke thickness and continuity, inversion tests sensitivity to foreground-background polarity, and hand-drawn digits assess whether the models learned a transferable concept of digit identity.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": true,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ3-01",
+      "sentence": "Longer inputs reveal architectural differences: TextCNN improves steadily, suggesting that local sentiment patterns remain highly predictive when more review content is available.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ3-02",
+      "sentence": "The vanilla RNN plateaus around 128 tokens and collapses near chance accuracy at longer lengths, consistent with long-range optimization difficulties.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ3-03",
+      "sentence": "The LSTM improves up to 128 tokens but also degrades at longer lengths in this implementation.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ3-04",
+      "sentence": "Sentiment evidence may appear as short local phrases or may depend on longer discourse structure, such as an initially positive description followed by a negative conclusion.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "opinion_or_interpretation",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ3-05",
+      "sentence": "TextCNN applies convolutional filters over local n-gram windows and aggregates the strongest activations through max pooling, which makes it well suited to local pattern detection [1].",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ3-06",
+      "sentence": "A vanilla RNN processes tokens sequentially and can, in principle, encode earlier tokens into its hidden state, but it is known to suffer from vanishing and exploding gradients over long sequences [3].",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ3-07",
+      "sentence": "LSTM networks address this limitation using gated memory cells that provide a more stable path for information and gradients [2].",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ3-08",
+      "sentence": "The experiments use the IMDB Large Movie Review Dataset, a balanced binary sentiment classification benchmark with 25,000 training and 25,000 test reviews [4].",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "methodological_statement",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ3-09",
+      "sentence": "This variation tests both content incompleteness and architectural limits: only 0.3%, 4.8%, 24.1%, 70.0%, and 92.1% of training reviews are fully contained at these respective lengths.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": true,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ3-10",
+      "sentence": "Although RNNs and LSTMs are sequential over time, CUDA accelerates the dense matrix operations inside each recurrent step by parallelizing them across the batch and hidden dimensions.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "non_claim",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ4-01",
+      "sentence": "We compare five approaches on the IMDB Large Movie Review Dataset [6]: an LSTM trained from scratch [1], an LSTM with frozen GloVe embeddings [2], a BiLSTM with GloVe and attention pooling, fine-tuned DistilBERT [4, 3], and GPT-2 prompting with zero-shot and few-shot prompts [5].",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "methodological_statement",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ4-02",
+      "sentence": "The main crossover occurs between N = 50 and N = 200: at N = 50, BiLSTM+GloVe+Attn is marginally the strongest trained model, while from N = 200 onward DistilBERT is clearly strongest.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ4-03",
+      "sentence": "Due to runtime constraints, GPT-2 prompting is reported as a separate approximate zero-training baseline on the first 200 IMDB test examples, with unparsed outputs excluded from the accuracy and macro-F1 computation.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ4-04",
+      "sentence": "Practically, BiLSTM+GloVe+Attn is attractive at 50 labels or under strict latency constraints, while DistilBERT is preferable from 200 labels onward if compute is available.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ4-05",
+      "sentence": "For a new domain, a practitioner may have only a few dozen or a few hundred annotated examples, making it unclear whether to train a small model from scratch, use static pretrained word vectors, fine-tune a contextual model, or rely on prompting.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "opinion_or_interpretation",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ4-06",
+      "sentence": "We expect static GloVe embeddings to help when labels are scarce, but less than contextual pretraining.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "non_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ4-07",
+      "sentence": "DistilBERT should become strongest once enough labeled data is available for stable fine-tuning, while GPT-2 prompting is expected to be useful mainly as a zero-training baseline rather than as a replacement for supervised fine-tuning.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "opinion_or_interpretation",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ4-08",
+      "sentence": "For each reduced size, balanced subsets with equal positive and negative examples are sampled using three seeds.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": true,
+      "type_correct": false,
+      "flag_correct": false
+    },
+    {
+      "case_id": "RQ4-09",
+      "sentence": "The prompting results describe GPT-2 in this local setup and should not be generalized to modern instruction-tuned LLMs.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "opinion_or_interpretation",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ4-10",
+      "sentence": "We keep the prompting results in the report because they still provide a useful zero-training reference point, but we do not use them for direct statistical comparisons with the trained models.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ5-01",
+      "sentence": "The experiment uses the Wikipedia AI/DL corpus with 20 documents and 40 evaluation questions.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "methodological_statement",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ5-02",
+      "sentence": "We compare fixed-size character splitting, sentence-based splitting, and recursive character splitting with chunk sizes of 128, 256, 512, and 1024 characters and overlap settings of 0 and 50 characters.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "methodological_statement",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ5-03",
+      "sentence": "Dense retrieval uses all-MiniLM-L6-v2 embeddings with a normalized IndexFlatIP FAISS index.",
+      "expected_claim_type": "methodological_statement",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ5-04",
+      "sentence": "The strongest bi-encoder-only configuration is sentence-based splitting with size 128 and overlap 0 or 50, reaching Recall@5 = 1.000 and MRR = 0.946.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ5-05",
+      "sentence": "The best reranked configuration is sentence-based splitting with size 512 and no overlap, reaching Recall@5 = 1.000 and MRR@5 = 0.971.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ5-06",
+      "sentence": "Answer accuracy was evaluated with google/flan-t5-small for three representative configurations and reached 0.40, 0.05, and 0.00, showing that strong retrieval alone does not guarantee strong generation.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ5-07",
+      "sentence": "In such a system, the retrieval stage is a central bottleneck: if the relevant evidence is not retrieved, the generator cannot reliably produce a grounded answer.",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": true,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ5-08",
+      "sentence": "If chunks are too small, they may lose the surrounding context needed to answer a question.",
+      "expected_claim_type": "opinion_or_interpretation",
+      "predicted_claim_type": "opinion_or_interpretation",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ5-09",
+      "sentence": "A bi-encoder cannot model detailed token-level interactions between the query and a candidate chunk [2].",
+      "expected_claim_type": "factual_claim",
+      "predicted_claim_type": "factual_claim",
+      "expected_missing_citation": false,
+      "predicted_missing_citation": false,
+      "type_correct": true,
+      "flag_correct": true
+    },
+    {
+      "case_id": "RQ5-10",
+      "sentence": "A cross-encoder jointly scores a query-chunk pair and can therefore refine the ranking, but it is too slow to apply to the full corpus.",
+      "expected_claim_type": "background_or_definition",
+      "predicted_claim_type": "non_claim",
+      "expected_missing_citation": true,
+      "predicted_missing_citation": false,
+      "type_correct": false,
+      "flag_correct": false
+    }
+  ]
+}

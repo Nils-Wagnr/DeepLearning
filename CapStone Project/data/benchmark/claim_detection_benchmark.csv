@@ -1,0 +1,26 @@
+case_id,sentence,section,expected_claim_type,expected_missing_citation
+F1,Transformers outperform recurrent networks on machine translation.,introduction,factual_claim,true
+F2,Prior studies reported a significant accuracy improvement [1].,introduction,factual_claim,false
+F3,The treatment reduced symptoms in 62 percent of patients.,introduction,factual_claim,true
+F4,Large language models can hallucinate unsupported references (Smith et al. 2024).,background,factual_claim,false
+F5,Data augmentation improves image classification accuracy.,discussion,factual_claim,true
+F6,The cited study found no significant difference [2].,discussion,factual_claim,false
+M1,We trained the model for 30 epochs.,method,methodological_statement,false
+M2,This study used a batch size of 128.,method,methodological_statement,false
+M3,Our dataset contains 500 labeled examples.,method,methodological_statement,false
+M4,The optimizer is Adam with a learning rate of 0.001.,method,methodological_statement,false
+M5,We evaluated five baseline architectures.,experiment,methodological_statement,false
+O1,We believe this is a promising research direction.,discussion,opinion_or_interpretation,false
+O2,The result is arguably surprising.,discussion,opinion_or_interpretation,false
+O3,This approach may be useful in future work.,discussion,opinion_or_interpretation,false
+O4,The observed difference seems important.,discussion,opinion_or_interpretation,false
+B1,A neural network is a type of computational model.,background,background_or_definition,false
+B2,Overfitting is defined as poor generalization despite strong training performance.,background,background_or_definition,false
+B3,Regularization refers to techniques that constrain model complexity.,background,background_or_definition,false
+B4,RAG is an architecture that combines retrieval and generation.,background,background_or_definition,false
+N1,Introduction,unknown,non_claim,false
+N2,Related Work,unknown,non_claim,false
+N3,Table 1,unknown,non_claim,false
+N4,2026,unknown,non_claim,false
+R1,The proposed model achieved 98.2 percent test accuracy.,result,factual_claim,false
+R2,Accuracy increased as model width increased.,result,factual_claim,false

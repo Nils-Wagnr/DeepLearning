@@ -1,0 +1,7 @@
+-r requirements.txt
+
+numpy>=1.26.0
+sentence-transformers>=3.0.0
+# FAISS has no consistently available Windows wheel. ClaimGuard uses cosine
+# similarity when it is absent and FAISS automatically on supported platforms.
+faiss-cpu>=1.8.0; platform_system != "Windows"

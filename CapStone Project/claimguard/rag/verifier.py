@@ -3,10 +3,17 @@
 from __future__ import annotations
 
 import re
+from typing import Any
 
 from claimguard.claims.citations import strip_citations
 from claimguard.models import Claim, ClaimVerification, EvidencePassage, Reference, ReferenceValidation
 from claimguard.rag.retriever import EvidenceRetriever, build_evidence_passages, chunk_text, tokenize
+from claimguard.rag.model_verifiers import (
+    ModelVerifier,
+    ModelVerifierUnavailable,
+    create_model_verifier,
+)
+from claimguard.rag.sources import fetch_open_access_passages
 
 TOP_K_EVIDENCE = 5
 MIN_EVIDENCE_SCORE = 0.08
@@ -23,6 +30,16 @@ SUPPORT_LABELS = {
 class ClaimVerifier:
     """Verify cited factual claims against retrieved evidence passages."""
 
+    def __init__(
+        self,
+        backend: str = "heuristic",
+        model_verifier: ModelVerifier | None = None,
+        strict_backend: bool = False,
+    ) -> None:
+        self.backend_name = backend.lower()
+        self.model_verifier = model_verifier or create_model_verifier(self.backend_name)
+        self.strict_backend = strict_backend
+
     def verify_claims(
         self,
         claims: list[Claim],
@@ -34,11 +51,12 @@ class ClaimVerifier:
 
         passages = build_evidence_passages(evidence_text, references)
         passages.extend(_validation_abstract_passages(validations or []))
+        passages.extend(fetch_open_access_passages(references, validations or []))
         retriever = EvidenceRetriever(passages)
         return [
             self.verify_claim(claim, references, retriever)
             for claim in claims
-            if claim.claim_type == "factual_claim"
+            if claim.claim_type == "factual_claim" and claim.citations
         ]
 
     def verify_claim(
@@ -56,6 +74,7 @@ class ClaimVerifier:
                 confidence=0.0,
                 evidence=[],
                 rationale="The claim has no citation to retrieve evidence from.",
+                verifier=self.backend_name,
             )
 
         cited_indices = map_citations_to_references(claim, references)
@@ -75,9 +94,31 @@ class ClaimVerifier:
                 evidence=[],
                 rationale="No relevant evidence chunks were retrieved for the cited source.",
                 cited_reference_indices=cited_indices,
+                verifier=self.backend_name,
             )
 
-        status, confidence, rationale = _judge_support(query, evidence)
+        metadata: dict[str, Any] = {"retrieval_backend": retriever.backend}
+        model = None
+        latency_ms = None
+        if self.model_verifier is None:
+            status, confidence, rationale = _judge_support(query, evidence)
+        else:
+            try:
+                verdict = self.model_verifier.verify(query, evidence)
+                status = verdict.status
+                confidence = verdict.confidence
+                rationale = verdict.rationale
+                model = verdict.model
+                latency_ms = verdict.latency_ms
+                metadata.update(verdict.metadata)
+            except ModelVerifierUnavailable as exc:
+                if self.strict_backend:
+                    raise
+                status = "insufficient_evidence"
+                confidence = 0.0
+                rationale = f"Selected verifier backend is unavailable: {exc}"
+                model = getattr(self.model_verifier, "model", None)
+                metadata["backend_error"] = str(exc)
         return ClaimVerification(
             claim_index=claim.sentence_index,
             status=status,
@@ -85,6 +126,10 @@ class ClaimVerifier:
             evidence=evidence,
             rationale=rationale,
             cited_reference_indices=cited_indices,
+            verifier=self.backend_name,
+            model=model,
+            latency_ms=latency_ms,
+            metadata=metadata,
         )
 
 
@@ -259,4 +304,3 @@ def _confidence(
 ) -> float:
     value = (best_score * 0.42) + (mean_top_score * 0.20) + (coverage * 0.28) + (cue_strength * 0.10)
     return round(max(0.05, min(cap, value)), 3)
-

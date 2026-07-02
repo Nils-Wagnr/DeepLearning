@@ -1,0 +1,43 @@
+{
+  "base_model": "distilbert-base-uncased",
+  "train_examples": 200,
+  "validation_examples": 100,
+  "train_metrics": {
+    "train_runtime": 2.2231,
+    "train_samples_per_second": 89.963,
+    "train_steps_per_second": 5.848,
+    "total_flos": 26083516346784.0,
+    "train_loss": 4.121985802283654,
+    "epoch": 1.0
+  },
+  "evaluation": {
+    "eval_loss": 1.0186278820037842,
+    "eval_accuracy": 0.53,
+    "eval_macro_f1": 0.2309,
+    "eval_runtime": 0.2908,
+    "eval_samples_per_second": 343.863,
+    "eval_steps_per_second": 85.966,
+    "epoch": 1.0
+  },
+  "lora": {
+    "r": 8,
+    "alpha": 16,
+    "target_modules": [
+      "q_lin",
+      "v_lin"
+    ]
+  },
+  "runtime": {
+    "torch": "2.11.0+cu128",
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 3070 Ti",
+    "seed": 42,
+    "effective_batch_size": 16
+  },
+  "license_note": "SciFact is distributed under CC BY-NC 2.0; review its terms before use.",
+  "dataset": {
+    "source": "https://scifact.s3-us-west-2.amazonaws.com/release/latest/data.tar.gz",
+    "archive_sha256": "11c621288d41ac144d29b13b0f8503b3820b7d6e8b1f6ff24dff335c196d76be",
+    "cache": "data\\cache\\scifact-data.tar.gz"
+  }
+}
