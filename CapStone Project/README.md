@@ -20,8 +20,8 @@ and runnable offline.
 ## Interactive frontend
 
 ClaimGuard includes a German Streamlit interface for uploads, pasted text, sample documents,
-claim-by-claim evidence review, cautious result interpretation, and JSON export. Install and
-start it from inside `CapStone Project/`:
+claim-by-claim evidence review, cautious result interpretation, automatic side-by-side verifier
+comparison, and JSON export. Install and start it from inside `CapStone Project/`:
 
 ```powershell
 python -m pip install -e ".[ui]"
@@ -32,6 +32,9 @@ The default heuristic mode runs locally and is recommended for a quick demonstra
 OpenAI, SciFact-LoRA, scholarly APIs, and AI-text detection can be selected in the sidebar when
 their respective dependencies and environment variables are configured. Confidence values in
 the interface are explicitly presented as model signals, not correctness probabilities.
+The `Modellvergleich` tab can run two or more verifier backends on the same document and highlights
+agreements, disagreements, latency, and backend errors. OpenAI comparison requires an explicit
+cost confirmation in the interface.
 
 ## 1. Base installation
 

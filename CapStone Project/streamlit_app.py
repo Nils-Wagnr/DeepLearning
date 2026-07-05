@@ -14,6 +14,7 @@ from typing import Any
 
 import streamlit as st
 
+from claimguard.comparison import compare_reports
 from claimguard.interpretation import (
     CLAIM_TYPE_LABELS,
     STATUS_LABELS,
@@ -37,6 +38,13 @@ STATUS_ICONS = {
     "not_supported": "🟠",
     "contradicted": "🔴",
     "insufficient_evidence": "⚪",
+}
+
+BACKEND_LABELS = {
+    "heuristic": "Heuristik",
+    "ollama": "Ollama",
+    "lora": "SciFact-LoRA",
+    "openai": "OpenAI",
 }
 
 
@@ -181,6 +189,57 @@ def _analysis_signature(
     else:
         input_id = str(Path(path_or_name).resolve()) if path_or_name else ""
     return input_id, verifier, enable_apis, ai_method
+
+
+def _run_comparison(
+    path_or_name: str,
+    content: bytes | None,
+    display_name: str,
+    backends: list[str],
+    enable_apis: bool,
+    existing_report: dict[str, Any] | None,
+    existing_signature: tuple[str, str, bool, str | None] | None,
+    progress: Any,
+) -> dict[str, dict[str, Any]]:
+    """Run selected verifiers against one input, reusing a matching current report."""
+
+    input_id = _analysis_signature(path_or_name, content, "heuristic", enable_apis, None)[0]
+    reports: dict[str, dict[str, Any]] = {}
+
+    def analyze_all(analysis_path: str) -> None:
+        for backend in backends:
+            can_reuse = bool(
+                existing_report
+                and existing_signature
+                and existing_signature[0] == input_id
+                and existing_signature[1] == backend
+                and existing_signature[2] == enable_apis
+            )
+            if can_reuse:
+                progress.write(f"{BACKEND_LABELS[backend]}: vorhandenen Bericht wiederverwendet.")
+                reports[backend] = existing_report
+                continue
+            progress.write(f"{BACKEND_LABELS[backend]} wird ausgeführt …")
+            report = analyze_document(
+                analysis_path,
+                enable_apis=enable_apis,
+                verifier=backend,
+                ai_detection=None,
+            )
+            report["input_path"] = display_name
+            reports[backend] = report
+
+    if content is None:
+        analyze_all(path_or_name)
+    else:
+        suffix = Path(path_or_name).suffix.lower()
+        if suffix not in {".txt", ".pdf"}:
+            suffix = ".txt"
+        with tempfile.TemporaryDirectory(prefix="claimguard-comparison-") as directory:
+            analysis_path = Path(directory) / f"document{suffix}"
+            analysis_path.write_bytes(content)
+            analyze_all(str(analysis_path))
+    return reports
 
 
 def _backend_summary(report: dict[str, Any]) -> None:
@@ -358,6 +417,194 @@ def _claims_view(report: dict[str, Any]) -> None:
                     st.write(claim.get("classification_reason", "Keine Begründung verfügbar."))
 
 
+def _comparison_view(
+    report: dict[str, Any],
+    path_or_name: str | None,
+    content: bytes | None,
+    display_name: str | None,
+    enable_apis: bool,
+) -> None:
+    st.markdown("#### Automatischer Modellvergleich")
+    st.write(
+        "Alle ausgewählten Prüfer erhalten dasselbe Dokument. Claim-Erkennung und Evidenzbasis "
+        "bleiben dadurch vergleichbar; dargestellt werden Urteile, Begründungen und Laufzeiten."
+    )
+    selected = st.multiselect(
+        "Modelle auswählen",
+        options=["heuristic", "ollama", "lora", "openai"],
+        default=["heuristic", "ollama"],
+        format_func=BACKEND_LABELS.get,
+        key="comparison_backends",
+    )
+    if "lora" in selected:
+        st.info("SciFact-LoRA wird lokal geladen und kann beim ersten Durchlauf etwas dauern.")
+    openai_confirmed = True
+    if "openai" in selected:
+        estimated_calls = len(report.get("claim_verification", []))
+        st.warning(
+            f"OpenAI kann bis zu {estimated_calls} kostenpflichtige API-Aufrufe für dieses "
+            "Dokument auslösen. Die genaue Zahl hängt von der verfügbaren Evidenz ab."
+        )
+        openai_confirmed = st.checkbox(
+            "Ich bestätige, dass der OpenAI-Vergleich API-Kosten verursachen kann.",
+            key="comparison_openai_confirmed",
+        )
+
+    can_compare = bool(path_or_name and display_name and len(selected) >= 2 and openai_confirmed)
+    if len(selected) < 2:
+        st.caption("Wähle mindestens zwei Modelle aus.")
+
+    input_id = _analysis_signature(
+        path_or_name,
+        content,
+        "heuristic",
+        enable_apis,
+        None,
+    )[0]
+    comparison_signature = (input_id, tuple(sorted(selected)), enable_apis)
+    if st.button(
+        "Ausgewählte Modelle automatisch vergleichen",
+        type="primary",
+        disabled=not can_compare,
+        width="stretch",
+        key="run_model_comparison",
+    ):
+        try:
+            with st.status("Modellvergleich läuft …", expanded=True) as progress:
+                reports = _run_comparison(
+                    path_or_name=path_or_name or "",
+                    content=content,
+                    display_name=display_name or "Dokument",
+                    backends=selected,
+                    enable_apis=enable_apis,
+                    existing_report=report,
+                    existing_signature=st.session_state.get("claimguard_signature"),
+                    progress=progress,
+                )
+                comparison = compare_reports(reports)
+                st.session_state["claimguard_comparison"] = comparison
+                st.session_state["claimguard_comparison_reports"] = reports
+                st.session_state["claimguard_comparison_signature"] = comparison_signature
+                progress.update(label="Modellvergleich abgeschlossen", state="complete")
+        except Exception as exc:
+            st.error(f"Der Modellvergleich konnte nicht abgeschlossen werden: {exc}")
+            st.exception(exc)
+
+    comparison = st.session_state.get("claimguard_comparison")
+    if not comparison:
+        st.caption("Nach dem Start erscheinen hier Gemeinsamkeiten und Unterschiede pro Aussage.")
+        return
+    if st.session_state.get("claimguard_comparison_signature") != comparison_signature:
+        st.warning(
+            "Dokument, API-Einstellung oder Modellauswahl wurde seit dem letzten Vergleich "
+            "geändert. Starte den Vergleich erneut, um aktuelle Ergebnisse zu sehen."
+        )
+
+    summary = comparison["summary"]
+    metrics = st.columns(5)
+    metrics[0].metric("Modelle", summary["models"])
+    metrics[1].metric("Verglichene Claims", summary["claims_compared"])
+    metrics[2].metric("Übereinstimmungen", summary["agreements"])
+    metrics[3].metric("Abweichungen", summary["disagreements"])
+    metrics[4].metric("Backend-Fehler", summary["backend_errors"])
+    st.info(comparison["warning"], icon="ℹ️")
+
+    st.markdown("##### Übersicht je Backend")
+    backend_rows = []
+    for backend, values in comparison["backend_summary"].items():
+        backend_rows.append(
+            {
+                "Backend": BACKEND_LABELS.get(backend, backend),
+                "Modell": ", ".join(values["models"]) or "regelbasiert / nicht aufgerufen",
+                "Modellaufrufe": values["model_calls"],
+                "Laufzeit (ms)": values["latency_ms"],
+                "Fehler": values["errors"],
+                "Urteile": ", ".join(
+                    f"{STATUS_LABELS.get(status, status)}: {count}"
+                    for status, count in values["status_counts"].items()
+                )
+                or "keine",
+            }
+        )
+    st.dataframe(backend_rows, hide_index=True, width="stretch")
+
+    st.markdown("##### Vergleich pro Aussage")
+    table_rows = []
+    agreement_labels = {
+        "agreement": "✅ gleich",
+        "disagreement": "⚠️ unterschiedlich",
+        "incomplete": "⚪ unvollständig",
+    }
+    for row in comparison["rows"]:
+        display_row = {
+            "Satz": int(row["claim_index"]) + 1,
+            "Vergleich": agreement_labels[row["agreement"]],
+            "Aussage": row["sentence"],
+        }
+        for backend in comparison["backends"]:
+            result = row["models"][backend]
+            if result["error"]:
+                value = "Backend-Fehler"
+            elif result["status"] is None:
+                value = "–"
+            else:
+                confidence = float(result["confidence"] or 0)
+                value = f"{STATUS_LABELS.get(result['status'], result['status'])} ({confidence:.0%})"
+            display_row[BACKEND_LABELS.get(backend, backend)] = value
+        table_rows.append(display_row)
+    st.dataframe(table_rows, hide_index=True, width="stretch")
+
+    disagreement_rows = [
+        row for row in comparison["rows"] if row["agreement"] == "disagreement"
+    ]
+    detail_rows = disagreement_rows or comparison["rows"]
+    if detail_rows:
+        if disagreement_rows:
+            st.markdown("##### Abweichungen im Detail")
+        else:
+            st.markdown("##### Ergebnisse im Detail")
+        selected_index = st.selectbox(
+            "Aussage auswählen",
+            options=[row["claim_index"] for row in detail_rows],
+            format_func=lambda index: (
+                f"Satz {int(index) + 1}: "
+                + next(row["sentence"] for row in detail_rows if row["claim_index"] == index)[:100]
+            ),
+            key="comparison_claim_detail",
+        )
+        selected_row = next(row for row in detail_rows if row["claim_index"] == selected_index)
+        st.markdown(f"> {selected_row['sentence']}")
+        columns = st.columns(len(comparison["backends"]))
+        for column, backend in zip(columns, comparison["backends"]):
+            result = selected_row["models"][backend]
+            with column:
+                with st.container(border=True):
+                    st.markdown(f"**{BACKEND_LABELS.get(backend, backend)}**")
+                    if result["error"]:
+                        st.error("Backend-Fehler")
+                        st.caption(result["error"])
+                    elif result["status"] is None:
+                        st.write("Kein Prüfergebnis")
+                    else:
+                        st.write(STATUS_LABELS.get(result["status"], result["status"]))
+                        st.caption(
+                            f"Signal: {float(result['confidence'] or 0):.0%} · "
+                            f"Laufzeit: {result['latency_ms'] if result['latency_ms'] is not None else 'n/a'} ms"
+                        )
+                        if result["model"]:
+                            st.caption(f"Modell: {result['model']}")
+                        st.write(result["rationale"])
+
+    st.download_button(
+        "Vergleich als JSON herunterladen",
+        json.dumps(comparison, indent=2, ensure_ascii=False),
+        file_name="claimguard_model_comparison.json",
+        mime="application/json",
+        width="stretch",
+        key="download_model_comparison",
+    )
+
+
 def _references_view(report: dict[str, Any]) -> None:
     references = report.get("references", [])
     validations = {
@@ -481,16 +728,26 @@ def main() -> None:
     st.subheader(
         f"2 · Ergebnis für {report.get('input_path', 'Dokument')} · Methode: {used_verifier}"
     )
-    tabs = st.tabs(["Überblick", "Aussagen & Evidenz", "Quellen", "KI-Text", "Export"])
+    tabs = st.tabs(
+        ["Überblick", "Aussagen & Evidenz", "Modellvergleich", "Quellen", "KI-Text", "Export"]
+    )
     with tabs[0]:
         _overview(report)
     with tabs[1]:
         _claims_view(report)
     with tabs[2]:
-        _references_view(report)
+        _comparison_view(
+            report=report,
+            path_or_name=path_or_name,
+            content=content,
+            display_name=display_name,
+            enable_apis=enable_apis,
+        )
     with tabs[3]:
-        _ai_view(report)
+        _references_view(report)
     with tabs[4]:
+        _ai_view(report)
+    with tabs[5]:
         _downloads(report)
 
 
