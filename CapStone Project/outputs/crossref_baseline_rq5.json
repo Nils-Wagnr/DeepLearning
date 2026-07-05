@@ -1,0 +1,72 @@
+{
+  "input": "Reports\\NW2_RQ5_Report.pdf",
+  "tool": "Crossref REST API (title/bibliographic query only)",
+  "total": 5,
+  "strong_matches": 3,
+  "weak_matches": 2,
+  "unavailable": 0,
+  "threshold": 0.75,
+  "rows": [
+    {
+      "reference_index": "1",
+      "parsed_title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+      "parsed_year": 2020,
+      "parsed_venue": "In Advances in Neural Information Processing Systems, 33:9459\u20139474, 2020",
+      "crossref_status": "weak_match",
+      "crossref_score": 0.593,
+      "crossref_title": "Multilingual Retrieval-Augmented Generation for Knowledge-Intensive Question Answering Task",
+      "crossref_year": 2026,
+      "crossref_doi": "10.18653/v1/2026.findings-eacl.35",
+      "error": null
+    },
+    {
+      "reference_index": "2",
+      "parsed_title": "Sentence-BERT: Sentence Embeddings using Siamese BERTNetworks",
+      "parsed_year": 2019,
+      "parsed_venue": "In Proceedings of EMNLP-IJCNLP, pages 3982\u20133992, 2019",
+      "crossref_status": "strong_match",
+      "crossref_score": 0.867,
+      "crossref_title": "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks",
+      "crossref_year": 2019,
+      "crossref_doi": "10.18653/v1/d19-1410",
+      "error": null
+    },
+    {
+      "reference_index": "3",
+      "parsed_title": "Retrieval-Augmented Generation for Large Language Models: A Survey",
+      "parsed_year": 2024,
+      "parsed_venue": "arXiv preprint arXiv:2312.10997, 2024",
+      "crossref_status": "strong_match",
+      "crossref_score": 0.78,
+      "crossref_title": "Graph Retrieval-Augmented Generation for Large Language Models: A Survey",
+      "crossref_year": 2024,
+      "crossref_doi": "10.2139/ssrn.4895062",
+      "error": null
+    },
+    {
+      "reference_index": "4",
+      "parsed_title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "parsed_year": 2024,
+      "parsed_venue": "Transactions of the Association for Computational Linguistics, 12:157\u2013173, 2024",
+      "crossref_status": "strong_match",
+      "crossref_score": 0.779,
+      "crossref_title": "Found in the Middle: How Language Models Use Long Contexts Better via Plug-and-Play Positional Encoding",
+      "crossref_year": 2024,
+      "crossref_doi": "10.52202/079017-1943",
+      "error": null
+    },
+    {
+      "reference_index": "5",
+      "parsed_title": "Large Language Models Can Be Easily Distracted by Irrelevant Context",
+      "parsed_year": 2023,
+      "parsed_venue": "In Proceedings of ICML, 2023",
+      "crossref_status": "weak_match",
+      "crossref_score": 0.459,
+      "crossref_title": "Security Knowledge Dilution in Large Language Models: How Irrelevant Context Degrades Critical Domain Expertise",
+      "crossref_year": 2025,
+      "crossref_doi": "10.36227/techrxiv.176184397.77169395/v1",
+      "error": null
+    }
+  ],
+  "caveat": "Crossref is a bibliographic lookup baseline. It does not classify citation need or verify whether a source supports a claim."
+}

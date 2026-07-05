@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ClaimGuard Technical Report</title>
+<style>
+  @page { size: A4; margin: 1.8cm 1.9cm 1.8cm 1.9cm; }
+  body { font-family: Aptos, Calibri, Arial, sans-serif; color: #182230; font-size: 10.5pt; line-height: 1.16; margin: 0; }
+  h1 { color: #0b132b; font-size: 20pt; margin: 0 0 10pt 0; }
+  h2 { color: #0b132b; font-size: 16pt; margin: 0 0 8pt 0; border-bottom: 1.5pt solid #2563eb; padding-bottom: 4pt; }
+  h3 { color: #2563eb; font-size: 12pt; margin: 11pt 0 4pt 0; }
+  p { margin: 0 0 7pt 0; text-align: justify; }
+  ul { margin: 3pt 0 8pt 18pt; padding: 0; }
+  li { margin-bottom: 3pt; }
+  table { width: 100%; border-collapse: collapse; margin: 7pt 0 10pt 0; font-size: 9pt; }
+  th { background: #0b132b; color: white; font-weight: bold; padding: 5pt; border: 0.5pt solid #d7dfea; }
+  td { padding: 4.5pt; border: 0.5pt solid #d7dfea; vertical-align: top; }
+  tr:nth-child(even) td { background: #f3f6fa; }
+  .title-page { text-align: center; padding-top: 30pt; }
+  .title { font-size: 30pt; font-weight: bold; color: #0b132b; margin-top: 18pt; }
+  .subtitle { font-size: 16pt; color: #2563eb; font-weight: bold; margin: 8pt 0 24pt 0; }
+  .meta { color: #5d6b7a; font-size: 11pt; margin-bottom: 22pt; }
+  .abstract-box { border: 1pt solid #d7dfea; background: #f3f6fa; padding: 12pt 15pt; text-align: left; }
+  .abstract-box h2 { border: 0; text-align: left; font-size: 14pt; margin-bottom: 6pt; }
+  .keywords { font-size: 9.5pt; color: #5d6b7a; margin-top: 8pt; }
+  .pagebreak { page-break-before: always; }
+  .callout { border-left: 4pt solid #2563eb; background: #eff6ff; padding: 7pt 10pt; margin: 8pt 0; }
+  .warning { border-left-color: #f59e0b; background: #fff7ed; }
+  .danger { border-left-color: #ef4444; background: #fef2f2; }
+  .architecture td { text-align: center; background: #f3f6fa; border: 1pt solid #2563eb; font-size: 9pt; }
+  .architecture .arrow { border: 0; background: white; color: #2563eb; font-size: 16pt; font-weight: bold; width: 3%; padding: 0; vertical-align: middle; }
+  .stage { font-weight: bold; color: #0b132b; font-size: 10pt; display: block; margin-bottom: 3pt; }
+  .caption { font-size: 8.5pt; color: #5d6b7a; text-align: center; margin-top: -5pt; }
+  .small { font-size: 8.5pt; color: #5d6b7a; }
+  .code { font-family: Consolas, "Courier New", monospace; font-size: 8.5pt; background: #0b132b; color: white; padding: 8pt; white-space: pre-wrap; margin: 6pt 0 9pt 0; }
+  .ref { padding-left: 18pt; text-indent: -18pt; font-size: 9pt; margin-bottom: 5pt; text-align: left; }
+  .metric { font-weight: bold; color: #2563eb; }
+  .center { text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="title-page">
+  <div style="font-size:12pt;color:#38bdf8;font-weight:bold;letter-spacing:1pt;">MWI DEEP LEARNING CAPSTONE</div>
+  <div class="title">ClaimGuard</div>
+  <div class="subtitle">An Evidence-Backed Pipeline for Academic Citation Integrity Checking</div>
+  <div class="meta">Nils Wagner and Nick Wenzel<br>Heilbronn University of Applied Sciences<br>2 July 2026</div>
+</div>
+
+<div class="abstract-box">
+<h2>Abstract</h2>
+    <p>Academic integrity checking requires more than detecting copied text: a reference may be real while failing to support the sentence that cites it. ClaimGuard is a pipeline that processes documents, identifies claim-bearing sentences and missing citations, parses and validates references, retrieves evidence, and assigns five source-support labels. The implementation combines rules, Crossref, Semantic Scholar and OpenAlex, lexical or Sentence-BERT retrieval, a local Ollama verifier, an OpenAI frontier verifier, and a SciFact LoRA classifier. Evaluation separates regression tests from authentic course reports. On a 30-case support benchmark, the lexical verifier reached 0.900 accuracy and 0.900 Macro-F1; embedding retrieval reached 0.867 accuracy and 0.868 Macro-F1. On 50 manually annotated sentences from five real reports, claim-type accuracy fell to 0.520 and citation-needed F1 to 0.267, exposing domain shift. A DistilBERT LoRA adapter achieved 0.353 Macro-F1 on SciFact validation but only 0.172 on ClaimGuard's incompatible five-label taxonomy. One Report 5 claim produced different OpenAI and Ollama verdicts, demonstrating why evidence and rationale must remain visible. ClaimGuard is therefore best treated as reviewer triage, not proof of misconduct. Limitations are noisy PDF extraction, small single-annotator evaluations, metadata rate limits, incomplete full-text access, model non-determinism, and hardware constraints.</p>
+<p class="keywords"><b>Keywords:</b> academic integrity, citation verification, retrieval-augmented generation, scientific claim verification, LoRA, human-in-the-loop review</p>
+</div>
+
+<div class="pagebreak"></div>
+<h2>1. Introduction</h2>
+
+<p>Academic reports increasingly combine conventional references, web-accessible research, and language-model-assisted writing. This makes integrity review both more important and more difficult. A bibliography can contain fabricated works, malformed metadata, or genuine papers that do not establish the claims attached to them. Traditional plagiarism detection addresses textual overlap, but it does not answer whether a factual statement needs a citation, whether the cited record exists, or whether accessible source evidence supports the statement. Manually answering those questions requires the reviewer to move repeatedly between a report, bibliographic databases, and full texts. The cost grows quickly with document length and encourages superficial spot checks.</p>
+
+<p>The practical risk is asymmetric. Missing a fabricated or misleading citation weakens assessment quality, yet a false positive can unfairly imply misconduct. ClaimGuard therefore adopts a decision-support framing: it prioritizes passages for human inspection and preserves the evidence behind each flag. It never converts a model score into an automatic accusation. The central design principle is auditability. Every report contains the original sentence, detected citation markers, parsed reference fields, metadata candidates, retrieved passages, verifier backend, confidence, latency, and—where available—API request and token-usage metadata.</p>
+
+<h3>1.1 Research questions</h3>
+<p>The project investigates four questions:</p>
+<ul>
+  <li><b>RQ1:</b> Can lightweight, section-aware rules identify claim types and sentences that require citations in authentic academic PDFs?</li>
+  <li><b>RQ2:</b> Can IEEE-like references be extracted and validated robustly when PDF conversion removes quotation marks or spaces?</li>
+  <li><b>RQ3:</b> How well do lexical and semantic retrieval support a five-way judgment of supported, partially supported, not supported, contradicted, or insufficient evidence?</li>
+  <li><b>RQ4:</b> What trade-offs emerge between transparent heuristics, a local Ollama model, an OpenAI frontier model, and a SciFact-trained LoRA adapter?</li>
+</ul>
+
+<h3>1.2 Implemented scope</h3>
+<p>All three core modules were implemented: claim and citation analysis, bibliographic parsing and validation, and retrieval-based source-support verification. Optional functionality includes a shared backend comparison harness, real Sentence-Transformer retrieval, a GPU-trained SciFact LoRA adapter, and an AI-text detection interface with a heuristic baseline and Binoculars integration. The official Binoculars model pair was not executed because its two Falcon-7B models exceed the available 8 GB GPU memory. Outputs are available as detailed JSON, concise Markdown, CSV annotations, and reproducible evaluation files.</p>
+
+<div class="callout"><b>Contribution.</b> The system's distinguishing feature is not a single classifier. It is the connection of sentence-level citation need, bibliographic identity, retrieved evidence, and interchangeable verifier backends in one inspectable workflow.</div>
+
+<div class="pagebreak"></div>
+<h2>2. Related Work</h2>
+
+<p><b>Scientific claim verification.</b> SciFact formalized verification against scientific abstracts and introduced expert-written claims with support, refutation, and evidence rationales [1]. MultiVerS later incorporated weak supervision and full-document context, addressing the limitations of abstract-only decisions [2]. These systems demonstrate that scientific verification differs from open-domain fact checking: terminology is specialized, evidence can span several sentences, and absence of support is not equivalent to contradiction. ClaimGuard adopts this distinction but adds upstream citation-need detection and bibliographic validation.</p>
+
+<p><b>Retrieval and sentence representations.</b> Retrieval-augmented generation combines parametric models with external non-parametric memory and makes provenance available to downstream generation [3]. Sentence-BERT produces sentence vectors that can be compared efficiently with cosine similarity [4]. ClaimGuard uses `all-MiniLM-L6-v2`, a compact Sentence-Transformer, but retains deterministic lexical retrieval because package availability, platform constraints, or direct terminology overlap may favor a simpler method. This fallback also provides a transparent baseline.</p>
+
+<p><b>Bibliographic infrastructure.</b> GROBID applies learned document parsing to scholarly PDFs and is widely used for extracting structured bibliographic data [5]. S2ORC aggregates metadata, resolved references, citation mentions, and structured open full text [6]. OpenAlex provides a fully open scholarly graph and high-volume REST access [7], while Crossref exposes publisher-deposited work and DOI metadata through a public API [8]. These resources are complementary rather than interchangeable: metadata coverage, abstract availability, and identifier quality vary by venue and document type.</p>
+
+<p><b>Citation-context tools.</b> scite links citations to surrounding statements and classifies citation intent as supporting, contrasting, or mentioning [9]. It offers substantially broader infrastructure than this student project, but its unit of analysis is how later literature cites a work, whereas ClaimGuard asks whether a sentence in the document under review is supported by its cited evidence. ClaimGuard also accepts arbitrary local reports without requiring them to be part of a pre-indexed citation graph.</p>
+
+<p><b>Parameter-efficient adaptation and AI-text detection.</b> LoRA freezes base weights and trains low-rank update matrices, reducing adaptation cost [10]. ClaimGuard uses LoRA to train a local SciFact classifier on consumer hardware. Binoculars contrasts the likelihood behavior of two related causal language models for zero-shot machine-text detection [11]. Its published threshold is model-pair dependent; substituting smaller models without recalibration would make the result scientifically misleading.</p>
+
+<div class="callout warning"><b>Identified gap.</b> Existing systems usually specialize in reference parsing, scholarly search, citation-context indexing, or claim verification. ClaimGuard integrates all four stages and exposes disagreements between local, frontier, and fine-tuned models on the same sentence and evidence.</div>
+
+<div class="pagebreak"></div>
+<h2>3. System Architecture &amp; Methods</h2>
+
+<h3>3.1 Pipeline overview</h3>
+<table class="architecture">
+  <tr>
+    <td><span class="stage">1. Ingest</span>PDF/TXT extraction<br>section cleanup</td>
+    <td class="arrow">→</td>
+    <td><span class="stage">2. Claims</span>type classification<br>citation need</td>
+    <td class="arrow">→</td>
+    <td><span class="stage">3. References</span>IEEE parsing<br>metadata lookup</td>
+    <td class="arrow">→</td>
+    <td><span class="stage">4. Evidence</span>chunking<br>lexical/embedding retrieval</td>
+    <td class="arrow">→</td>
+    <td><span class="stage">5. Verdict</span>heuristic, Ollama,<br>OpenAI, or LoRA</td>
+  </tr>
+</table>
+<p class="caption"><b>Figure 1.</b> ClaimGuard's end-to-end pipeline. An audit rail records evidence, model identity, confidence, latency, and API metadata.</p>
+
+<h3>3.2 Document processing and Module 1</h3>
+<p>The document parser accepts UTF-8 or Windows-encoded text and PDFs. It first uses `pypdf`, then optional alternative extractors, and finally a limited built-in PDF stream parser. Extracted text is cleaned and divided into main content, references, and evidence sections. Sentence splitting includes protections for initials, abbreviations, decimal values, and citation markers. Section headings are propagated to later sentences because citation expectations differ between introductions, methods, and results.</p>
+
+<p>The claim classifier assigns one of five labels: factual claim, methodological statement, opinion or interpretation, background or definition, and non-claim. Its transparent scoring rules use empirical verbs, numerical patterns, first-person method cues, hedging, and definitional constructions. Bracketed IEEE citations, ranges, and grouped markers are linked to reference indices. A factual claim outside method/result sections is flagged when no same-sentence or safely inherited previous-sentence citation is present. Severity increases for numerical, causal, universal, or explicit prior-research assertions.</p>
+
+<h3>3.3 Module 2: reference parsing and validation</h3>
+<p>The reference parser splits bracketed and numbered entries, extracts index, title, authors, year, DOI, and venue, and repairs common PDF artifacts. Report 5 motivated two concrete fixes: unquoted IEEE author lists must not be mistaken for titles, and collapsed strings such as `InAdvances`, `Transactions`, or `arXiv` require boundary restoration. The parser now correctly recovers all five Report 5 titles, years, and venues on manual inspection.</p>
+
+<p>Validation queries Crossref, Semantic Scholar, and OpenAlex. Candidates receive fuzzy title, author, and year scores; DOI matches are preferred. Status values distinguish validated, plausible, unverified, and API-unavailable records. Unpaywall-style open-access links and bounded PDF retrieval can enrich evidence, but network features are opt-in, time-limited, size-limited, and never required for the offline report.</p>
+
+<h3>3.4 Module 3: evidence retrieval</h3>
+<p>Available abstracts, reference metadata, supplied evidence, and optional open full text are divided into overlapping chunks. The lexical backend normalizes tokens, removes stop words, applies light stemming, and calculates overlap-based similarity. The semantic backend encodes queries and chunks with `sentence-transformers/all-MiniLM-L6-v2` and uses normalized cosine similarity. FAISS is used where available; NumPy cosine serves as the Windows fallback. Retrieval is restricted to cited reference indices when possible, preventing unrelated documents from dominating a verdict.</p>
+
+<div class="pagebreak"></div>
+<h2>3. System Architecture &amp; Methods (continued)</h2>
+
+<h3>3.5 Verification backends</h3>
+<p>The deterministic verifier measures lexical coverage, negation, directional conflict, and explicit absence-of-evidence language. It provides an interpretable baseline and works without model downloads. The Ollama backend sends the same claim and top evidence to `qwen3:1.7b` with temperature zero and JSON output. The OpenAI backend uses `gpt-5.4-mini`, the Responses API, `store=false`, and a strict JSON schema. Both generative backends must return one of the five statuses, a confidence value, and a concise rationale. Response identifiers, model IDs, latency, and token counts are preserved.</p>
+
+<div class="code">Classify the claim using exactly one status: supported, partially_supported,
+not_supported, contradicted, or insufficient_evidence.
+Judge only from the supplied evidence. Return JSON with status, confidence (0..1),
+and a concise rationale.</div>
+
+<p>The SciFact adapter was trained from `distilbert-base-uncased` with LoRA rank 8 and alpha 16 on the query/value projections. The official SciFact archive was checksum-verified before loading. Training used 1,261 examples, 450 validation examples, seed 42, an effective batch size of 16, three epochs, and CUDA 12.8 on an RTX 3070 Ti. The adapter and task head contain 740,355 trainable parameters (1.09% of the model). Its native labels—support, contradiction, and not enough information—map to three of ClaimGuard's five labels.</p>
+
+<h3>3.6 Optional AI-text detection</h3>
+<p>A lightweight heuristic uses sentence-length regularity, repeated sentence openings, and formulaic transitions. It is explicitly labeled a baseline and cannot prove authorship. The official Binoculars interface is implemented, but the calibrated Falcon-7B/Falcon-7B-Instruct pair was not downloaded or executed: approximately 14 billion parameters exceed the 8 GB GPU, and using a smaller pair would invalidate the published threshold [11].</p>
+
+<h3>3.7 Evaluation design</h3>
+<table>
+  <tr><th>Evaluation</th><th>Cases</th><th>Purpose</th><th>Primary metrics</th></tr>
+  <tr><td>Synthetic claim benchmark</td><td>25</td><td>Regression test for Module 1 patterns</td><td>Accuracy, citation-needed P/R/F1</td></tr>
+  <tr><td>Real RQ1–RQ5 annotations</td><td>50</td><td>Single-annotator domain-transfer test</td><td>Claim Macro-F1, citation-needed P/R/F1</td></tr>
+  <tr><td>Reference parser benchmark</td><td>5</td><td>Field extraction regression</td><td>Per-field and all-field accuracy</td></tr>
+  <tr><td>Five-way support benchmark</td><td>30</td><td>Six balanced cases per verifier label</td><td>Macro-/micro-F1, confusion matrix</td></tr>
+  <tr><td>SciFact validation</td><td>450</td><td>Native three-label LoRA evaluation</td><td>Accuracy, Macro-F1</td></tr>
+  <tr><td>Report 5 model diagnostic</td><td>1 claim</td><td>Local/frontier output and latency check</td><td>Label, latency, token usage</td></tr>
+</table>
+
+<p>The 50 real sentences comprise ten manually selected examples from each submitted RQ report. Each record contains document, original sentence index, section, expected claim type, citation-needed flag, annotator, and rationale. Because only one annotator was available, no inter-annotator agreement is claimed. The 30 support cases are synthetic and balanced; they are useful for controlled comparison but not a deployment estimate.</p>
+
+<h3>3.8 Existing-tool baseline</h3>
+<p>A Crossref-only bibliographic baseline queried the five parsed Report 5 titles with the public REST API [8]. Crossref is an appropriate basic baseline for work identity, but it does not detect citation need or evaluate claim support. Returned top candidates were compared manually against the exact cited titles. This separates genuine retrieval from fuzzy near-neighbor matches.</p>
+
+<div class="pagebreak"></div>
+<h2>4. Results</h2>
+
+<h3>4.1 Quantitative evaluation</h3>
+<table>
+  <tr><th>Component</th><th>N</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>Macro-F1 / F1</th></tr>
+  <tr><td>Synthetic claim classification</td><td>25</td><td>1.000</td><td>1.000*</td><td>1.000*</td><td>1.000 / 1.000*</td></tr>
+  <tr><td>Real RQ claim classification</td><td>50</td><td>0.520</td><td>—</td><td>—</td><td>0.437</td></tr>
+  <tr><td>Real RQ citation-needed</td><td>50</td><td>—</td><td>0.250</td><td>0.286</td><td>0.267</td></tr>
+  <tr><td>IEEE reference parsing</td><td>5</td><td>1.000</td><td>—</td><td>—</td><td>all fields 1.000</td></tr>
+  <tr><td>Five-way verification, lexical</td><td>30</td><td>0.900</td><td>0.905</td><td>0.900</td><td>0.900</td></tr>
+  <tr><td>Five-way verification, embeddings</td><td>30</td><td>0.867</td><td>0.900</td><td>0.867</td><td>0.868</td></tr>
+  <tr><td>SciFact LoRA, native validation</td><td>450</td><td>0.409</td><td>—</td><td>—</td><td>0.353</td></tr>
+  <tr><td>LoRA transfer to five labels</td><td>30</td><td>0.300</td><td>0.130</td><td>0.300</td><td>0.172</td></tr>
+</table>
+<p class="small">* Precision, recall, and F1 refer to citation-needed detection. All reported values come from saved JSON outputs.</p>
+
+<p>The most important result is the gap between synthetic and authentic text. Handcrafted patterns achieved perfect scores on the 25-case regression set but only 0.520 claim-type accuracy on real RQ sentences. Definitions were never correctly recovered as a class, and nine of fifteen methodological statements were predicted as factual claims. Citation-needed recall was 0.286, meaning five of seven annotated missing citations were missed. The rules remain useful for prioritization, but their synthetic score substantially overstates generalization.</p>
+
+<p>On the balanced support benchmark, the lexical verifier performed strongly, with contradiction F1 of 1.000 and overall Macro-F1 of 0.900. Sentence embeddings reduced Macro-F1 to 0.868. The benchmark evidence consists of short, direct passages where literal overlap is already informative; semantic retrieval therefore added no benefit. LoRA transfer was weak because its three-label head cannot emit `partially_supported` or `not_supported`, which together represent twelve of thirty test cases.</p>
+
+<h3>4.2 Qualitative successes and failures</h3>
+<table>
+  <tr><th>Case</th><th>System behavior</th><th>Assessment</th></tr>
+  <tr><td>RQ5, sentence 12</td><td>Flagged the uncited statement that retrieval is a central RAG bottleneck.</td><td>Useful high-severity triage.</td></tr>
+  <tr><td>Report 5 references</td><td>Recovered five titles, years, and venues despite collapsed IEEE spacing.</td><td>Parser fix succeeded on authentic PDF output.</td></tr>
+  <tr><td>Contradiction benchmark</td><td>Recognized that evidence saying models “do not eliminate errors” contradicts “eliminate all hallucinations.”</td><td>Transparent negation/direction cues worked.</td></tr>
+  <tr><td>RQ1-02</td><td>Predicted a result interpretation as a factual claim.</td><td>Mixed result-plus-interpretation sentences confuse rules.</td></tr>
+  <tr><td>RQ1-05</td><td>Failed to label an overfitting definition as background/definition.</td><td>Definition patterns are too narrow.</td></tr>
+  <tr><td>RQ5 title/header</td><td>Flagged PDF title-page text as a citation-needed factual claim.</td><td>Layout noise survives text extraction.</td></tr>
+</table>
+
+<h3>4.3 Local versus frontier diagnostic</h3>
+<p>For the real claim “RAG connects a language model to external knowledge without changing the model weights,” OpenAI `gpt-5.4-mini` returned <i>insufficient evidence</i> with confidence 0.84 in 1.889 s using 506 total tokens. Local `qwen3:1.7b` returned <i>supported</i> with confidence 1.0 in 40.902 s. The OpenAI rationale was more conservative: retrieved reference metadata identified relevant RAG papers but did not explicitly state the “without changing weights” clause. The frontier model therefore justified its small API cost in latency and disciplined evidence use for this example. However, one claim is not an accuracy benchmark; no general superiority claim is made until all 30 gold cases are evaluated.</p>
+
+<div class="pagebreak"></div>
+<h2>4. Results (continued): Existing-Tool Baseline</h2>
+
+<h3>4.4 Crossref-only comparison on five real references</h3>
+<table>
+  <tr><th>#</th><th>Parsed Report 5 title</th><th>Crossref top result</th><th>Fuzzy score</th><th>Manual top-1 judgment</th></tr>
+  <tr><td>1</td><td>Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</td><td>Multilingual Retrieval-Augmented Generation for Knowledge-Intensive Question Answering Task (2026)</td><td>0.593</td><td>Incorrect</td></tr>
+  <tr><td>2</td><td>Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks</td><td>Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks (2019)</td><td>0.867</td><td><b>Correct</b></td></tr>
+  <tr><td>3</td><td>Retrieval-Augmented Generation for Large Language Models: A Survey</td><td>Graph Retrieval-Augmented Generation for Large Language Models: A Survey (2024)</td><td>0.780</td><td>Incorrect near-neighbor</td></tr>
+  <tr><td>4</td><td>Lost in the Middle: How Language Models Use Long Contexts</td><td>Found in the Middle: How Language Models Use Long Contexts Better… (2024)</td><td>0.779</td><td>Incorrect near-neighbor</td></tr>
+  <tr><td>5</td><td>Large Language Models Can Be Easily Distracted by Irrelevant Context</td><td>Security Knowledge Dilution in Large Language Models… (2025)</td><td>0.459</td><td>Incorrect</td></tr>
+</table>
+
+<p>The Crossref-only top result was exactly correct for one of five references. More importantly, two false candidates exceeded the nominal 0.75 fuzzy threshold because they shared most title terms and the publication year. This result is not an indictment of Crossref: the API returns bibliographic candidates from deposited metadata and does not promise semantic identity from a free-text title query. It demonstrates why ClaimGuard must expose candidate titles and combine DOI, title, author, year, and multiple services rather than silently accepting the highest lexical score.</p>
+
+<p>Compared with the baseline, ClaimGuard adds three capabilities: it first parses the local reference rather than treating the query as opaque text; it can seek corroboration from Semantic Scholar and OpenAlex; and it connects the validated work to the specific claim and retrieved evidence. Conversely, mature services such as Crossref and scite have vastly greater coverage, curation, and production infrastructure. ClaimGuard should be understood as an orchestration and review layer over such resources, not a replacement for them.</p>
+
+<h3>4.5 Reproducibility</h3>
+<p>All metrics were generated by command-line scripts and stored under `outputs/`. The environment used Python 3.14.3, PyTorch 2.11.0 with CUDA 12.8, an NVIDIA RTX 3070 Ti with 8 GB VRAM, and seed 42 for LoRA training. The relevant outputs are `rq_claim_evaluation.json`, `reference_evaluation.json`, `evaluation_lexical.json`, `evaluation_embeddings.json`, `evaluation_lora.json`, `model_comparison.json`, `crossref_baseline_rq5.json`, and `scifact-lora/training_report.json`. API response identifiers are retained locally; secrets are excluded.</p>
+
+<div class="pagebreak"></div>
+<h2>5. Discussion</h2>
+
+<h3>5.1 What works well</h3>
+<p>ClaimGuard's strongest contribution is coherent end-to-end behavior. A reviewer can move from an extracted sentence to citation markers, parsed metadata, evidence chunks, and a backend verdict without leaving the report. The deterministic fallback ensures that unavailable APIs or model packages do not stop analysis. The IEEE parser improvements were directly motivated by authentic Report 5 failures, and the Markdown output now makes different backend decisions visibly different. The project also demonstrates that real consumer-hardware LoRA training and GPU inference can be integrated with the same verifier interface.</p>
+
+<h3>5.2 Failure modes and threats to validity</h3>
+<p>PDF extraction remains the first major source of error. Lost spaces, page headers, author footnotes, and section numbers can create false claims or corrupt titles. Rule-based claim classification is brittle when a sentence mixes result, interpretation, and method. Metadata matching is vulnerable to near-identical titles, as the Crossref baseline shows. Abstract-only evidence may be insufficient even when the full paper supports a claim, while full-text retrieval is constrained by access rights and extraction quality. API timeouts, HTTP 429/503 responses, and incomplete publisher deposits further limit validation.</p>
+
+<p>The evaluation itself is deliberately modest. The support benchmark is synthetic and contains only six cases per class. The real RQ set has 50 examples and one annotator, so labels may reflect individual judgment and no agreement statistic is available. The five-reference parser test is a regression check, not a population estimate. The local/frontier comparison contains one authentic claim and therefore supports observations about latency and rationale, not accuracy. Model outputs may change across versions even at temperature zero.</p>
+
+<h3>5.3 Ethical considerations</h3>
+<p>False positives are consequential in academic settings. A missing-citation flag may reflect common knowledge, an extraction error, a previous-sentence citation, or an assignment convention. A source-support model may lack full text or misread cautious scientific language. AI-text detection is particularly sensitive: style-based heuristics and Binoculars scores cannot establish who authored a passage, and performance can vary by language, domain, editing, and model family. ClaimGuard therefore avoids misconduct labels, records uncertainty, and requires a human to inspect the original source before acting.</p>
+
+<h3>5.4 Future work</h3>
+<p>Priority work is to create a larger, double-annotated corpus of authentic reports and measure inter-annotator agreement. Claim classification should move from regex cues to a learned section-aware model with calibration and abstention. Verification should separate retrieval recall from entailment quality and add exact evidence-span labels. The five-way taxonomy should be aligned with SciFact before LoRA training rather than mapped after training. Metadata matching needs stricter identity constraints and calibrated thresholds. Finally, the complete 30-case gold benchmark should be run with Ollama and OpenAI under the same retrieval configuration, while Binoculars requires suitable cloud hardware or a separately calibrated lightweight model pair.</p>
+
+<div class="callout danger"><b>Conclusion.</b> ClaimGuard is already useful as auditable triage, but the measured synthetic-to-real gap argues against automatic enforcement. Its evidence trail is more trustworthy than any single score.</div>
+
+<div class="pagebreak"></div>
+<h2>References</h2>
+<p class="ref">[1] D. Wadden, S. Lin, K. Lo, L. L. Wang, M. van Zuylen, A. Cohan, and H. Hajishirzi, “Fact or Fiction: Verifying Scientific Claims,” <i>Proceedings of EMNLP</i>, pp. 7534–7550, 2020. doi: 10.18653/v1/2020.emnlp-main.609.</p>
+<p class="ref">[2] D. Wadden, K. Lo, L. L. Wang, A. Cohan, I. Beltagy, and H. Hajishirzi, “MultiVerS: Improving Scientific Claim Verification with Weak Supervision and Full-Document Context,” <i>Findings of NAACL</i>, 2022. arXiv:2112.01640.</p>
+<p class="ref">[3] P. Lewis et al., “Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks,” <i>Advances in Neural Information Processing Systems</i>, vol. 33, pp. 9459–9474, 2020.</p>
+<p class="ref">[4] N. Reimers and I. Gurevych, “Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks,” <i>Proceedings of EMNLP-IJCNLP</i>, pp. 3982–3992, 2019. doi: 10.18653/v1/D19-1410.</p>
+<p class="ref">[5] P. Lopez, “GROBID: Combining Automatic Bibliographic Data Recognition and Term Extraction for Scholarship Publications,” <i>ECDL</i>, pp. 473–474, 2009. doi: 10.1007/978-3-642-04346-8_62.</p>
+<p class="ref">[6] K. Lo, L. L. Wang, M. Neumann, R. Kinney, and D. Weld, “S2ORC: The Semantic Scholar Open Research Corpus,” <i>Proceedings of ACL</i>, pp. 4969–4983, 2020. doi: 10.18653/v1/2020.acl-main.447.</p>
+<p class="ref">[7] J. Priem, H. Piwowar, and R. Orr, “OpenAlex: A Fully-Open Index of Scholarly Works, Authors, Venues, Institutions, and Concepts,” arXiv:2205.01833, 2022.</p>
+<p class="ref">[8] Crossref, “REST API Documentation,” 2026. [Online]. Available: https://www.crossref.org/documentation/retrieve-metadata/rest-api/. Accessed: July 2, 2026.</p>
+<p class="ref">[9] J. M. Nicholson et al., “scite: A Smart Citation Index that Displays the Context of Citations and Classifies Their Intent Using Deep Learning,” <i>Quantitative Science Studies</i>, vol. 2, no. 3, pp. 882–898, 2021. doi: 10.1162/qss_a_00146.</p>
+<p class="ref">[10] E. J. Hu et al., “LoRA: Low-Rank Adaptation of Large Language Models,” <i>International Conference on Learning Representations</i>, 2022. arXiv:2106.09685.</p>
+<p class="ref">[11] A. Hans et al., “Spotting LLMs With Binoculars: Zero-Shot Detection of Machine-Generated Text,” <i>Proceedings of the 41st International Conference on Machine Learning</i>, PMLR 235, pp. 17519–17537, 2024.</p>
+
+<div class="pagebreak"></div>
+<h2>Appendix A. Reproduction Commands and Prompt</h2>
+
+<h3>A.1 Main analysis</h3>
+<div class="code">python run_claimguard.py `
+  --input "Reports/NW2_RQ5_Report.pdf" `
+  --output outputs/rq5_openai.json `
+  --markdown-output outputs/rq5_openai.md `
+  --verifier openai --enable-apis</div>
+
+<h3>A.2 Evaluation</h3>
+<div class="code">python run_claim_evaluation.py --benchmark data/benchmark/rq_claim_annotations.csv --output outputs/rq_claim_evaluation.json
+python run_evaluation.py --benchmark data/benchmark/claimguard_benchmark.csv --output outputs/evaluation_lexical.json --verifier heuristic
+python run_evaluation.py --benchmark data/benchmark/claimguard_benchmark.csv --output outputs/evaluation_lora.json --verifier lora</div>
+
+<h3>A.3 Sanitized OpenAI response sample</h3>
+<div class="code">{
+  "status": "insufficient_evidence",
+  "confidence": 0.84,
+  "rationale": "The retrieved metadata identifies relevant RAG papers but does not explicitly establish the complete claim.",
+  "usage": {"input_tokens": 441, "output_tokens": 65, "total_tokens": 506},
+  "latency_ms": 1889
+}</div>
+
+<p class="small">API keys, project identifiers, and organization identifiers are intentionally omitted.</p>
+
+</body>
+</html>
