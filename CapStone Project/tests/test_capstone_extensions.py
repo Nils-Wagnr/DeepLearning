@@ -49,19 +49,29 @@ def test_model_verdict_parser_enforces_shared_schema() -> None:
 
 
 def test_ollama_backend_uses_shared_verdict(monkeypatch) -> None:
+    captured = {}
+
+    def fake_post_json(url, payload, timeout):
+        captured.update({"url": url, "payload": payload, "timeout": timeout})
+        return {
+            "response": '{"status":"supported","confidence":0.8,"rationale":"Matched."}',
+            "eval_count": 12,
+        }
+
     monkeypatch.setattr(
         model_verifiers,
         "_post_json",
-        lambda *args, **kwargs: {
-            "response": '{"status":"supported","confidence":0.8,"rationale":"Matched."}',
-            "eval_count": 12,
-        },
+        fake_post_json,
     )
     verdict = model_verifiers.OllamaVerifier(model="demo").verify(
         "Claim", [EvidencePassage(text="Evidence", source="test")]
     )
     assert verdict.backend == "ollama"
     assert verdict.status == "supported"
+    assert captured["payload"]["format"]["properties"]["status"]["enum"] == list(
+        model_verifiers.LABELS
+    )
+    assert captured["payload"]["format"]["required"] == ["status", "confidence", "rationale"]
 
 
 def test_openai_backend_parses_responses_api_output(monkeypatch) -> None:

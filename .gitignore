@@ -5,5 +5,6 @@ RQ1 (Woche2)/data/
 __pycache__/
 *.py[cod]
 .pytest_cache/
+*.egg-info/
 requirements.txt
 requirements-gpu.txt

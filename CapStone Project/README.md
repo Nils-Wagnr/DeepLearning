@@ -17,6 +17,22 @@ modules from the assignment:
 All optional network and model features are opt-in. The base application remains deterministic
 and runnable offline.
 
+## Interactive frontend
+
+ClaimGuard includes a German Streamlit interface for uploads, pasted text, sample documents,
+claim-by-claim evidence review, cautious result interpretation, and JSON export. Install and
+start it from inside `CapStone Project/`:
+
+```powershell
+python -m pip install -e ".[ui]"
+streamlit run streamlit_app.py
+```
+
+The default heuristic mode runs locally and is recommended for a quick demonstration. Ollama,
+OpenAI, SciFact-LoRA, scholarly APIs, and AI-text detection can be selected in the sidebar when
+their respective dependencies and environment variables are configured. Confidence values in
+the interface are explicitly presented as model signals, not correctness probabilities.
+
 ## 1. Base installation
 
 Run from inside `CapStone Project/`:

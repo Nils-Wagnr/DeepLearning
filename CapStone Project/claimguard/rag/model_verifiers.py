@@ -73,10 +73,11 @@ class OllamaVerifier:
 
     def verify(self, claim: str, evidence: list[EvidencePassage]) -> BackendVerdict:
         started = time.perf_counter()
+        schema = _verdict_schema()
         payload = {
             "model": self.model,
             "prompt": _verification_prompt(claim, evidence),
-            "format": "json",
+            "format": schema,
             "stream": False,
             "options": {"temperature": 0},
         }
@@ -288,6 +289,21 @@ def _verification_prompt(claim: str, evidence: list[EvidencePassage]) -> str:
         "too weak or irrelevant. Return JSON with status, confidence (0..1), and a concise rationale.\n\n"
         f"CLAIM:\n{claim}\n\nEVIDENCE:\n{snippets or '[none]'}"
     )
+
+
+def _verdict_schema() -> dict[str, Any]:
+    """Return the JSON schema enforced by Ollama's structured-output API."""
+
+    return {
+        "type": "object",
+        "properties": {
+            "status": {"type": "string", "enum": list(LABELS)},
+            "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+            "rationale": {"type": "string"},
+        },
+        "required": ["status", "confidence", "rationale"],
+        "additionalProperties": False,
+    }
 
 
 def _parse_verdict(text: str) -> dict[str, Any]:
