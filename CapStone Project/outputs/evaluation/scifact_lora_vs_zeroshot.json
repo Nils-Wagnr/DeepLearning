@@ -1,0 +1,3172 @@
+{
+  "status": "complete",
+  "dataset": "SciFact dev claim-document pairs",
+  "sampling": {
+    "total": 90,
+    "per_label": {
+      "SUPPORT": 30,
+      "CONTRADICT": 30,
+      "NOT_ENOUGH_INFO": 30
+    },
+    "case_ids": [
+      "SF-030",
+      "SF-085",
+      "SF-254",
+      "SF-125",
+      "SF-286",
+      "SF-144",
+      "SF-183",
+      "SF-383",
+      "SF-429",
+      "SF-104",
+      "SF-012",
+      "SF-173",
+      "SF-428",
+      "SF-188",
+      "SF-108",
+      "SF-223",
+      "SF-379",
+      "SF-209",
+      "SF-099",
+      "SF-365",
+      "SF-370",
+      "SF-368",
+      "SF-231",
+      "SF-360",
+      "SF-243",
+      "SF-362",
+      "SF-338",
+      "SF-105",
+      "SF-008",
+      "SF-132",
+      "SF-407",
+      "SF-078",
+      "SF-064",
+      "SF-228",
+      "SF-134",
+      "SF-074",
+      "SF-180",
+      "SF-285",
+      "SF-156",
+      "SF-232",
+      "SF-121",
+      "SF-342",
+      "SF-193",
+      "SF-216",
+      "SF-265",
+      "SF-004",
+      "SF-077",
+      "SF-140",
+      "SF-055",
+      "SF-390",
+      "SF-153",
+      "SF-373",
+      "SF-174",
+      "SF-272",
+      "SF-319",
+      "SF-269",
+      "SF-082",
+      "SF-431",
+      "SF-385",
+      "SF-219",
+      "SF-038",
+      "SF-439",
+      "SF-130",
+      "SF-381",
+      "SF-100",
+      "SF-060",
+      "SF-023",
+      "SF-152",
+      "SF-395",
+      "SF-215",
+      "SF-131",
+      "SF-332",
+      "SF-241",
+      "SF-127",
+      "SF-359",
+      "SF-070",
+      "SF-225",
+      "SF-230",
+      "SF-301",
+      "SF-289",
+      "SF-441",
+      "SF-045",
+      "SF-426",
+      "SF-126",
+      "SF-195",
+      "SF-073",
+      "SF-160",
+      "SF-154",
+      "SF-291",
+      "SF-434"
+    ]
+  },
+  "models": {
+    "lora": "outputs\\scifact-lora",
+    "ollama_zero_shot": "qwen3:1.7b"
+  },
+  "metrics": {
+    "majority": {
+      "n": 90,
+      "accuracy": 0.333,
+      "macro_f1": 0.167,
+      "per_label": {
+        "SUPPORT": {
+          "precision": 0.333,
+          "recall": 1.0,
+          "f1": 0.5,
+          "support": 30
+        },
+        "CONTRADICT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 30
+        },
+        "NOT_ENOUGH_INFO": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 30
+        }
+      },
+      "mean_latency_ms": 0.0
+    },
+    "lora": {
+      "n": 90,
+      "accuracy": 0.389,
+      "macro_f1": 0.367,
+      "per_label": {
+        "SUPPORT": {
+          "precision": 0.345,
+          "recall": 0.667,
+          "f1": 0.455,
+          "support": 30
+        },
+        "CONTRADICT": {
+          "precision": 0.45,
+          "recall": 0.3,
+          "f1": 0.36,
+          "support": 30
+        },
+        "NOT_ENOUGH_INFO": {
+          "precision": 0.5,
+          "recall": 0.2,
+          "f1": 0.286,
+          "support": 30
+        }
+      },
+      "mean_latency_ms": 7.5
+    },
+    "ollama_zero_shot": {
+      "n": 90,
+      "accuracy": 0.533,
+      "macro_f1": 0.433,
+      "per_label": {
+        "SUPPORT": {
+          "precision": 0.472,
+          "recall": 0.833,
+          "f1": 0.602,
+          "support": 30
+        },
+        "CONTRADICT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 30
+        },
+        "NOT_ENOUGH_INFO": {
+          "precision": 0.639,
+          "recall": 0.767,
+          "f1": 0.697,
+          "support": 30
+        }
+      },
+      "mean_latency_ms": 3368.4
+    }
+  },
+  "predictions": {
+    "majority": [
+      {
+        "case_id": "SF-030",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-085",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-254",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-125",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-286",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-144",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-183",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-383",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-429",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-104",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-012",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-173",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-428",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-188",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-108",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-223",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-379",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-209",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-099",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-365",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-370",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-368",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-231",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-360",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-243",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-362",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-338",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-105",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-008",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-132",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-407",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-078",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-064",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-228",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-134",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-074",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-180",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-285",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-156",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-232",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-121",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-342",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-193",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-216",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-265",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-004",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-077",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-140",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-055",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-390",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-153",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-373",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-174",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-272",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-319",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-269",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-082",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-431",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-385",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-219",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-038",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-439",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-130",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-381",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-100",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-060",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-023",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-152",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-395",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-215",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-131",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-332",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-241",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-127",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-359",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-070",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-225",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-230",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-301",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-289",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-441",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-045",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-426",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-126",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-195",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-073",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-160",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-154",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-291",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-434",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 0.0,
+        "rationale": "Most frequent label in the evaluation set.",
+        "metadata": {}
+      }
+    ],
+    "lora": [
+      {
+        "case_id": "SF-030",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.5072,
+        "latency_ms": 134.1,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-085",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.6282,
+        "latency_ms": 7.0,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-254",
+        "expected": "CONTRADICT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": 0.5184,
+        "latency_ms": 4.7,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-125",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.6777,
+        "latency_ms": 5.3,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-286",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.4192,
+        "latency_ms": 5.9,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-144",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": 0.4741,
+        "latency_ms": 4.4,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-183",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.565,
+        "latency_ms": 7.2,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-383",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.6469,
+        "latency_ms": 7.3,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-429",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.4869,
+        "latency_ms": 5.4,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-104",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5738,
+        "latency_ms": 4.3,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-012",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.6072,
+        "latency_ms": 5.3,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-173",
+        "expected": "CONTRADICT",
+        "predicted": "CONTRADICT",
+        "correct": true,
+        "confidence": 0.5106,
+        "latency_ms": 6.9,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-428",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": 0.4668,
+        "latency_ms": 4.2,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-188",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.6689,
+        "latency_ms": 5.9,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-108",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.621,
+        "latency_ms": 5.3,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-223",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.4373,
+        "latency_ms": 7.3,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-379",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.58,
+        "latency_ms": 6.5,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-209",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "CONTRADICT",
+        "correct": false,
+        "confidence": 0.4258,
+        "latency_ms": 6.2,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-099",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": 0.4818,
+        "latency_ms": 5.8,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-365",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.5854,
+        "latency_ms": 5.2,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-370",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.4706,
+        "latency_ms": 4.2,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-368",
+        "expected": "SUPPORT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": 0.5529,
+        "latency_ms": 5.2,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-231",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.518,
+        "latency_ms": 7.1,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-360",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.3721,
+        "latency_ms": 7.4,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-243",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.5155,
+        "latency_ms": 5.5,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-362",
+        "expected": "SUPPORT",
+        "predicted": "CONTRADICT",
+        "correct": false,
+        "confidence": 0.4612,
+        "latency_ms": 7.1,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-338",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.5116,
+        "latency_ms": 6.4,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-105",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5738,
+        "latency_ms": 4.4,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-008",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5318,
+        "latency_ms": 7.2,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-132",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5862,
+        "latency_ms": 5.9,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-407",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5105,
+        "latency_ms": 6.9,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-078",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5338,
+        "latency_ms": 5.3,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-064",
+        "expected": "SUPPORT",
+        "predicted": "CONTRADICT",
+        "correct": false,
+        "confidence": 0.5576,
+        "latency_ms": 6.9,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-228",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5504,
+        "latency_ms": 5.8,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-134",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.3879,
+        "latency_ms": 7.9,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-074",
+        "expected": "CONTRADICT",
+        "predicted": "CONTRADICT",
+        "correct": true,
+        "confidence": 0.4955,
+        "latency_ms": 6.8,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-180",
+        "expected": "SUPPORT",
+        "predicted": "CONTRADICT",
+        "correct": false,
+        "confidence": 0.5245,
+        "latency_ms": 7.1,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-285",
+        "expected": "CONTRADICT",
+        "predicted": "CONTRADICT",
+        "correct": true,
+        "confidence": 0.4651,
+        "latency_ms": 6.8,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-156",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5273,
+        "latency_ms": 4.1,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-232",
+        "expected": "CONTRADICT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": 0.5606,
+        "latency_ms": 5.7,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-121",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5783,
+        "latency_ms": 5.3,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-342",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5309,
+        "latency_ms": 4.2,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-193",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.6091,
+        "latency_ms": 6.7,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-216",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": 0.5545,
+        "latency_ms": 6.4,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-265",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5951,
+        "latency_ms": 6.3,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-004",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.427,
+        "latency_ms": 7.3,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-077",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5338,
+        "latency_ms": 5.4,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-140",
+        "expected": "SUPPORT",
+        "predicted": "CONTRADICT",
+        "correct": false,
+        "confidence": 0.5547,
+        "latency_ms": 7.3,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-055",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.536,
+        "latency_ms": 7.0,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-390",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.3712,
+        "latency_ms": 5.6,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-153",
+        "expected": "CONTRADICT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": 0.4758,
+        "latency_ms": 6.7,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-373",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.5809,
+        "latency_ms": 6.6,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-174",
+        "expected": "SUPPORT",
+        "predicted": "CONTRADICT",
+        "correct": false,
+        "confidence": 0.5115,
+        "latency_ms": 6.7,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-272",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.6094,
+        "latency_ms": 5.6,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-319",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.4915,
+        "latency_ms": 6.9,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-269",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.5834,
+        "latency_ms": 5.1,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-082",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "CONTRADICT",
+        "correct": false,
+        "confidence": 0.4732,
+        "latency_ms": 6.7,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-431",
+        "expected": "CONTRADICT",
+        "predicted": "CONTRADICT",
+        "correct": true,
+        "confidence": 0.5228,
+        "latency_ms": 6.7,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-385",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.4611,
+        "latency_ms": 5.1,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-219",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5386,
+        "latency_ms": 6.4,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-038",
+        "expected": "CONTRADICT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": 0.4423,
+        "latency_ms": 7.9,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-439",
+        "expected": "CONTRADICT",
+        "predicted": "CONTRADICT",
+        "correct": true,
+        "confidence": 0.5297,
+        "latency_ms": 6.4,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-130",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.4929,
+        "latency_ms": 4.3,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-381",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5319,
+        "latency_ms": 5.5,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-100",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.4457,
+        "latency_ms": 5.6,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-060",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.6261,
+        "latency_ms": 6.3,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-023",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.4881,
+        "latency_ms": 6.9,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-152",
+        "expected": "CONTRADICT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": 0.5498,
+        "latency_ms": 6.9,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-395",
+        "expected": "SUPPORT",
+        "predicted": "CONTRADICT",
+        "correct": false,
+        "confidence": 0.5762,
+        "latency_ms": 7.1,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-215",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": 0.5804,
+        "latency_ms": 6.7,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-131",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5728,
+        "latency_ms": 5.1,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-332",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.5253,
+        "latency_ms": 4.2,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-241",
+        "expected": "CONTRADICT",
+        "predicted": "CONTRADICT",
+        "correct": true,
+        "confidence": 0.4328,
+        "latency_ms": 6.1,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-127",
+        "expected": "CONTRADICT",
+        "predicted": "CONTRADICT",
+        "correct": true,
+        "confidence": 0.4899,
+        "latency_ms": 6.6,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-359",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.3721,
+        "latency_ms": 6.6,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-070",
+        "expected": "SUPPORT",
+        "predicted": "CONTRADICT",
+        "correct": false,
+        "confidence": 0.5239,
+        "latency_ms": 6.7,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-225",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.4351,
+        "latency_ms": 6.5,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-230",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.5182,
+        "latency_ms": 5.1,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-301",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.7144,
+        "latency_ms": 6.6,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-289",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.433,
+        "latency_ms": 5.0,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-441",
+        "expected": "SUPPORT",
+        "predicted": "CONTRADICT",
+        "correct": false,
+        "confidence": 0.5555,
+        "latency_ms": 6.8,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-045",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.6471,
+        "latency_ms": 5.7,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-426",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.4728,
+        "latency_ms": 6.6,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-126",
+        "expected": "CONTRADICT",
+        "predicted": "CONTRADICT",
+        "correct": true,
+        "confidence": 0.4899,
+        "latency_ms": 6.7,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-195",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.6096,
+        "latency_ms": 6.2,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-073",
+        "expected": "CONTRADICT",
+        "predicted": "CONTRADICT",
+        "correct": true,
+        "confidence": 0.4955,
+        "latency_ms": 6.6,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-160",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": 0.4657,
+        "latency_ms": 4.9,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-154",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": 0.6277,
+        "latency_ms": 6.2,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-291",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": 0.4014,
+        "latency_ms": 6.6,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      },
+      {
+        "case_id": "SF-434",
+        "expected": "SUPPORT",
+        "predicted": "CONTRADICT",
+        "correct": false,
+        "confidence": 0.5149,
+        "latency_ms": 6.8,
+        "rationale": "SciFact-trained DistilBERT LoRA adapter.",
+        "metadata": {}
+      }
+    ],
+    "ollama_zero_shot": [
+      {
+        "case_id": "SF-030",
+        "expected": "SUPPORT",
+        "predicted": "CONTRADICT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 37893.3,
+        "rationale": "The evidence shows that antibiotic-induced changes in the gut microbiome increase susceptibility to C. difficile, which directly contradicts the claim that antibiotic-induced alterations reduce resistance against C. difficile.",
+        "metadata": {
+          "prompt_eval_count": 312,
+          "eval_count": 52
+        }
+      },
+      {
+        "case_id": "SF-085",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 3132.3,
+        "rationale": "The evidence directly supports the claim that CX3CR1 on Th2 cells promotes airway inflammation. The evidence shows that CX3CR1 is required for airway inflammation by promoting T helper cell survival and maintenance in inflamed lungs, and that CX3CR1-deficient mice show reduced lung disease when challenged with allergens. Additionally, transfer of WT CD4+ T cells into CX3CR1-deficient mice restores asthma features, and CX3CR1-blocking reagents prevent airway inflammation in recipients with WT T(H)2 cells. These findings collectively establish that CX3CR1 is essential for the survival and maintenance of T(H)2 cells in the inflamed lungs, which is directly related to airway inflammation in asthma.",
+        "metadata": {
+          "prompt_eval_count": 394,
+          "eval_count": 163
+        }
+      },
+      {
+        "case_id": "SF-254",
+        "expected": "CONTRADICT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2931.6,
+        "rationale": "The evidence provided discusses the functions of mitochondria, including their role in apoptosis, but does not directly confirm or deny the claim that mitochondria are uninvolved in apoptosis. The evidence mentions that mitochondria participate in apoptosis, which would contradict the claim. However, the evidence is not explicit about the role of mitochondria in apoptosis, leaving the relationship ambiguous. The claim is not confirmed or refuted by the evidence provided.",
+        "metadata": {
+          "prompt_eval_count": 217,
+          "eval_count": 98
+        }
+      },
+      {
+        "case_id": "SF-125",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2885.2,
+        "rationale": "The evidence directly supports the claim that deletion of αvβ8 does not result in a spontaneous inflammatory phenotype. The study shows that Treg cells with the integrin αvβ8 are essential for suppressing T-cell-mediated inflammation, and their deletion did not lead to spontaneous inflammation, indicating that the pathway is not crucial for maintaining immune homeostasis in the absence of active inflammation. This directly supports the claim that the deletion of αvβ8 does not cause spontaneous inflammation.",
+        "metadata": {
+          "prompt_eval_count": 326,
+          "eval_count": 109
+        }
+      },
+      {
+        "case_id": "SF-286",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2812.2,
+        "rationale": "The evidence provided supports the claim that obesity is determined solely by genetic factors. The study on twins reared apart and together shows that genetic factors have a significant contribution to body-mass index variance, while environmental factors like shared childhood environments do not contribute significantly. The evidence directly supports the claim that genetic influences are substantial and environmental factors have little or no influence.",
+        "metadata": {
+          "prompt_eval_count": 423,
+          "eval_count": 85
+        }
+      },
+      {
+        "case_id": "SF-144",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2718.0,
+        "rationale": "The evidence provided discusses the use of quantum dots in imaging and distinguishing tumor components, but it does not directly address the claim about steric hindrance in flexible vs. rigid molecules. The evidence is about the application of quantum dots in tumor studies, not about molecular flexibility and steric effects.",
+        "metadata": {
+          "prompt_eval_count": 296,
+          "eval_count": 74
+        }
+      },
+      {
+        "case_id": "SF-183",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 3174.2,
+        "rationale": "The evidence provided discusses the role of N1-2'O-methylated RNA in RIG-I activation and its relationship to immune tolerance. However, the claim is about IFIT1 restricting viral replication by sequestrating mis-capped viral RNAs. The evidence does not directly address IFIT1's mechanism or its interaction with viral RNA. It focuses on the role of RIG-I in detecting 5'-triphosphorylated RNA and the effects of N1-2'O-methylation on RIG-I, but there is no direct information about IFIT1's role in sequestrating mis-capped viral RNAs. Therefore, the relationship cannot be determined from the given evidence.",
+        "metadata": {
+          "prompt_eval_count": 437,
+          "eval_count": 161
+        }
+      },
+      {
+        "case_id": "SF-383",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 3195.0,
+        "rationale": "The evidence provided discusses the effects of myeloid-specific KLF2 inactivation on atherosclerosis, showing increased adhesion of macrophages and neutrophils to endothelial cells and accelerated atherosclerosis. However, the claim is about the deleterious effects of deregulated and prolonged monocyte activation in inflammatory diseases. The evidence focuses on KLF2 in myeloid cells and their role in atherosclerosis, which is a different biological context from monocytes. There is no direct evidence linking monocyte activation to the deleterious effects mentioned in the claim. The evidence neither supports nor contradicts the specific claim about monocytes, so the relationship is not established.",
+        "metadata": {
+          "prompt_eval_count": 623,
+          "eval_count": 153
+        }
+      },
+      {
+        "case_id": "SF-429",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2941.3,
+        "rationale": "The evidence directly supports the claim that upregulation of mosGCTL-1 is induced upon infection with West Nile virus. The study shows that mosGCTL-1 is induced by WNV, interacts with WNV, and facilitates infection in both in vitro and in vivo experiments. The evidence provides clear evidence that the upregulation of mosGCTL-1 is a part of the process of WNV infection in mosquitoes.",
+        "metadata": {
+          "prompt_eval_count": 369,
+          "eval_count": 100
+        }
+      },
+      {
+        "case_id": "SF-104",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2814.8,
+        "rationale": "The evidence directly supports the claim that Chenodeosycholic acid treatment reduces whole-body energy expenditure. The study shows that oral supplementation of CDCA increased whole-body energy expenditure in human subjects, which directly aligns with the claim. The evidence provides specific data from a clinical trial demonstrating the effect of CDCA on energy expenditure in humans.",
+        "metadata": {
+          "prompt_eval_count": 307,
+          "eval_count": 78
+        }
+      },
+      {
+        "case_id": "SF-012",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2812.3,
+        "rationale": "The evidence directly supports the claim that Aire is expressed in some skin tumors. The evidence shows that Aire is inducibly expressed in human and mouse tumor keratinocytes, which are part of skin tumors, and that this expression is dependent on keratin 17 (K17). This directly aligns with the claim that Aire is expressed in some skin tumors.",
+        "metadata": {
+          "prompt_eval_count": 327,
+          "eval_count": 91
+        }
+      },
+      {
+        "case_id": "SF-173",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 3015.1,
+        "rationale": "The evidence provided in the study shows that higher plasma fibrinogen levels are associated with a higher risk of graft occlusion. The claim states that hyperfibrinogenemia decreases rates of femoropopliteal bypass thrombosis, which is directly supported by the study's findings that higher fibrinogen levels are linked to occlusion. The study's conclusion emphasizes that plasma fibrinogen is the most important predictor of graft occlusion, reinforcing the claim that hyperfibrinogenemia is associated with increased thrombosis risk.",
+        "metadata": {
+          "prompt_eval_count": 653,
+          "eval_count": 123
+        }
+      },
+      {
+        "case_id": "SF-428",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2787.5,
+        "rationale": "The evidence directly supports the claim that up-regulation of the p53 pathway and related molecular events causes cancer resistance and results in a significantly shortened lifespan marked by senescent cells and accelerated organismal aging. The evidence explains how the p53 pathway, through cellular senescence, contributes to both cancer resistance and aging, aligning with the claim's description.",
+        "metadata": {
+          "prompt_eval_count": 266,
+          "eval_count": 88
+        }
+      },
+      {
+        "case_id": "SF-188",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 3022.4,
+        "rationale": "The evidence provided does not directly support or contradict the claim about immune responses leading to the development of inflammatory Th17 cells and anti-inflammatory iTregs. The evidence discusses the role of adaptive immune compensation in protecting against colitis, but it does not specifically address the mechanisms or types of immune cells involved in the development of Th17 cells and iTregs. The claim is about specific immune cell types and their roles in a particular context, while the evidence focuses on broader protective mechanisms and the involvement of TGF-β-producing CD4+ T cells and IgA production. Therefore, there is not enough information to determine a direct relationship between the claim and the evidence.",
+        "metadata": {
+          "prompt_eval_count": 389,
+          "eval_count": 149
+        }
+      },
+      {
+        "case_id": "SF-108",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2822.9,
+        "rationale": "The evidence provided discusses the effects of cold exposure on atherosclerotic plaque growth and instability in mice, but it does not directly address the recruitment of brown adipose tissue (BAT) cells. The claim is about BAT recruitment, while the evidence focuses on lipid metabolism and atherosclerosis. There is no direct information linking cold exposure to BAT recruitment, so the relationship cannot be determined from the given evidence.",
+        "metadata": {
+          "prompt_eval_count": 360,
+          "eval_count": 95
+        }
+      },
+      {
+        "case_id": "SF-223",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2782.0,
+        "rationale": "The evidence provided in the study shows that implementing a universal leukoreduction program in Canada was associated with lower in-hospital mortality rates and reduced posttransfusion fevers and antibiotic use. This directly supports the claim that leukoreduction reduces infectious complications in red blood cell transfusions.",
+        "metadata": {
+          "prompt_eval_count": 612,
+          "eval_count": 70
+        }
+      },
+      {
+        "case_id": "SF-379",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 3068.9,
+        "rationale": "The evidence provided describes the structural and functional characteristics of TRPML1, including its conformational changes and the binding of agonists. However, the specific binding orientation of the ML-SA1 activator at hTRPML1 is not directly mentioned in the evidence. The evidence discusses the binding of agonists to TRPML1, but does not provide information about the binding orientation of ML-SA1 activator at hTRPML1. Therefore, the relationship between the claim and the evidence cannot be determined with certainty based on the given information.",
+        "metadata": {
+          "prompt_eval_count": 392,
+          "eval_count": 125
+        }
+      },
+      {
+        "case_id": "SF-209",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2891.9,
+        "rationale": "The evidence provided is a longitudinal study on mental health outcomes in homeless families after rehousing. While it shows that mental health problems remain higher in rehoused mothers and children compared to comparison groups, it does not directly address the effectiveness of mental and physical health care professionals in decreasing homelessness. The study focuses on outcomes after rehousing, not on the efficacy of interventions by healthcare providers. Therefore, the evidence neither supports nor contradicts the claim about the effectiveness of mental and physical health care professionals in decreasing homelessness.",
+        "metadata": {
+          "prompt_eval_count": 364,
+          "eval_count": 117
+        }
+      },
+      {
+        "case_id": "SF-099",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2648.9,
+        "rationale": "The evidence provided supports the claim that miRNAs may act as activators during stress, which is consistent with the claim that cells under methionine restriction may activate miRNAs.",
+        "metadata": {
+          "prompt_eval_count": 182,
+          "eval_count": 51
+        }
+      },
+      {
+        "case_id": "SF-365",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2995.1,
+        "rationale": "The evidence directly supports the claim that Tetraspanin-3 is a causative factor in the development of acute myelogenous leukemia. The study shows that Tspan3 knockout mice have impaired leukemia stem cell self-renewal and disease propagation, and that Tspan3 inhibition blocks growth of AML patient samples, indicating its importance in both mouse and human models. The evidence provides strong support for the claim that Tspan3 is a causative factor in AML.",
+        "metadata": {
+          "prompt_eval_count": 334,
+          "eval_count": 109
+        }
+      },
+      {
+        "case_id": "SF-370",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2820.8,
+        "rationale": "The evidence provided discusses the role of RLRs in immune signaling, including MDA5, but does not directly state whether the PRR MDA5 has a central DExD/H RNA helices domain. The claim is about the structural feature of MDA5, while the evidence focuses on its functional role in immune signaling. Therefore, the evidence neither confirms nor contradicts the specific claim about the domain.",
+        "metadata": {
+          "prompt_eval_count": 297,
+          "eval_count": 99
+        }
+      },
+      {
+        "case_id": "SF-368",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2811.8,
+        "rationale": "The evidence directly supports the claim that DdrB from Deinococcus radiodurans is an alternative SSB protein. The structure of DdrB is described as a new fold for single-stranded DNA binding proteins, and it is unique to Deinococcus spp., which aligns with the claim that it serves a distinct role in DNA repair beyond the standard SSB function.",
+        "metadata": {
+          "prompt_eval_count": 347,
+          "eval_count": 93
+        }
+      },
+      {
+        "case_id": "SF-231",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 3003.1,
+        "rationale": "The evidence provided discusses the ceRNA hypothesis and the relationship between miRNA and its target sites. It mentions that the threshold for target site abundance (≥1.5 × 10^5) affects target repression, but it does not directly state whether low expression of miR7a has a biological function in testis. The evidence focuses on the ceRNA mechanism and its implications in liver disease, but there is no direct information about miR7a's role in testis. Therefore, the relationship cannot be determined from the given evidence.",
+        "metadata": {
+          "prompt_eval_count": 324,
+          "eval_count": 126
+        }
+      },
+      {
+        "case_id": "SF-360",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 3404.2,
+        "rationale": "The evidence provided in the study supports the claim that taxation of sugar-sweetened beverages had no effect on the incidence rate of type II diabetes in India. The study used a microsimulation model to estimate the potential health effects of a 20% SSB excise tax, considering various scenarios of SSB consumption trends. The results indicated that the tax would reduce overweight and obesity prevalence by 3.0% and type 2 diabetes incidence by 1.6% among various Indian subpopulations. However, the study also considered the potential for accelerated SSB consumption trends to increase the impact efficacy of taxation, but even under these scenarios, the tax was expected to have a positive effect. The conclusion states that sustained SSB taxation at a high tax rate could mitigate rising obesity and type 2 diabetes in India, suggesting that the tax would have a positive effect. Therefore, the evidence supports the claim that taxation of sugar-sweetened beverages had no effect on the incidence rate of type II diabetes in India.",
+        "metadata": {
+          "prompt_eval_count": 643,
+          "eval_count": 218
+        }
+      },
+      {
+        "case_id": "SF-243",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2927.7,
+        "rationale": "The evidence directly supports the claim that many proteins in human cells can be post-translationally modified at lysine residues via acetylation. The evidence describes lysine acetylation as a reversible modification, which is a form of post-translational modification, and provides examples of its role in various metabolic processes, including those related to obesity, diabetes, and cardiovascular disease. This aligns with the claim that lysine acetylation is a post-translational modification that occurs at lysine residues and is involved in metabolic regulation.",
+        "metadata": {
+          "prompt_eval_count": 350,
+          "eval_count": 121
+        }
+      },
+      {
+        "case_id": "SF-362",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 3065.2,
+        "rationale": "The evidence provided in the systematic review shows that teaching hospitals do not provide better care than non-teaching hospitals. The review found no significant differences in mortality rates and other patient outcomes between teaching and nonteaching hospitals, with a summary relative risk of 0.96 for teaching versus nonteaching structures and 1.04 for minor teaching versus nonteaching ones. The conclusion states that the available data are limited by nonrandomized design but do not suggest that teaching status markedly improves or worsens outcomes. This directly supports the claim that teaching hospitals do not provide better care than non-teaching hospitals.",
+        "metadata": {
+          "prompt_eval_count": 565,
+          "eval_count": 140
+        }
+      },
+      {
+        "case_id": "SF-338",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2876.0,
+        "rationale": "The evidence directly supports the claim that S-nitrosylated GAPDH physiologically transnitrosylates histone deacetylases. The evidence states that SNO-GAPDH binds to Siah1, which has a nuclear localization signal, and is transported to the nucleus, where it transnitrosylates nuclear proteins like HDAC2 and SIRT1. This directly links the claim to the observed biological process in the evidence.",
+        "metadata": {
+          "prompt_eval_count": 485,
+          "eval_count": 105
+        }
+      },
+      {
+        "case_id": "SF-105",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2758.9,
+        "rationale": "The evidence directly supports the claim that Chenodeosycholic acid treatment reduces whole-body energy expenditure. The study shows that oral supplementation of CDCA increased whole-body energy expenditure in human subjects, which directly aligns with the claim. The evidence provides specific data from a clinical trial demonstrating the effect of CDCA on energy expenditure in humans.",
+        "metadata": {
+          "prompt_eval_count": 307,
+          "eval_count": 78
+        }
+      },
+      {
+        "case_id": "SF-008",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 3139.6,
+        "rationale": "The evidence directly supports the claim that a high microerythrocyte count in homozygous alpha(+)-thalassaemia subjects raises vulnerability to severe anemia. The study shows that individuals with this condition have a reduced erythrocyte count and lower Hb concentration, which is associated with protection against severe malarial anaemia. The evidence indicates that the increased erythrocyte count is linked to a protective effect against SMA, which contradicts the claim that it raises vulnerability. However, the evidence also shows that the increased erythrocyte count is associated with a lower Hb concentration, which is protective against SMA, thus supporting the claim that the high microerythrocyte count is a protective factor against severe anemia.",
+        "metadata": {
+          "prompt_eval_count": 773,
+          "eval_count": 164
+        }
+      },
+      {
+        "case_id": "SF-132",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 3012.5,
+        "rationale": "The evidence provided discusses the migration of activated B cells in the early phases of T-dependent antibody responses, highlighting the role of chemokines like CXCL13 and EBI2 in guiding B cells to specific niches. The claim states that B cells migrate toward the inner-and outer paracortical areas where oxysterol accumulation is generated by stromal cells, which aligns with the evidence's description of B-cell migration to distinct stromal subcompartments in the lymphoid tissue. The evidence supports the claim by explaining the mechanisms and pathways involved in B-cell migration, thereby establishing the relationship as SUPPORT.",
+        "metadata": {
+          "prompt_eval_count": 389,
+          "eval_count": 140
+        }
+      },
+      {
+        "case_id": "SF-407",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2899.9,
+        "rationale": "The evidence provided describes the structure of the proton-gated urea channel from H. pylori, but it does not directly address the specific claim about the ureABIEFGH gene cluster encoding urease maturation proteins. The evidence is about the channel's structure and function, not about the gene cluster's role in urease maturation. Therefore, there is not enough information to determine if the evidence supports or contradicts the claim.",
+        "metadata": {
+          "prompt_eval_count": 522,
+          "eval_count": 104
+        }
+      },
+      {
+        "case_id": "SF-078",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2831.2,
+        "rationale": "The evidence directly supports the claim that CR (caloric restriction) is associated with higher methylation age. The study shows that caloric restriction in mice and rhesus monkeys leads to a reduction in age-related methylation drift, which implies that the methylation age is lower than the chronological age. This directly supports the claim that CR is associated with a higher methylation age.",
+        "metadata": {
+          "prompt_eval_count": 361,
+          "eval_count": 90
+        }
+      },
+      {
+        "case_id": "SF-064",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2796.8,
+        "rationale": "The evidence from the study shows that birth weight and birth length are positively associated with breast cancer risk. The study re-analyzed data from 32 studies and found a consistent positive association, which supports the claim that birth-weight is positively associated with breast cancer.",
+        "metadata": {
+          "prompt_eval_count": 722,
+          "eval_count": 66
+        }
+      },
+      {
+        "case_id": "SF-228",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2942.0,
+        "rationale": "The evidence provided discusses the mechanism of PIN polarity generation in plants, involving endocytosis. However, it does not directly address whether the localization of PIN1 in Arabidopsis embryos requires VPS9a. The claim is about a specific requirement, while the evidence focuses on a different mechanism and its implications. Therefore, there is not enough information to determine the relationship between the claim and the evidence.",
+        "metadata": {
+          "prompt_eval_count": 404,
+          "eval_count": 97
+        }
+      },
+      {
+        "case_id": "SF-134",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 3201.0,
+        "rationale": "The evidence provided is a systematic analysis from the Global Burden of Disease Study 2015, which discusses the comparative risk assessment of various risks from 1990 to 2015. However, the claim is about the epidemiological disease burden from noncommunicable diseases being more prevalent in low economic settings. The evidence does not directly address the specific claim about the prevalence of noncommunicable diseases in low economic settings. It provides data on the reduction of certain risks and the attributable burden of disease, but does not specifically link the prevalence of noncommunicable diseases in low economic settings. Therefore, there is not enough information to determine the relationship between the claim and the evidence.",
+        "metadata": {
+          "prompt_eval_count": 1192,
+          "eval_count": 153
+        }
+      },
+      {
+        "case_id": "SF-074",
+        "expected": "CONTRADICT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 3053.7,
+        "rationale": "The evidence does not provide direct support or contradiction for the claim that breast cancer development is determined exclusively by genetic factors. The study found no significant gene-environment interactions, but this does not address whether environmental factors play a role in breast cancer development. The claim states that genetic factors are the sole determinant, but the evidence suggests that environmental factors may also influence risk, though not in a way that was statistically significant in the study. Therefore, the evidence neither supports nor contradicts the claim directly.",
+        "metadata": {
+          "prompt_eval_count": 660,
+          "eval_count": 114
+        }
+      },
+      {
+        "case_id": "SF-180",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2899.9,
+        "rationale": "The evidence provided in the study supports the claim that hypoglycemic episodes in older patients with type 2 diabetes are associated with an increased risk of dementia. The study is a longitudinal cohort study that found a graded increase in risk with the number of hypoglycemic episodes, adjusted for various confounding factors. The results are consistent with the claim, and the evidence directly relates to the claim.",
+        "metadata": {
+          "prompt_eval_count": 844,
+          "eval_count": 96
+        }
+      },
+      {
+        "case_id": "SF-285",
+        "expected": "CONTRADICT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2787.4,
+        "rationale": "The evidence provided discusses the prevalence of suspected familial obesity and leanness in various groups, but it does not directly establish whether obesity is determined solely by environmental factors. The study shows that there is a familial component, but it doesn't address the role of genetic or other biological factors. Therefore, the evidence neither supports nor contradicts the claim about sole environmental determinants.",
+        "metadata": {
+          "prompt_eval_count": 539,
+          "eval_count": 89
+        }
+      },
+      {
+        "case_id": "SF-156",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 3046.2,
+        "rationale": "The evidence provided discusses the relationship between HNF4A mutations and the development of macrosomia and hyperinsulinaemic hypoglycaemia in patients with heterozygous mutations in the HNF4A gene. However, the evidence does not directly address the specific claim that HNF4A mutations can cause diabetes in mutant carriers by the age of 14 years. While the evidence suggests a link between HNF4A mutations and certain metabolic conditions, it does not provide direct evidence about the age of onset or the specific mechanism of diabetes caused by these mutations. Therefore, the relationship between the claim and the evidence is not sufficiently informative to determine a clear support or contradiction.",
+        "metadata": {
+          "prompt_eval_count": 292,
+          "eval_count": 155
+        }
+      },
+      {
+        "case_id": "SF-232",
+        "expected": "CONTRADICT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2927.0,
+        "rationale": "The evidence provided discusses the relationship between CG methylation and nucleosome positioning in diverse eukaryotes, including those lacking Dnmt1. It mentions that symmetrical CG methylation is present even without Dnmt1 and is catalyzed by Dnmt5. However, the evidence does not directly establish whether low nucleosome occupancy correlates with low methylation levels across species. The claim is about a correlation that is not explicitly confirmed or refuted by the evidence given.",
+        "metadata": {
+          "prompt_eval_count": 336,
+          "eval_count": 113
+        }
+      },
+      {
+        "case_id": "SF-121",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2928.0,
+        "rationale": "The evidence provided supports the claim that DMRT1 is a sex-determining gene that is epigenetically regulated by the MHM region. The study on chicken gynandromorphs shows that avian somatic cells have an inherent sex identity, which aligns with the claim about DMRT1's role in sex determination. The evidence directly relates to the claim by showing that the mechanism in birds is cell-autonomous and involves somatic cells with distinct sex identities, which supports the assertion that DMRT1 is involved in this process.",
+        "metadata": {
+          "prompt_eval_count": 372,
+          "eval_count": 124
+        }
+      },
+      {
+        "case_id": "SF-342",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2885.5,
+        "rationale": "The evidence directly supports the claim that silencing of Bcl2 is important for the maintenance and progression of tumors. The evidence shows that eliminating BCL-2 leads to rapid loss of leukemic cells and significantly prolonged survival, which indicates that BCL-2 is essential for tumor maintenance. The study also mentions that resistance to apoptosis is common in cancer and that the absence of BCL-2 leads to cell death, suggesting that apoptotic defects are necessary for tumor progression.",
+        "metadata": {
+          "prompt_eval_count": 267,
+          "eval_count": 109
+        }
+      },
+      {
+        "case_id": "SF-193",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2916.7,
+        "rationale": "The evidence directly supports the claim that the loss of CSF1R facilitates MOZ-TIF2-induced leukemiaogenesis. The evidence shows that PU.1-mediated upregulation of CSF1R is crucial for leukemia stem cell potential, and that ablation of CSF1Rhigh cells (which express high levels of CSF1R) leads to the cure of AML. This directly links the loss of CSF1R to the induction of leukemia and supports the claim.",
+        "metadata": {
+          "prompt_eval_count": 461,
+          "eval_count": 111
+        }
+      },
+      {
+        "case_id": "SF-216",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 3057.6,
+        "rationale": "The evidence provided supports the claim that Ivermectin is used to treat lymphatic filariasis. The evidence mentions that the control of lymphatic filariasis has been achieved through interventions, and that Ivermectin is part of these interventions. The evidence also states that the reduction in prevalence and incidence of lymphatic filariasis is a significant achievement in the control of neglected tropical diseases, which includes lymphatic filariasis. This directly supports the claim that Ivermectin is used to treat lymphatic filariasis.",
+        "metadata": {
+          "prompt_eval_count": 379,
+          "eval_count": 125
+        }
+      },
+      {
+        "case_id": "SF-265",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2983.3,
+        "rationale": "The evidence provided does not directly establish or contradict the claim about NF2 causing phosphorylation and sequestration of YAP in Drosophila by activating LATS1/2 kinases. The evidence discusses the LKB1-MARK signalling axis and its role in the Hippo-YAP pathway, but it does not mention NF2 or its specific role in Drosophila. The claim is about a specific mechanism in a particular organism, while the evidence is more general and focuses on human cells and the Hippo-YAP pathway. Therefore, there is not enough information to determine if the evidence supports or contradicts the claim.",
+        "metadata": {
+          "prompt_eval_count": 339,
+          "eval_count": 144
+        }
+      },
+      {
+        "case_id": "SF-004",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2927.2,
+        "rationale": "The evidence provided in the study shows that 16 out of 32,441 appendix samples were positive for abnormal PrP, which corresponds to a prevalence of 493 per million. This directly supports the claim that 1/2000 in the UK have abnormal PrP positivity, as 493 per million is approximately 0.0493%, which is close to 1/2000 (0.0005%).",
+        "metadata": {
+          "prompt_eval_count": 566,
+          "eval_count": 114
+        }
+      },
+      {
+        "case_id": "SF-077",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2805.9,
+        "rationale": "The evidence directly supports the claim that CR (caloric restriction) is associated with higher methylation age. The study shows that caloric restriction in mice and rhesus monkeys leads to a reduction in age-related methylation drift, which implies that the methylation age is lower than the chronological age. This directly supports the claim that CR is associated with a higher methylation age.",
+        "metadata": {
+          "prompt_eval_count": 361,
+          "eval_count": 90
+        }
+      },
+      {
+        "case_id": "SF-140",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2781.2,
+        "rationale": "The evidence from the observational cohort study shows a significant association between higher exposure to PM2.5 and higher prevalence of high anxiety symptoms. The study's objective was to determine if past exposure to PM2.5 is associated with prevalent high anxiety symptoms, and the results support this claim.",
+        "metadata": {
+          "prompt_eval_count": 601,
+          "eval_count": 71
+        }
+      },
+      {
+        "case_id": "SF-055",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 3098.2,
+        "rationale": "The evidence provided in the study shows that autologous MSCs (in the form of marrow-derived cells) were used as a replacement for anti-IL-2 receptor antibody induction therapy in kidney transplants. The study found that the autologous MSC group had lower rates of acute rejection (7.5% vs 21.6%) and a significantly decreased risk of opportunistic infections compared to the control group. These findings directly support the claim that autologous transplantation of mesenchymal stem cells has lower rates of rejection than induction therapy with anti-interleukin-2 receptor antibodies.",
+        "metadata": {
+          "prompt_eval_count": 878,
+          "eval_count": 133
+        }
+      },
+      {
+        "case_id": "SF-390",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2879.8,
+        "rationale": "The evidence provided is a retrospective cohort study focused on perinatal mortality rates in rural China. While the study mentions the one-child policy's impact, it does not directly state whether the policy was successful in lowering population growth. The conclusion highlights the policy's impact on perinatal mortality but does not provide data on population growth trends. Therefore, the relationship between the claim and the evidence is not enough to determine a clear support or contradiction.",
+        "metadata": {
+          "prompt_eval_count": 462,
+          "eval_count": 104
+        }
+      },
+      {
+        "case_id": "SF-153",
+        "expected": "CONTRADICT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2823.5,
+        "rationale": "The evidence provided discusses the variation in gene expression across genetically identical cells and the factors influencing it, but it does not directly state whether gene expression varies appreciably or not. The claim is about the absence of variation, while the evidence focuses on the factors causing variation and the mechanisms involved. Therefore, the relationship is not clearly established or contradicted by the evidence.",
+        "metadata": {
+          "prompt_eval_count": 289,
+          "eval_count": 89
+        }
+      },
+      {
+        "case_id": "SF-373",
+        "expected": "SUPPORT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 3041.9,
+        "rationale": "The evidence provided discusses the regulation of TEAD nucleocytoplasmic shuttling through p38 MAPK and its role in Hippo pathway, but does not directly state whether TEAD translocates into the nucleus or not. The claim is about the translocation of YAP1 and TEAD complex into the nucleus, but the evidence focuses on the regulation of TEAD by p38 MAPK and its role in Hippo pathway, without explicitly confirming or denying the translocation. Therefore, the relationship cannot be determined from the given evidence.",
+        "metadata": {
+          "prompt_eval_count": 431,
+          "eval_count": 128
+        }
+      },
+      {
+        "case_id": "SF-174",
+        "expected": "SUPPORT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 3129.6,
+        "rationale": "The evidence provided is about the effects of smoking, plasma lipids, and fibrinogen on the patency of femoropopliteal vein grafts. However, the claim is about hyperfibrinogenemia increasing rates of femoropopliteal bypass thrombosis. The evidence does not directly address thrombosis rates but rather focuses on graft patency and the relationship between fibrinogen and patency. While fibrinogen is mentioned as a factor affecting patency, the claim is about a different outcome (thrombosis) not directly supported or contradicted by the evidence. Therefore, there is not enough information to determine the relationship directly.",
+        "metadata": {
+          "prompt_eval_count": 653,
+          "eval_count": 152
+        }
+      },
+      {
+        "case_id": "SF-272",
+        "expected": "SUPPORT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2965.8,
+        "rationale": "The evidence provided discusses the role of Lrh-1 (which is also known as Nr5a2) in pregnancy, specifically its importance in the corpus luteum, decidualization, and placenta formation. However, the claim is about the importance of NR5A2 in the development of endometrial tissues. The evidence does not directly address the role of NR5A2 in endometrial tissue development, only its role in pregnancy and other reproductive processes. Therefore, the evidence neither supports nor contradicts the specific claim about endometrial tissue development.",
+        "metadata": {
+          "prompt_eval_count": 399,
+          "eval_count": 131
+        }
+      },
+      {
+        "case_id": "SF-319",
+        "expected": "SUPPORT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 3331.7,
+        "rationale": "The evidence provided is from a randomized controlled trial comparing HPV testing with conventional cytology for detecting cervical intraepithelial neoplasia grade 2. However, the claim states that HPV detection has higher longitudinal sensitivity than cytology. The evidence does not directly compare the longitudinal sensitivity of the two methods; instead, it discusses the efficacy in detecting invasive cervical cancers and CIN2 and CIN3. The trial's findings show that HPV testing had similar efficacy in the first round but lower in the second round, and there were significant differences in detection rates among age groups. However, the evidence does not explicitly state that HPV testing has higher longitudinal sensitivity than cytology. The claim is about sensitivity, while the evidence discusses efficacy and detection rates, which may include factors like specificity and other clinical outcomes. Therefore, there is not enough information to definitively classify the relationship as either SUPPORT or CONTRADICT.",
+        "metadata": {
+          "prompt_eval_count": 1076,
+          "eval_count": 197
+        }
+      },
+      {
+        "case_id": "SF-269",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2774.3,
+        "rationale": "The evidence directly supports the claim that NFAT4 activation requires IP3R-mediated Ca2+ mobilization. The study shows that NFAT4 is activated by Ca2+ mobilization from the inner nuclear envelope via nuclear InsP3 receptors, which is a direct mechanism involving IP3 receptors. This provides clear evidence that the claim is correct.",
+        "metadata": {
+          "prompt_eval_count": 369,
+          "eval_count": 83
+        }
+      },
+      {
+        "case_id": "SF-082",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2943.1,
+        "rationale": "The evidence provided is about the cost-effectiveness of using a risk score with estimated glomerular filtration rate as a biomarker in prioritizing patients for CABG surgery. The claim is that CRP is not predictive of postoperative mortality. The evidence does not directly address the predictive power of CRP in mortality, only its cost-effectiveness in prioritization. Therefore, there is not enough information to determine if the claim is supported or contradicted.",
+        "metadata": {
+          "prompt_eval_count": 715,
+          "eval_count": 107
+        }
+      },
+      {
+        "case_id": "SF-431",
+        "expected": "CONTRADICT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 3488.7,
+        "rationale": "The evidence provided is from a randomized controlled trial comparing combination therapy (varenicline and bupropion) with monotherapy (varenicline) in cigarette smokers. The claim states that varenicline monotherapy is more effective after 12 weeks compared to combination therapies. However, the evidence shows that combination therapy resulted in higher abstinence rates at 12 weeks (53.0% vs 43.2%) and at 26 weeks (36.6% vs 27.6%), but not at 52 weeks (30.9% vs 24.5%). The claim is about the effectiveness of monotherapy, which is not directly supported by the evidence provided. The evidence instead shows that combination therapy is more effective than monotherapy in achieving prolonged abstinence at 12 and 26 weeks, but not at 52 weeks. Since the claim is about monotherapy's effectiveness, and the evidence does not provide direct support for or against this specific claim, the relationship is not enough information.",
+        "metadata": {
+          "prompt_eval_count": 928,
+          "eval_count": 231
+        }
+      },
+      {
+        "case_id": "SF-385",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2877.1,
+        "rationale": "The evidence provided supports the claim that genomic aberrations in metastases are similar to those in the primary tumor. The study demonstrates that shared mutations between primary carcinomas and their matched metastases have the A-to-T signature of the initiating carcinogen, which is consistent with the primary tumor. Additionally, the evidence shows that metastases disseminate synchronously from the primary tumor, supporting parallel evolution rather than linear evolution, which aligns with the claim that genomic changes are similar between the primary tumor and metastases.",
+        "metadata": {
+          "prompt_eval_count": 356,
+          "eval_count": 115
+        }
+      },
+      {
+        "case_id": "SF-219",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2937.5,
+        "rationale": "The evidence provided discusses the identification of sporulation genes in B. subtilis through transposon sequencing, but it does not directly address whether the lack of clpC affects sporulation efficiency. The claim is about the specific gene clpC, while the evidence focuses on a broader set of genes identified through screening. There is no direct information provided about the role of clpC in sporulation, so the relationship cannot be determined from the given evidence.",
+        "metadata": {
+          "prompt_eval_count": 490,
+          "eval_count": 109
+        }
+      },
+      {
+        "case_id": "SF-038",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2946.4,
+        "rationale": "The evidence provided in the passage directly supports the claim that articles published in open access format are less likely to be cited than traditional journals. The passage includes a study by Gunther Eysenbach from PLoS Biology, which shows that OA articles are more immediately recognized and cited than non-OA articles. This is a clear example of support for the claim that open-access articles have a higher citation rate.",
+        "metadata": {
+          "prompt_eval_count": 1418,
+          "eval_count": 96
+        }
+      },
+      {
+        "case_id": "SF-439",
+        "expected": "CONTRADICT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 3032.9,
+        "rationale": "The evidence provided is a systematic review and meta-analysis that shows a strong association between low maternal 25-hydroxyvitamin D levels and adverse pregnancy outcomes such as gestational diabetes, pre-eclampsia, and small for gestational age infants. However, the claim is that vitamin D deficiency is unrelated to birth weight, which is not supported by the evidence. The evidence actually shows a positive association between low vitamin D levels and increased risk of low birth weight, which contradicts the claim. The conclusion of the study clearly states that low 25-OHD levels are associated with increased risk of low birth weight, so the evidence contradicts the claim.",
+        "metadata": {
+          "prompt_eval_count": 573,
+          "eval_count": 150
+        }
+      },
+      {
+        "case_id": "SF-130",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2782.9,
+        "rationale": "The evidence directly supports the claim that discrimination between initiator and elongation tRNAs depends on IF3. The evidence describes the large-scale movements of IF3 and tRNA during bacterial translation initiation, highlighting their role in facilitating the selection of the initiator tRNA and the start codon. This directly relates to the claim that IF3 is essential for distinguishing between initiator and elongation tRNAs.",
+        "metadata": {
+          "prompt_eval_count": 300,
+          "eval_count": 93
+        }
+      },
+      {
+        "case_id": "SF-381",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 3054.5,
+        "rationale": "The evidence provided does not directly confirm or refute the claim about the presence of H3K4me3 and H3K79me2 in quiescent hair follicle stem cells. The evidence discusses chromatin modifications in different stages of the hair follicle lineage, including quiescent and activated HF-SCs, but does not specifically mention the co-occurrence of H3K4me3 and H3K79me2. While the evidence does describe the role of PcG-mediated repression in regulating chromatin states, it does not provide direct evidence for or against the specific combination of histone modifications mentioned in the claim. Therefore, the relationship cannot be determined from the given evidence.",
+        "metadata": {
+          "prompt_eval_count": 397,
+          "eval_count": 159
+        }
+      },
+      {
+        "case_id": "SF-100",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2933.3,
+        "rationale": "The evidence provided in the study supports the claim that cellular aging closely links to an older appearance. The study shows that perceived age, which is a clinically useful biomarker of ageing, is significantly associated with survival and important age-related phenotypes. The results indicate that perceived age correlates with survival and molecular biomarkers of aging, suggesting that aging processes are reflected in the appearance of the individual. The study's conclusion reinforces the link between cellular aging and the appearance of the individual, as perceived age is a robust biomarker of ageing that predicts survival among those aged 70 and older.",
+        "metadata": {
+          "prompt_eval_count": 431,
+          "eval_count": 130
+        }
+      },
+      {
+        "case_id": "SF-060",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2812.8,
+        "rationale": "The evidence directly supports the claim that basophils counteract disease development in patients with SLE. The evidence shows that basophils, when activated by IgE, promote the development of lupus nephritis in mice and in humans with SLE. This indicates that basophils play a role in the progression of the disease, which aligns with the claim that they counteract disease development.",
+        "metadata": {
+          "prompt_eval_count": 387,
+          "eval_count": 94
+        }
+      },
+      {
+        "case_id": "SF-023",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2927.6,
+        "rationale": "The evidence provided describes the structure of the proton-gated urea channel from H. pylori, but it does not directly address the claim about the polymeric structure compromising the UreA and UreB subunits. The evidence discusses the channel's architecture, function, and molecular details, but there is no explicit mention of the UreA and UreB subunits or their structural relationship. Therefore, the relationship cannot be determined from the given evidence.",
+        "metadata": {
+          "prompt_eval_count": 512,
+          "eval_count": 109
+        }
+      },
+      {
+        "case_id": "SF-152",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 3122.5,
+        "rationale": "The evidence provided supports the claim that gene expression does not vary appreciably across genetically identical cells. The evidence states that gene expression is a stochastic process with randomness leading to cell-to-cell variations, but this variation is observed in organisms ranging from microbes to metazoans. The claim is that there is little variation, which is consistent with the evidence that stochastic processes lead to variations, but the claim is that this variation is minimal. The evidence suggests that while there is variation, it is not appreciable, which aligns with the claim. The evidence also mentions that the consequences of this variation are context-dependent, which supports the idea that the variation is minimal in some contexts, thus supporting the claim that gene expression does not vary appreciably across genetically identical cells.",
+        "metadata": {
+          "prompt_eval_count": 205,
+          "eval_count": 167
+        }
+      },
+      {
+        "case_id": "SF-395",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2930.3,
+        "rationale": "The evidence provided in the study shows a clear association between placental weight and the risk of breast cancer in women. The study found that women with placentas weighing between 500-699 grams in their first pregnancy and at least 700 grams in their second pregnancy had a significantly higher risk of breast cancer compared to those with placentas weighing less than 500 grams. This directly supports the claim that the risk of breast cancer increases with placental weight, especially in premenopausal cases.",
+        "metadata": {
+          "prompt_eval_count": 675,
+          "eval_count": 122
+        }
+      },
+      {
+        "case_id": "SF-215",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2941.2,
+        "rationale": "The evidence provided discusses the benefits of computer-assisted learning in medical education, such as enhanced learning, increased engagement, and improved retention. However, the claim is about the impact of integrating classroom-based and web-based collaborative learning on class performance, which is not directly addressed in the evidence. The evidence does not provide information about the effectiveness of combining both types of learning, nor does it mention any specific outcomes related to class performance. Therefore, there is not enough information to determine if the evidence supports or contradicts the claim.",
+        "metadata": {
+          "prompt_eval_count": 474,
+          "eval_count": 120
+        }
+      },
+      {
+        "case_id": "SF-131",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2917.5,
+        "rationale": "The evidence directly supports the claim that downregulation and mislocalization of Scribble prevents cell transformation and mammary tumorigenesis. The evidence provides multiple lines of evidence, including the demonstration that loss of Scribble in mammary epithelia leads to dysplasia and tumors, and that deregulation of polarity pathways promotes tumorigenesis. The evidence also mentions that spontaneous tumors in mice and humans have both downregulated and mislocalized Scribble, further supporting the claim that Scribble inhibits breast cancer formation.",
+        "metadata": {
+          "prompt_eval_count": 325,
+          "eval_count": 115
+        }
+      },
+      {
+        "case_id": "SF-332",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2748.3,
+        "rationale": "The evidence directly supports the claim that recurrent mutations occur frequently within CTCF anchor sites adjacent to oncogenes. The study identifies CTCF anchor regions as conserved across species, influence gene expression, and are a frequent site of mutations in cancer cells, which directly relates to the claim about their role in recurrent mutations near oncogenes.",
+        "metadata": {
+          "prompt_eval_count": 311,
+          "eval_count": 83
+        }
+      },
+      {
+        "case_id": "SF-241",
+        "expected": "CONTRADICT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 3209.1,
+        "rationale": "The evidence provided is a population-based case-control study that examines the association between antibiotic use and the risk of acute myocardial infarction. The claim is that macrolides protect against myocardial infarction. The evidence, however, specifically discusses the association between antibiotic use and the risk of myocardial infarction, but it does not directly address the specific type of antibiotic (macrolides) and its protective effect. The study finds that previous use of macrolides (primarily erythromycin) was not associated with a lower risk of acute myocardial infarction, which contradicts the claim that macrolides protect against it. However, the evidence does not provide direct information about the protective effect of macrolides, only about other antibiotics. Therefore, the relationship cannot be classified as SUPPORT or CONTRADICT based on the given evidence.",
+        "metadata": {
+          "prompt_eval_count": 513,
+          "eval_count": 190
+        }
+      },
+      {
+        "case_id": "SF-127",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2945.4,
+        "rationale": "The evidence from the randomized trial shows that dexamethasone dose-dependently reduces the risk of postoperative nausea and vomiting (PONV), which is consistent with the claim. Additionally, the evidence also indicates that dexamethasone is associated with an increased risk of postoperative bleeding, which is a separate finding but still supported by the trial results. The claim is directly supported by the trial's findings, even though the evidence also addresses a different outcome (bleeding).",
+        "metadata": {
+          "prompt_eval_count": 815,
+          "eval_count": 108
+        }
+      },
+      {
+        "case_id": "SF-359",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 3382.2,
+        "rationale": "The evidence provided in the study supports the claim that taxation of sugar-sweetened beverages had no effect on the incidence rate of type II diabetes in India. The study used a microsimulation model to estimate the potential health effects of a 20% SSB excise tax, considering various scenarios of SSB consumption trends. The results indicated that the tax would reduce overweight and obesity prevalence by 3.0% and type 2 diabetes incidence by 1.6% among various Indian subpopulations. However, the study also considered the potential for accelerated SSB consumption trends to increase the impact efficacy of taxation, but even under these scenarios, the tax was expected to have a positive effect. The conclusion states that sustained SSB taxation at a high tax rate could mitigate rising obesity and type 2 diabetes in India, suggesting that the tax would have a positive effect. Therefore, the evidence supports the claim that taxation of sugar-sweetened beverages had no effect on the incidence rate of type II diabetes in India.",
+        "metadata": {
+          "prompt_eval_count": 643,
+          "eval_count": 218
+        }
+      },
+      {
+        "case_id": "SF-070",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 6113.6,
+        "rationale": "The evidence from the meta-analysis shows that heavier birth weights are associated with increased breast cancer risk, providing support for the claim that birth-weight is positively associated with breast cancer.",
+        "metadata": {
+          "prompt_eval_count": 584,
+          "eval_count": 48
+        }
+      },
+      {
+        "case_id": "SF-225",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2864.4,
+        "rationale": "The evidence provided in the study shows that implementing a universal leukoreduction program in Canada was associated with lower in-hospital mortality rates and reduced posttransfusion fevers and antibiotic use. This directly supports the claim that leukoreduction reduces infectious complications in red blood cell transfusions.",
+        "metadata": {
+          "prompt_eval_count": 611,
+          "eval_count": 70
+        }
+      },
+      {
+        "case_id": "SF-230",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 3013.3,
+        "rationale": "The evidence provided discusses the ceRNA hypothesis and the relationship between miRNA and its target sites, but it does not directly address the specific claim about low expression of miR7a repressing target genes in ovaries. The evidence is about a different context (hepatocytes and miR-122) and does not provide information about the specific biological function of miR7a in ovaries. Therefore, there is not enough information to determine if the evidence supports, contradicts, or neither the claim.",
+        "metadata": {
+          "prompt_eval_count": 331,
+          "eval_count": 121
+        }
+      },
+      {
+        "case_id": "SF-301",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2883.4,
+        "rationale": "The evidence directly supports the claim that PKG-la plays an essential role in the expression of pain hypersensitivity in PGK-la knockout mice. The study shows that the absence of PKG-I in presynaptic terminals leads to the complete abolition of activity-induced LTP, which is a key mechanism for pain hypersensitivity. The evidence provides functional evidence that PKG-I is essential for this process.",
+        "metadata": {
+          "prompt_eval_count": 600,
+          "eval_count": 93
+        }
+      },
+      {
+        "case_id": "SF-289",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2722.2,
+        "rationale": "The evidence provided in the study shows that genetic factors play a significant role in determining human fatness in adults, while the family environment alone has no apparent effect. This directly supports the claim that obesity is determined solely by environmental factors, as the study demonstrates that genetic factors are a major contributor, contradicting the idea that environmental factors are the sole determinant.",
+        "metadata": {
+          "prompt_eval_count": 340,
+          "eval_count": 84
+        }
+      },
+      {
+        "case_id": "SF-441",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2730.5,
+        "rationale": "The evidence provided in the study shows that birth weight is positively associated with breast cancer risk, which directly supports the claim that women with a higher birth weight are more likely to develop breast cancer later in life.",
+        "metadata": {
+          "prompt_eval_count": 730,
+          "eval_count": 55
+        }
+      },
+      {
+        "case_id": "SF-045",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 3106.7,
+        "rationale": "The evidence provided supports the claim that assembly of invadopodia is triggered by focal generation of phosphatidylinositol-3,4-biphosphate and the activation of the nonreceptor tyrosine kinase Src. The study shows that Src expression stimulates podosome formation at focal adhesions, and the presence of PtdIns(3,4)P2 is associated with podosome formation. The evidence also mentions the role of Tks5/FISH and Grb2 in the formation of podosomes, which are consistent with the claim. The evidence directly links the activation of Src and the generation of PtdIns(3,4)P2 to the formation of invadopodia, thereby supporting the claim.",
+        "metadata": {
+          "prompt_eval_count": 399,
+          "eval_count": 163
+        }
+      },
+      {
+        "case_id": "SF-426",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2756.7,
+        "rationale": "The evidence from the systematic review and meta-analysis shows that ultrasound imaging significantly reduces the risk of failed procedures, traumatic procedures, and insertion attempts, which directly supports the claim that ultrasound guidance significantly raises the number of traumatic procedures when attempting needle insertion.",
+        "metadata": {
+          "prompt_eval_count": 602,
+          "eval_count": 62
+        }
+      },
+      {
+        "case_id": "SF-126",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2930.8,
+        "rationale": "The evidence from the randomized trial shows that dexamethasone dose-dependently reduces the risk of postoperative nausea and vomiting (PONV), which is consistent with the claim. Additionally, the evidence also indicates that dexamethasone is associated with an increased risk of postoperative bleeding, which is a separate finding but still supported by the trial results. The claim is directly supported by the trial's findings, even though the evidence also addresses a different outcome (bleeding).",
+        "metadata": {
+          "prompt_eval_count": 815,
+          "eval_count": 108
+        }
+      },
+      {
+        "case_id": "SF-195",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2841.0,
+        "rationale": "The evidence provided discusses the properties of Sox2+ cells in the SGZ, including their ability to generate neurons and astrocytes, and their proliferation levels. However, it does not directly address the specific claim about the percentage of cells with green fluorescent protein colocalizing with proliferation markers in transgenic mice. The evidence is about the general properties of these cells, not the specific quantification of colocalization.",
+        "metadata": {
+          "prompt_eval_count": 358,
+          "eval_count": 99
+        }
+      },
+      {
+        "case_id": "SF-073",
+        "expected": "CONTRADICT",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2951.3,
+        "rationale": "The evidence does not provide direct support or contradiction for the claim that breast cancer development is determined exclusively by genetic factors. The study found no significant gene-environment interactions, but this does not address whether environmental factors play a role in breast cancer development. The claim states that genetic factors are the sole determinant, but the evidence suggests that environmental factors may also influence risk, though not in a way that was statistically significant in the study. Therefore, the evidence neither supports nor contradicts the claim directly.",
+        "metadata": {
+          "prompt_eval_count": 660,
+          "eval_count": 114
+        }
+      },
+      {
+        "case_id": "SF-160",
+        "expected": "NOT_ENOUGH_INFO",
+        "predicted": "NOT_ENOUGH_INFO",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2962.4,
+        "rationale": "The evidence provided discusses the methods used to study the heterogeneity within hematopoietic stem cell populations and the identification of key molecules associated with long-term self-renewal. However, it does not directly state the purity rate of the purified hematopoietic stem cells. The claim is about a specific purity rate, while the evidence focuses on the methodology and findings related to the identification of molecules and their association with stem cell function. Therefore, the evidence neither confirms nor contradicts the specific purity rate claim.",
+        "metadata": {
+          "prompt_eval_count": 309,
+          "eval_count": 118
+        }
+      },
+      {
+        "case_id": "SF-154",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2932.9,
+        "rationale": "The evidence directly supports the claim that glycolysis is one of the primary glycometabolic pathways in cells. The evidence shows that vesicular glycolysis provides ATP for fast axonal transport, which is a key function of glycolysis. The study demonstrates that inhibiting glycolysis (via GAPDH) reduces transport in neurons and larvae, indicating that glycolysis is essential for this process. This directly supports the claim that glycolysis is a primary pathway in cells.",
+        "metadata": {
+          "prompt_eval_count": 314,
+          "eval_count": 112
+        }
+      },
+      {
+        "case_id": "SF-291",
+        "expected": "CONTRADICT",
+        "predicted": "SUPPORT",
+        "correct": false,
+        "confidence": null,
+        "latency_ms": 2646.5,
+        "rationale": "The evidence provided supports the claim that obesity is determined solely by environmental factors. The study found genetic factors contributing to obesity, which suggests that genetics play a role, thereby supporting the idea that environmental factors are not the only determinant.",
+        "metadata": {
+          "prompt_eval_count": 224,
+          "eval_count": 59
+        }
+      },
+      {
+        "case_id": "SF-434",
+        "expected": "SUPPORT",
+        "predicted": "SUPPORT",
+        "correct": true,
+        "confidence": null,
+        "latency_ms": 2890.3,
+        "rationale": "The evidence provided in the systematic review and meta-analysis supports the claim that vitamin D deficiency is associated with an increased risk of gestational diabetes, pre-eclampsia, and small for gestational age infants. The study found that low serum 25-OHD levels were linked to these outcomes, which directly aligns with the claim. The conclusion of the study explicitly states that vitamin D insufficiency is associated with these risks, further reinforcing the claim.",
+        "metadata": {
+          "prompt_eval_count": 573,
+          "eval_count": 106
+        }
+      }
+    ]
+  },
+  "last_error": null,
+  "limitations": [
+    "The 90-case subset is deterministic and balanced but smaller than the 450-pair dev set.",
+    "SciFact labels concern evidence relations and are directly aligned across these backends.",
+    "Ollama latency depends on local hardware and warm-up state."
+  ]
+}

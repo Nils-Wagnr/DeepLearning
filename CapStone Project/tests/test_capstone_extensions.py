@@ -2,7 +2,9 @@ import csv
 import json
 
 import claimguard.rag.model_verifiers as model_verifiers
+import claimguard.ai_detection.detector as ai_detector_module
 from claimguard.ai_detection import AIDetector
+from claimguard.ai_detection.detector import _bounded_passages
 from claimguard.claims.classifier import ClaimClassifier
 from claimguard.evaluation.tool_comparison import compare_tools
 from claimguard.evaluation.reference_evaluator import evaluate_reference_parsing
@@ -121,6 +123,55 @@ def test_ai_detection_short_text_is_not_overclaimed() -> None:
     result = AIDetector("heuristic").detect("This paragraph is too short.")
     assert result.label == "insufficient_text"
     assert result.confidence == 0.0
+
+
+def test_fast_detect_gpt_api_result_is_parsed(monkeypatch) -> None:
+    payload = {
+        "code": 0,
+        "msg": "success",
+        "data": {"prob": 0.8, "details": {"crit": 1.2, "ntoken": 64}},
+    }
+
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def read(self):
+            return json.dumps(payload).encode("utf-8")
+
+    monkeypatch.setenv("FASTDETECT_API_KEY", "test-key")
+    monkeypatch.setattr(ai_detector_module, "urlopen", lambda *args, **kwargs: FakeResponse())
+    text = " ".join(["Scientific writing requires careful evidence and transparent review."] * 8)
+
+    result = AIDetector("fast_detect_gpt").detect(text)
+
+    assert result.label == "likely_ai"
+    assert result.score == 0.8
+    assert "criterion=1.2" in result.rationale
+
+
+def test_fast_detect_gpt_without_key_is_unavailable(monkeypatch) -> None:
+    monkeypatch.delenv("FASTDETECT_API_KEY", raising=False)
+    text = " ".join(["This paragraph contains enough words for detector execution."] * 8)
+
+    result = AIDetector("fast_detect_gpt").detect(text)
+
+    assert result.label == "unavailable"
+    assert result.score == 0.0
+
+
+def test_collapsed_pdf_text_is_split_into_detector_passages() -> None:
+    sentence = "Evidence-backed academic review requires careful source inspection and transparent uncertainty."
+    text = " ".join([sentence] * 30)
+
+    passages = _bounded_passages(text)
+
+    assert len(passages) > 1
+    assert all(len(passage.split()) >= 40 for passage in passages)
+    assert " ".join(passages) == text
 
 
 def test_external_tool_comparison_uses_shared_case_ids(tmp_path) -> None:

@@ -1,5 +1,5 @@
 {
-  "source_training_report": "outputs/scifact-lora/training_report.json",
+  "source_training_report": "outputs/models/scifact-lora/training_report.json",
   "source_transfer_evaluation": "outputs/evaluation/model_comparison_full.json",
   "base_model": "distilbert-base-uncased",
   "train_examples": 1261,
@@ -18,6 +18,14 @@
     "accuracy": 0.4089,
     "macro_f1": 0.3532
   },
+  "aligned_scifact_comparison": {
+    "artifact": "outputs/evaluation/scifact_lora_vs_zeroshot.json",
+    "n": 90,
+    "per_label": 30,
+    "majority": {"accuracy": 0.333, "macro_f1": 0.167},
+    "lora": {"accuracy": 0.389, "macro_f1": 0.367},
+    "ollama_zero_shot": {"accuracy": 0.533, "macro_f1": 0.433}
+  },
   "five_label_transfer": {
     "n": 30,
     "accuracy": 0.3,
@@ -27,6 +35,7 @@
     "Adapter bytes come from adapter_model.safetensors on disk.",
     "Saved parameter count is the sum of tensors in adapter_model.safetensors.",
     "Loaded model parameter count was measured from AutoPeftModelForSequenceClassification with num_labels=3.",
-    "The five-label transfer result is the LoRA row in model_comparison_full.json."
+    "The five-label transfer result is the LoRA row in model_comparison_full.json.",
+    "The aligned comparison evaluates all methods on the same balanced SciFact subset and native three-label taxonomy."
   ]
 }

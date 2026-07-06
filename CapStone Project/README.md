@@ -4,18 +4,32 @@ ClaimGuard is an end-to-end academic writing integrity checker built for the MWI
 Learning Capstone Project. It accepts PDF or plain-text documents and produces both a
 machine-readable JSON report and an optional concise Markdown review.
 
-The application contains all three core modules and executable paths for the three optional
-modules from the assignment:
+The application contains all three core modules, completed optional Modules 4 and 5, and a
+reusable (but not empirically completed) Module-6 comparison scaffold:
 
 1. Claim extraction, citation linking, citation-needed severity, and section awareness.
 2. Bibliographic extraction and validation through CrossRef, Semantic Scholar, and OpenAlex.
 3. RAG evidence retrieval plus heuristic, Ollama, OpenAI, or SciFact-LoRA verification.
-4. Optional AI-generated-text detection through the Binoculars reference implementation.
+4. Optional AI-generated-text detection through evaluated Fast-DetectGPT integration; Binoculars
+   is integrated but its calibrated 14B pair exceeds the available 8 GB GPU.
 5. Optional LoRA fine-tuning on SciFact.
-6. Shared benchmark comparison for ClaimGuard, model backends, and external tools.
+6. Shared benchmark import/comparison for external tools; no completed scite/SemanticCite run is
+   claimed.
 
 All optional network and model features are opt-in. The base application remains deterministic
 and runnable offline.
+
+## Repository layout
+
+- `apps/`: interactive Streamlit application.
+- `claimguard/`: reusable parsing, validation, retrieval, verification, and reporting package.
+- `scripts/`: CLI entry points, training jobs, and reproducible evaluation runners.
+- `data/`: sample inputs, benchmark datasets, source reports, and pinned benchmark provenance.
+- `outputs/evaluation/`: reportable metrics and comparison artifacts.
+- `outputs/examples/`: example document analyses.
+- `outputs/models/`: the selected deployable LoRA adapter only.
+- `docs/report/`: LaTeX report source and compiled PDF.
+- `docs/presentation/`: final German deck/PDF with source, notes, and media in subdirectories.
 
 ## Interactive frontend
 
@@ -25,7 +39,7 @@ comparison, and JSON export. Install and start it from inside `CapStone Project/
 
 ```powershell
 python -m pip install -e ".[ui]"
-streamlit run streamlit_app.py
+streamlit run apps/streamlit_app.py
 ```
 
 The default heuristic mode runs locally and is recommended for a quick demonstration. Ollama,
@@ -64,20 +78,20 @@ The application now loads `.env` automatically. Never commit `.env`; it is ignor
 ## 2. Basic offline analysis
 
 ```powershell
-python run_claimguard.py `
+python -m scripts.run_claimguard `
   --input data/sample_input/sample_bad_paper.txt `
-  --output outputs/sample_analysis.json `
-  --claims-csv outputs/sample_claims.csv `
-  --markdown-output outputs/sample_report.md
+  --output outputs/examples/sample_analysis.json `
+  --claims-csv outputs/examples/sample_claims.csv `
+  --markdown-output outputs/examples/sample_report.md
 ```
 
 Analyze an RQ report:
 
 ```powershell
-python run_claimguard.py `
-  --input "Reports/NW2_RQ1_Report.pdf" `
-  --output outputs/rq1_analysis.json `
-  --markdown-output outputs/rq1_report.md
+python -m scripts.run_claimguard `
+  --input "data/reports/NW2_RQ1_Report.pdf" `
+  --output outputs/examples/rq1_analysis.json `
+  --markdown-output outputs/examples/rq1_report.md
 ```
 
 The Markdown report is intended for humans. The larger JSON preserves every prediction,
@@ -100,9 +114,9 @@ CrossRef and OpenAlex do not require API keys for normal polite use. A Semantic 
 optional but useful for rate limits. Enable bounded open-access PDF retrieval explicitly:
 
 ```powershell
-python run_claimguard.py `
-  --input "Reports/NW2_RQ1_Report.pdf" `
-  --output outputs/rq1_api_analysis.json `
+python -m scripts.run_claimguard `
+  --input "data/reports/NW2_RQ1_Report.pdf" `
+  --output outputs/examples/rq1_api_analysis.json `
   --enable-apis `
   --fetch-full-text
 ```
@@ -143,7 +157,7 @@ Every backend receives the same retrieved evidence and returns the same five lab
 ### Heuristic baseline
 
 ```powershell
-python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output outputs/heuristic.json --verifier heuristic
+python -m scripts.run_claimguard --input data/sample_input/sample_bad_paper.txt --output outputs/examples/heuristic.json --verifier heuristic
 ```
 
 This is the transparent offline baseline based on lexical coverage, negation, direction, and
@@ -166,7 +180,7 @@ OLLAMA_MODEL=qwen3:1.7b
 ```
 
 ```powershell
-python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output outputs/ollama.json --verifier ollama
+python -m scripts.run_claimguard --input data/sample_input/sample_bad_paper.txt --output outputs/examples/ollama.json --verifier ollama
 ```
 
 ### OpenAI frontier model
@@ -186,7 +200,7 @@ OPENAI_ORGANIZATION_ID=
 Run:
 
 ```powershell
-python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output outputs/openai.json --verifier openai
+python -m scripts.run_claimguard --input data/sample_input/sample_bad_paper.txt --output outputs/examples/openai.json --verifier openai
 ```
 
 The implementation uses the OpenAI Responses API with a strict JSON schema and `store=false`.
@@ -196,7 +210,7 @@ metadata.
 Run one minimal, sanitized connection and dashboard-attribution check:
 
 ```powershell
-python run_openai_diagnostic.py
+python -m scripts.run_openai_diagnostic
 ```
 
 The output shows the OpenAI response ID, request ID, model, project/organization attribution,
@@ -209,11 +223,11 @@ ranges use UTC.
 After training Module 5, configure:
 
 ```dotenv
-CLAIMGUARD_LORA_MODEL=outputs/scifact-lora
+CLAIMGUARD_LORA_MODEL=outputs/models/scifact-lora
 ```
 
 ```powershell
-python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output outputs/lora.json --verifier lora
+python -m scripts.run_claimguard --input data/sample_input/sample_bad_paper.txt --output outputs/examples/lora.json --verifier lora
 ```
 
 ## 6. Optional Module 4: AI-generated-text detection
@@ -221,9 +235,9 @@ python run_claimguard.py --input data/sample_input/sample_bad_paper.txt --output
 The lightweight heuristic is useful only as a baseline:
 
 ```powershell
-python run_ai_detection.py `
-  --input "Reports/NW2_RQ1_Report.pdf" `
-  --output outputs/ai_heuristic.json `
+python -m scripts.run_ai_detection `
+  --input "data/reports/NW2_RQ1_Report.pdf" `
+  --output outputs/examples/ai_heuristic.json `
   --method heuristic
 ```
 
@@ -232,9 +246,9 @@ Install and run the ICML 2024 Binoculars integration:
 ```powershell
 py -3.10 -m venv .venv-binoculars
 .\.venv-binoculars\Scripts\python.exe -m pip install -r requirements-binoculars.txt
-.\.venv-binoculars\Scripts\python.exe run_ai_detection.py `
-  --input "Reports/NW2_RQ1_Report.pdf" `
-  --output outputs/ai_binoculars.json `
+.\.venv-binoculars\Scripts\python.exe -m scripts.run_ai_detection `
+  --input "data/reports/NW2_RQ1_Report.pdf" `
+  --output outputs/examples/ai_binoculars.json `
   --method binoculars
 ```
 
@@ -246,6 +260,52 @@ or enough system RAM for CPU inference. A smaller custom pair changes the score 
 and invalidates the published threshold unless it is recalibrated. AI-detection output is not
 proof of authorship and must never be used as an automatic misconduct decision.
 
+Alternatively, configure the official Fast-DetectGPT API (one paid/credited request per scored
+paragraph):
+
+```dotenv
+FASTDETECT_API_KEY=your-key
+FASTDETECT_API_ENDPOINT=https://api.fastdetect.net/api/detect
+FASTDETECT_MODEL=fast-detect(llama3-8b/llama3-8b-instruct)
+FASTDETECT_THRESHOLD=0.5
+```
+
+```powershell
+python -m scripts.run_ai_detection `
+  --input "data/reports/NW2_RQ1_Report.pdf" `
+  --output outputs/examples/ai_fast_detect_gpt.json `
+  --method fast_detect_gpt
+```
+
+The included reproducible benchmark is generated from the paired original/GPT-4 PubMed passages
+in the official Fast-DetectGPT repository (pinned commit `971b052`, seed 42):
+
+```powershell
+python -m scripts.prepare_fastdetect_benchmark `
+  --input data/cache/fast-detect-gpt-official/exp_gpt3to4/data/pubmed_gpt-4.raw_data.json `
+  --output data/benchmark/ai_detection_benchmark.csv `
+  --pairs 15 `
+  --seed 42
+```
+
+Run or resume the API evaluation with:
+
+```powershell
+python -m scripts.run_ai_detection_evaluation `
+  --benchmark data/benchmark/ai_detection_benchmark.csv `
+  --output outputs/evaluation/fast_detect_gpt.json `
+  --method fast_detect_gpt `
+  --retries 3
+```
+
+The evaluator reports coverage, Accuracy, Precision, Recall, F1, AUROC, latency, and descriptive
+citation-count differences. The completed 30-passage run achieved Accuracy 0.767, Precision 1.000,
+Recall 0.533, F1 0.696, and AUROC 0.924 at 1,018.8 ms mean API latency. It made no false-positive
+human flags but missed 7/15 generated passages. The official benchmark has no citation markers,
+so no detector--citation association is claimed. Reports with unknown or mixed authorship are not
+valid ground truth, and private report text should not be sent to an external detector without
+explicit consent.
+
 ## 7. Optional Module 5: SciFact LoRA training
 
 Install training dependencies:
@@ -255,24 +315,42 @@ python -m pip install -r requirements-torch-cuda.txt
 python -m pip install -r requirements-lora.txt
 ```
 
-Train and evaluate a DeBERTa-v3-base sequence classifier with LoRA:
+Train and evaluate the completed DistilBERT sequence classifier with LoRA:
 
 ```powershell
-python train_scifact_lora.py `
-  --base-model microsoft/deberta-v3-base `
-  --output outputs/scifact-lora `
+python -m scripts.train_scifact_lora `
+  --base-model distilbert-base-uncased `
+  --output outputs/models/scifact-lora `
   --epochs 3 `
-  --batch-size 4 `
-  --gradient-accumulation 4
+  --batch-size 8 `
+  --gradient-accumulation 2
 ```
 
 The script downloads the official `allenai/scifact` claims and corpus configurations, joins
 claims to evidence abstracts, trains only LoRA adapters, evaluates Accuracy and Macro-F1, and
 writes `training_report.json`. SciFact is CC BY-NC 2.0; review its license before use.
 
-The completed adapter in this workspace is `outputs/scifact-lora`, trained from
+The completed adapter in this workspace is `outputs/models/scifact-lora`, trained from
 `distilbert-base-uncased` on 1,261 training and 450 validation pairs. It reached 0.409 validation
 Accuracy and 0.353 Macro-F1. See `docs/FINAL_RESULTS.md` for transfer results and caveats.
+
+Compare the trained adapter against temperature-zero Ollama prompting and a majority baseline on
+the same deterministic, balanced SciFact subset (30 cases per native label):
+
+```powershell
+ollama serve
+python -m scripts.run_scifact_model_comparison `
+  --archive data/cache/scifact-data.tar.gz `
+  --adapter outputs/models/scifact-lora `
+  --per-label 30 `
+  --seed 42 `
+  --output outputs/evaluation/scifact_lora_vs_zeroshot.json
+```
+
+Measured on these 90 pairs: majority Accuracy/Macro-F1 `0.333/0.167`, LoRA
+`0.389/0.367`, and Ollama `qwen3:1.7b` zero-shot `0.533/0.433`. LoRA therefore improved
+over the trivial baseline but not over zero-shot prompting; it was the only compared model to
+recover the CONTRADICT class meaningfully (F1 `0.360`, versus Ollama `0.000`).
 
 Training requires model downloads and substantially more compute than the base project. If GPU
 memory is limited, reduce batch size or choose a smaller compatible encoder and adjust
@@ -286,24 +364,24 @@ quick real smoke run on the cached smaller model, add `--base-model distilbert-b
 Evaluate Module 1 claim types and citation-needed flags separately:
 
 ```powershell
-python run_claim_evaluation.py `
+python -m scripts.run_claim_evaluation `
   --benchmark data/benchmark/rq_claim_annotations.csv `
-  --output outputs/rq_claim_evaluation.json
+  --output outputs/evaluation/rq_claim_evaluation.json
 ```
 
 Evaluate Module 2 reference-field extraction offline:
 
 ```powershell
-python run_reference_evaluation.py `
+python -m scripts.run_reference_evaluation `
   --benchmark data/benchmark/reference_parsing_benchmark.csv `
-  --output outputs/reference_evaluation.json
+  --output outputs/evaluation/reference_evaluation.json
 ```
 
 Run the 30-reference gold benchmark (20 authentic report references and 10 controlled
 perturbations) against the configured scholarly APIs:
 
 ```powershell
-python run_bibliographic_validation_evaluation.py `
+python -m scripts.run_bibliographic_validation_evaluation `
   --benchmark data/benchmark/module2_validation_benchmark.csv `
   --output outputs/evaluation/module2_validation.json `
   --timeout 10 `
@@ -317,16 +395,16 @@ an API-degraded run as an availability-independent model score.
 The included benchmark now contains 30 labeled examples, six for each verification label:
 
 ```powershell
-python run_evaluation.py `
+python -m scripts.run_evaluation `
   --benchmark data/benchmark/claimguard_benchmark.csv `
-  --output outputs/evaluation_heuristic.json `
+  --output outputs/evaluation/evaluation_lexical.json `
   --verifier heuristic
 ```
 
 Compare baseline, local, and frontier models on exactly the same cases:
 
 ```powershell
-python run_model_comparison.py `
+python -m scripts.run_model_comparison `
   --benchmark data/benchmark/claimguard_benchmark.csv `
   --output outputs/evaluation/model_comparison_full.json `
   --markdown-output outputs/evaluation/model_comparison_full.md `
@@ -341,7 +419,7 @@ deployment-quality estimate.
 Run the internal OpenAI no-retrieval ablation separately:
 
 ```powershell
-python run_no_rag_baseline.py `
+python -m scripts.run_no_rag_baseline `
   --benchmark data/benchmark/claimguard_benchmark.csv `
   --output outputs/evaluation/openai_no_rag_baseline.json `
   --retries 2
@@ -361,9 +439,10 @@ The mapping from report tables to saved artifacts and exact commands is in
 Build the report twice so references and page labels settle:
 
 ```powershell
-Set-Location docs
+Set-Location docs/report
 pdflatex -interaction=nonstopmode -halt-on-error ClaimGuard_Technical_Report.tex
 pdflatex -interaction=nonstopmode -halt-on-error ClaimGuard_Technical_Report.tex
+Set-Location ../..
 ```
 
 The main-text page count ends at the `mainend` label; references and the appendix follow it.
@@ -377,11 +456,11 @@ case using `data/benchmark/external_tool_predictions_template.csv` and the colum
 Then compare all exported predictions:
 
 ```powershell
-python run_tool_comparison.py `
+python -m scripts.run_tool_comparison `
   --benchmark data/benchmark/claimguard_benchmark.csv `
-  --tool ClaimGuard=outputs/evaluation_heuristic.json `
+  --tool ClaimGuard=outputs/evaluation/evaluation_lexical.json `
   --tool ExistingTool=data/benchmark/existing_tool_predictions.csv `
-  --output outputs/tool_comparison.json
+  --output outputs/evaluation/tool_comparison.json
 ```
 
 This produces a shared leaderboard, coverage, Accuracy, Macro/Micro-F1, per-label metrics, and

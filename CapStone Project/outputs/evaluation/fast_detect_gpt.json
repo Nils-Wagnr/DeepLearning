@@ -1,0 +1,359 @@
+{
+  "status": "complete",
+  "benchmark": "data\\benchmark\\ai_detection_benchmark.csv",
+  "benchmark_sha256": "77896e5474b03e31e31f8726d7c5ccd45bfe7282bdfad15c45d83dc06c486d05",
+  "method": "fast_detect_gpt",
+  "total": 30,
+  "available": 30,
+  "metrics": {
+    "n": 30,
+    "accuracy": 0.767,
+    "precision": 1.0,
+    "recall": 0.533,
+    "f1": 0.696,
+    "auroc": 0.924
+  },
+  "mean_latency_ms": 1018.8,
+  "citation_patterns": {
+    "mean_citations_predicted_ai": 0.0,
+    "mean_citations_predicted_human": 0.0
+  },
+  "predictions": [
+    {
+      "case_id": "FD-097-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.217,
+      "latency_ms": 1039.4,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-97",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=-1.3416639566421509, tokens=60. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-097-A",
+      "expected": "ai",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.337,
+      "latency_ms": 985.8,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-97",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=0.9464420080184937, tokens=57. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-018-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.2093,
+      "latency_ms": 1077.9,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-18",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=0.017326287925243378, tokens=76. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-018-A",
+      "expected": "ai",
+      "predicted": "ai",
+      "detector_label": "likely_ai",
+      "score": 0.7141,
+      "latency_ms": 959.9,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-18",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=2.104419231414795, tokens=72. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-003-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.1897,
+      "latency_ms": 1122.2,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-3",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=-0.5000357627868652, tokens=85. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-003-A",
+      "expected": "ai",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.3986,
+      "latency_ms": 1097.3,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-3",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=1.1918774843215942, tokens=86. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-111-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.2245,
+      "latency_ms": 1147.7,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-111",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=0.20994287729263306, tokens=60. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-111-A",
+      "expected": "ai",
+      "predicted": "ai",
+      "detector_label": "likely_ai",
+      "score": 0.5173,
+      "latency_ms": 1124.4,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-111",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=1.5670089721679688, tokens=69. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-044-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.2157,
+      "latency_ms": 945.5,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-44",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=0.1061287522315979, tokens=69. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-044-A",
+      "expected": "ai",
+      "predicted": "ai",
+      "detector_label": "likely_ai",
+      "score": 0.61,
+      "latency_ms": 963.6,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-44",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=1.821889877319336, tokens=71. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-040-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.1892,
+      "latency_ms": 1109.5,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-40",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=-0.5639424920082092, tokens=58. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-040-A",
+      "expected": "ai",
+      "predicted": "ai",
+      "detector_label": "likely_ai",
+      "score": 0.6012,
+      "latency_ms": 1203.4,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-40",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=1.798081874847412, tokens=60. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-033-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.1963,
+      "latency_ms": 944.7,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-33",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=-0.23158690333366394, tokens=71. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-033-A",
+      "expected": "ai",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.4482,
+      "latency_ms": 949.9,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-33",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=1.3592253923416138, tokens=66. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-021-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.1895,
+      "latency_ms": 1039.1,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-21",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=-0.5185656547546387, tokens=67. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-021-A",
+      "expected": "ai",
+      "predicted": "ai",
+      "detector_label": "likely_ai",
+      "score": 0.7054,
+      "latency_ms": 914.3,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-21",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=2.080024480819702, tokens=72. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-017-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.1891,
+      "latency_ms": 909.3,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-17",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=-0.6234524250030518, tokens=73. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-017-A",
+      "expected": "ai",
+      "predicted": "ai",
+      "detector_label": "likely_ai",
+      "score": 0.7754,
+      "latency_ms": 1098.4,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-17",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=2.2836363315582275, tokens=81. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-102-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.1936,
+      "latency_ms": 1141.3,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-102",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=-0.30794572830200195, tokens=66. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-102-A",
+      "expected": "ai",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.2088,
+      "latency_ms": 950.5,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-102",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=0.009640824049711227, tokens=74. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-137-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.1907,
+      "latency_ms": 978.2,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-137",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=-0.43048039078712463, tokens=59. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-137-A",
+      "expected": "ai",
+      "predicted": "ai",
+      "detector_label": "likely_ai",
+      "score": 0.6432,
+      "latency_ms": 1000.2,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-137",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=1.9108582735061646, tokens=60. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-082-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.239,
+      "latency_ms": 911.2,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-82",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=-1.5700660943984985, tokens=79. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-082-A",
+      "expected": "ai",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.2322,
+      "latency_ms": 1121.0,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-82",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=0.2888787090778351, tokens=84. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-013-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.3864,
+      "latency_ms": 948.0,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-13",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=1.1469833850860596, tokens=71. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-013-A",
+      "expected": "ai",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.2731,
+      "latency_ms": 1114.5,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-13",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=0.6077466011047363, tokens=80. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-089-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.2171,
+      "latency_ms": 914.7,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-89",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=-1.3419325351715088, tokens=67. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-089-A",
+      "expected": "ai",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.2177,
+      "latency_ms": 946.1,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-89",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=0.13099808990955353, tokens=64. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-065-H",
+      "expected": "human",
+      "predicted": "human",
+      "detector_label": "likely_human",
+      "score": 0.2471,
+      "latency_ms": 942.9,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-65",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=0.4208420217037201, tokens=52. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    },
+    {
+      "case_id": "FD-065-A",
+      "expected": "ai",
+      "predicted": "ai",
+      "detector_label": "likely_ai",
+      "score": 0.5682,
+      "latency_ms": 962.4,
+      "citation_count": 0,
+      "source": "official-fast-detect-gpt:pubmed_gpt-4.raw_data.json:pair-65",
+      "rationale": "Fast-DetectGPT probability score using fast-detect(llama3-8b/llama3-8b-instruct); criterion=1.7088817358016968, tokens=55. This service score is not calibrated as proof of authorship for ClaimGuard reports."
+    }
+  ],
+  "last_error": null,
+  "limitations": [
+    "AI-detection labels require known generation provenance; report authorship is not inferred.",
+    "Scores can fail after paraphrasing, editing, domain shift, or model changes.",
+    "Citation association is descriptive and does not imply causation or misconduct."
+  ]
+}

@@ -37,14 +37,13 @@ lora = [
 ]
 
 [project.scripts]
-claimguard = "run_claimguard:main"
-claimguard-evaluate = "run_evaluation:main"
+claimguard = "scripts.run_claimguard:main"
+claimguard-evaluate = "scripts.run_evaluation:main"
 
 [tool.setuptools]
-py-modules = ["run_claimguard", "run_evaluation"]
 
 [tool.setuptools.packages.find]
-include = ["claimguard*"]
+include = ["claimguard*", "scripts*", "apps*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

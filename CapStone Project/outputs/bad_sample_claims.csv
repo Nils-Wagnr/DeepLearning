@@ -1,6 +1,0 @@
-sentence_index,claim_type,missing_citation,classification_confidence,classification_reason,citation_count,citation_markers,citation_raw_text,citation_types,citation_years,author_hints,sentence
-0,factual_claim,False,0.85,Sentence has citation markers or factual/empirical language.,1,1,[1],numeric,,,Title: Unsupported Claims in a Draft Paper Large language models eliminate all hallucinations in academic writing [1].
-1,factual_claim,False,0.95,Sentence has citation markers or factual/empirical language.,1,2,[2],numeric,,,Deep learning requires no data preprocessing [2].
-2,methodological_statement,False,0.95,"Sentence describes the current study's data, model, experiment, or procedure.",0,,,,,,We trained a model on 100 documents.
-3,opinion_or_interpretation,False,0.75,"Sentence uses subjective, hedged, or interpretive language.",0,,,,,,The results are probably exciting for future students.
-4,factual_claim,True,0.75,Sentence asserts a factual or empirical proposition without a citation marker.,0,,,,,,Citation checking systems improve grading outcomes.

@@ -236,7 +236,9 @@ class LoRAVerifier:
     name = "lora"
 
     def __init__(self, model_path: str | None = None) -> None:
-        self.model = model_path or os.getenv("CLAIMGUARD_LORA_MODEL", "outputs/scifact-lora")
+        self.model = model_path or os.getenv(
+            "CLAIMGUARD_LORA_MODEL", "outputs/models/scifact-lora"
+        )
         self._tokenizer = None
         self._model = None
 
