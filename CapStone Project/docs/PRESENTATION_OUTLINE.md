@@ -25,12 +25,15 @@ Explain lexical retrieval versus normalized `all-MiniLM-L6-v2` cosine retrieval.
 IEEE parser example from Report 5. Briefly explain LoRA adapters and why the SciFact training
 script uses gradient accumulation and portable `all-linear` targets.
 
-## 5:00-6:30 - Live demo
+## 5:00-5:45 - Recorded UI demo
 
-Run the bad sample and open the concise Markdown report. Keep `outputs/rq5_openai.md`,
-`outputs/rq5_ollama.md`, and `outputs/model_comparison.md` ready as offline fallbacks.
+Use the embedded 20-second recording from the real RQ5 PDF. It shows upload, the reviewer
+overview, and the automatic heuristic-versus-Ollama comparison. Emphasize that disagreements
+identify passages for human inspection; they do not establish which model is correct. Keep
+`ClaimGuard_UI_Demo.mp4` beside the deck as a playback fallback. The original static demo slide
+and `outputs/rq5_openai.md` remain available if embedded media is blocked.
 
-## 6:30-8:15 - Evaluation
+## 5:45-7:15 - Evaluation
 
 Use this table on the results slide:
 
@@ -49,14 +52,14 @@ large synthetic-to-real gap, not a perfect demo score.
 Explain the LoRA taxonomy mismatch in one sentence: SciFact has three output labels, while
 ClaimGuard evaluates five; the trained head therefore cannot predict two benchmark classes.
 
-## 8:15-9:15 - Local versus frontier and failure case
+## 7:15-8:45 - Local versus frontier and failure case
 
 For one actual RQ5 request, OpenAI used 506 tokens and 1.889 s; Ollama took 40.902 s and generated
 447 tokens. They also disagreed on the label. Explain that this is diagnostic evidence, not a
 gold-label benchmark. Then show one methodological sentence that the regex baseline mislabeled as
 a factual claim.
 
-## 9:15-10:00 - Ethics and conclusion
+## 8:45-10:00 - Ethics and conclusion
 
 ClaimGuard prioritizes suspicious passages; it does not prove deception or authorship. Binoculars
 is optional and requires human supervision. End with: controlled verification is promising, but

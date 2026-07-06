@@ -29,8 +29,8 @@ Es gibt kein einzelnes bestes Backend. Die APIs prüfen bibliografische Daten, n
 
 ## Folie 6
 
-Nick — 90 Sekunden
-Live: den vorbereiteten Befehl ausführen und rq5_openai.md öffnen. Offline: diese Folie verwenden. Nur die verkürzte, übersetzte Aussage lesen. Auf Quellen und Evidenz zeigen, die Bewertungen vergleichen und erklären, warum sichtbare Begründungen wichtig sind.
+Nick — 45 Sekunden
+Das eingebettete UI-Video startet automatisch. Zuerst wird der echte RQ5-Bericht hochgeladen und lokal analysiert. Im Überblick nur kurz auf Prüfbedarf und die methodenunabhängigen Dokumentkennzahlen zeigen. Danach wechselt die Demo in den Modellvergleich: Heuristik und Ollama erhalten dieselben Claims und dieselbe Evidenz. Abweichungen sind kein automatischer Fehlernachweis, sondern gezielte Stellen für die menschliche Prüfung. Falls das Video nicht startet, `ClaimGuard_UI_Demo.mp4` separat öffnen oder die statische Originalfolie verwenden.
 
 ## Folie 7
 

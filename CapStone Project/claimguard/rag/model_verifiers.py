@@ -114,16 +114,41 @@ class OpenAIResponsesVerifier:
         )
 
     def verify(self, claim: str, evidence: list[EvidencePassage]) -> BackendVerdict:
+        return self._request_verdict(
+            instructions=(
+                "You are a scientific claim verifier. Judge only from the supplied evidence. "
+                "Return the requested JSON and do not use outside knowledge."
+            ),
+            input_text=_verification_prompt(claim, evidence),
+            backend=self.name,
+        )
+
+    def verify_without_evidence(self, claim: str) -> BackendVerdict:
+        """Diagnostic ablation using parametric knowledge and no retrieved evidence."""
+
+        return self._request_verdict(
+            instructions=(
+                "You are a scientific claim classifier in a no-retrieval diagnostic. "
+                "No source evidence is available. Use only parametric knowledge, acknowledge "
+                "uncertainty, and return the requested JSON."
+            ),
+            input_text=_no_rag_prompt(claim),
+            backend="openai_no_rag",
+        )
+
+    def _request_verdict(
+        self,
+        instructions: str,
+        input_text: str,
+        backend: str,
+    ) -> BackendVerdict:
         if not self.api_key:
             raise ModelVerifierUnavailable("OPENAI_API_KEY is not configured")
         started = time.perf_counter()
         payload = {
             "model": self.model,
-            "instructions": (
-                "You are a scientific claim verifier. Judge only from the supplied evidence. "
-                "Return the requested JSON and do not use outside knowledge."
-            ),
-            "input": _verification_prompt(claim, evidence),
+            "instructions": instructions,
+            "input": input_text,
             "text": {
                 "format": {
                     "type": "json_schema",
@@ -189,7 +214,7 @@ class OpenAIResponsesVerifier:
         )
         return BackendVerdict(
             **parsed,
-            backend=self.name,
+            backend=backend,
             model=self.model,
             latency_ms=_elapsed_ms(started),
             metadata={
@@ -280,6 +305,19 @@ class LoRAVerifier:
 def _verification_prompt(claim: str, evidence: list[EvidencePassage]) -> str:
     snippets = "\n".join(
         f"[{index}] {item.text}" for index, item in enumerate(evidence[:5], start=1)
+    )
+
+
+def _no_rag_prompt(claim: str) -> str:
+    return (
+        "Classify the claim using exactly one status: supported, partially_supported, "
+        "not_supported, contradicted, or insufficient_evidence. In this no-retrieval "
+        "ablation, supported means known to be true from parametric knowledge; contradicted "
+        "means known to be false; partially_supported means only part is known true; "
+        "not_supported means implausible without a known direct opposite; and "
+        "insufficient_evidence means you cannot judge reliably. Return JSON with status, "
+        "confidence (0..1), and a concise rationale.\n\n"
+        f"CLAIM:\n{claim}\n\nRETRIEVED EVIDENCE:\n[none]"
     )
     return (
         "Classify the claim using exactly one status: supported, partially_supported, "

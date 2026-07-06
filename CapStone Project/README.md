@@ -299,6 +299,21 @@ python run_reference_evaluation.py `
   --output outputs/reference_evaluation.json
 ```
 
+Run the 30-reference gold benchmark (20 authentic report references and 10 controlled
+perturbations) against the configured scholarly APIs:
+
+```powershell
+python run_bibliographic_validation_evaluation.py `
+  --benchmark data/benchmark/module2_validation_benchmark.csv `
+  --output outputs/evaluation/module2_validation.json `
+  --timeout 10 `
+  --delay 0.75
+```
+
+This evaluates single-record parsing, final bibliographic status, exists/not-found, DOI
+resolution, and retraction flags. Public API rate limiting is recorded per case; do not interpret
+an API-degraded run as an availability-independent model score.
+
 The included benchmark now contains 30 labeled examples, six for each verification label:
 
 ```powershell
@@ -313,9 +328,9 @@ Compare baseline, local, and frontier models on exactly the same cases:
 ```powershell
 python run_model_comparison.py `
   --benchmark data/benchmark/claimguard_benchmark.csv `
-  --output outputs/model_comparison.json `
-  --markdown-output outputs/model_comparison.md `
-  --verifiers heuristic,ollama,openai
+  --output outputs/evaluation/model_comparison_full.json `
+  --markdown-output outputs/evaluation/model_comparison_full.md `
+  --verifiers heuristic,ollama,openai,lora
 ```
 
 The report includes per-label Precision/Recall/F1, Macro-F1, Micro-F1, confusion matrices,
@@ -323,9 +338,35 @@ latency, qualitative examples, and backend errors. The current offline heuristic
 approximately 0.90 Accuracy and 0.90 Macro-F1. The dataset is still a teaching benchmark, not a
 deployment-quality estimate.
 
+Run the internal OpenAI no-retrieval ablation separately:
+
+```powershell
+python run_no_rag_baseline.py `
+  --benchmark data/benchmark/claimguard_benchmark.csv `
+  --output outputs/evaluation/openai_no_rag_baseline.json `
+  --retries 2
+```
+
+The runner checkpoints each completed case and resumes after transient failures. It must finish
+all 30 cases before its metrics are cited. This is an internal ablation, not an existing-tool
+benchmark, because the gold labels describe claim--evidence relations while no evidence is given.
+
 The real-RQ annotation file contains 50 manually reviewed sentences, ten from each RQ report.
 It is deliberately kept separate from the synthetic regression benchmark. Current measured
 results and the exact experimental status are summarized in `docs/FINAL_RESULTS.md`.
+
+The mapping from report tables to saved artifacts and exact commands is in
+`outputs/evaluation/README.md`.
+
+Build the report twice so references and page labels settle:
+
+```powershell
+Set-Location docs
+pdflatex -interaction=nonstopmode -halt-on-error ClaimGuard_Technical_Report.tex
+pdflatex -interaction=nonstopmode -halt-on-error ClaimGuard_Technical_Report.tex
+```
+
+The main-text page count ends at the `mainend` label; references and the appendix follow it.
 
 ## 9. Optional Module 6: comparison with existing tools
 
@@ -358,9 +399,9 @@ reference parsing and venue extraction, fuzzy matching, RAG retrieval, shared mo
 schemas, AI-detection safeguards, evaluation, tool comparison, Markdown output, and full-pipeline
 smoke tests.
 
-Report, presentation, and human-annotation checklists live in `docs/`. They deliberately contain
-placeholders for empirical results: run the local/frontier/external-tool experiments before
-claiming those results in the submission.
+Report, presentation, and human-annotation checklists live in `docs/`. The local/frontier
+comparison is complete; the external-tool and no-RAG comparisons remain incomplete and must not
+be claimed until their output files contain full runs.
 
 ## Architecture
 

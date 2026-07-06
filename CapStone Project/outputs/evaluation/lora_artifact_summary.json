@@ -1,0 +1,32 @@
+{
+  "source_training_report": "outputs/scifact-lora/training_report.json",
+  "source_transfer_evaluation": "outputs/evaluation/model_comparison_full.json",
+  "base_model": "distilbert-base-uncased",
+  "train_examples": 1261,
+  "validation_examples": 450,
+  "lora_rank": 8,
+  "lora_alpha": 16,
+  "target_modules": ["q_lin", "v_lin"],
+  "effective_batch_size": 16,
+  "epochs": 3.0,
+  "training_time_seconds": 30.8046,
+  "adapter_file_bytes": 2965276,
+  "adapter_saved_parameters": 740355,
+  "loaded_model_parameters": 67696134,
+  "adapter_parameter_percentage": 1.0936,
+  "scifact_validation": {
+    "accuracy": 0.4089,
+    "macro_f1": 0.3532
+  },
+  "five_label_transfer": {
+    "n": 30,
+    "accuracy": 0.3,
+    "macro_f1": 0.172
+  },
+  "measurement_notes": [
+    "Adapter bytes come from adapter_model.safetensors on disk.",
+    "Saved parameter count is the sum of tensors in adapter_model.safetensors.",
+    "Loaded model parameter count was measured from AutoPeftModelForSequenceClassification with num_labels=3.",
+    "The five-label transfer result is the LoRA row in model_comparison_full.json."
+  ]
+}

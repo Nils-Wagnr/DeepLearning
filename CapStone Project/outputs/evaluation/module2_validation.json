@@ -1,0 +1,2192 @@
+{
+  "benchmark": "data\\benchmark\\module2_validation_benchmark.csv",
+  "total": 30,
+  "case_type_counts": {
+    "authentic": 20,
+    "controlled": 10
+  },
+  "parser": {
+    "single_record_accuracy": 1.0,
+    "single_record_count": 30
+  },
+  "status_classification": {
+    "accuracy": 0.467,
+    "macro_f1": 0.412,
+    "per_label": {
+      "verified": {
+        "precision": 0.818,
+        "recall": 0.45,
+        "f1": 0.581,
+        "support": 20,
+        "predicted_count": 11,
+        "true_positive": 9,
+        "false_positive": 2,
+        "false_negative": 11
+      },
+      "partially_matched": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 4,
+        "predicted_count": 2,
+        "true_positive": 0,
+        "false_positive": 2,
+        "false_negative": 4
+      },
+      "unverified": {
+        "precision": 0.25,
+        "recall": 1.0,
+        "f1": 0.4,
+        "support": 4,
+        "predicted_count": 16,
+        "true_positive": 4,
+        "false_positive": 12,
+        "false_negative": 0
+      },
+      "retracted_or_problematic": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.667,
+        "support": 2,
+        "predicted_count": 1,
+        "true_positive": 1,
+        "false_positive": 0,
+        "false_negative": 1
+      }
+    },
+    "confusion_matrix": {
+      "verified": {
+        "unverified": 9,
+        "verified": 9,
+        "partially_matched": 2
+      },
+      "partially_matched": {
+        "unverified": 3,
+        "verified": 1
+      },
+      "unverified": {
+        "unverified": 4
+      },
+      "retracted_or_problematic": {
+        "retracted_or_problematic": 1,
+        "verified": 1
+      }
+    }
+  },
+  "existence": {
+    "n": 30,
+    "accuracy": 0.6,
+    "precision": 1.0,
+    "recall": 0.538,
+    "f1": 0.7,
+    "true_positive": 14,
+    "true_negative": 4,
+    "false_positive": 0,
+    "false_negative": 12
+  },
+  "doi_resolution": {
+    "n": 7,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "true_positive": 5,
+    "true_negative": 2,
+    "false_positive": 0,
+    "false_negative": 0,
+    "applicable_cases": 7
+  },
+  "retraction": {
+    "n": 30,
+    "accuracy": 0.967,
+    "precision": 1.0,
+    "recall": 0.5,
+    "f1": 0.667,
+    "true_positive": 1,
+    "true_negative": 28,
+    "false_positive": 0,
+    "false_negative": 1
+  },
+  "api_unavailable_cases": [],
+  "api_degraded_cases": [
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A08",
+    "A09",
+    "A10",
+    "A12",
+    "A13",
+    "A14",
+    "A15",
+    "A16",
+    "A17",
+    "A18",
+    "A19",
+    "A20",
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07"
+  ],
+  "subset_accuracy": {
+    "authentic": 0.4,
+    "controlled": 0.6
+  },
+  "errors": [
+    {
+      "case_id": "A01",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ1_Report.pdf",
+      "raw_reference": "[1] Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press.",
+      "gold_notes": "Existing scholarly book; no DOI supplied.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "1",
+        "title": "Deep Learning",
+        "authors": [
+          "Goodfellow",
+          "Bengio",
+          "Courville"
+        ],
+        "year": 2016,
+        "doi": null,
+        "venue": "MIT Press"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.639,
+        "matched_title": "What’s Deep About Deep Learning?",
+        "matched_year": 2018,
+        "doi": "10.4135/9781506368603.n2",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Deep%20Learning&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Deep+Learning&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Deep%20Learning&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Deep+Learning&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A03",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ1_Report.pdf",
+      "raw_reference": "[3] Ioffe, S., & Szegedy, C. (2015). Batch Normalization. ICML.",
+      "gold_notes": "Existing ICML paper but the cited title omits the subtitle.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "3",
+        "title": "Batch Normalization",
+        "authors": [
+          "Ioffe",
+          "Szegedy"
+        ],
+        "year": 2015,
+        "doi": null,
+        "venue": "ICML"
+      },
+      "expected_status": "partially_matched",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.63,
+        "matched_title": "Achieving Effective Batch-to-Batch Error Correction through Suppression Correction and Dual MSTUS Normalization",
+        "matched_year": 2026,
+        "doi": "10.1021/acs.analchem.5c05210.s002",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Batch%20Normalization&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Batch+Normalization&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Batch%20Normalization&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Batch+Normalization&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A04",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ1_Report.pdf",
+      "raw_reference": "[7] Krogh, A., & Hertz, J. A. (1992). A Simple Weight Decay Can Improve Generalization. NeurIPS.",
+      "gold_notes": "Existing NeurIPS paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "7",
+        "title": "A Simple Weight Decay Can Improve Generalization",
+        "authors": [
+          "Krogh",
+          "Hertz"
+        ],
+        "year": 1992,
+        "doi": null,
+        "venue": "NeurIPS"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.488,
+        "matched_title": "Using weight decay to optimize the generalization ability of a perceptron",
+        "matched_year": 2002,
+        "doi": "10.1109/icnn.1996.548898",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=A%20Simple%20Weight%20Decay%20Can%20Improve%20Generalization&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=A+Simple+Weight+Decay+Can+Improve+Generalization&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=A%20Simple%20Weight%20Decay%20Can%20Improve%20Generalization&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=A+Simple+Weight+Decay+Can+Improve+Generalization&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A06",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ2_Report.pdf",
+      "raw_reference": "[3] L. Engstrom, B. Tran, D. Tsipras, L. Schmidt, and A. Madry, A Rotation and a Translation Suffice: Fooling CNNs with Simple Transformations, ICLR, 2019.",
+      "gold_notes": "Existing ICLR paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "3",
+        "title": "A Rotation and a Translation Suffice: Fooling CNNs with Simple Transformations",
+        "authors": [
+          "Engstrom",
+          "Tran",
+          "Tsipras",
+          "Madry",
+          "Transformations"
+        ],
+        "year": 2019,
+        "doi": null,
+        "venue": "ICLR, 2019"
+      },
+      "expected_status": "verified",
+      "predicted_status": "partially_matched",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "openalex",
+        "confidence": 0.69,
+        "matched_title": "A Rotation and a Translation Suffice: Fooling CNNs with Simple Transformations",
+        "matched_year": 2017,
+        "doi": null,
+        "details": "OpenAlex work match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=A%20Rotation%20and%20a%20Translation%20Suffice%3A%20Fooling%20CNNs%20with%20Simple%20Transformations&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=A%20Rotation%20and%20a%20Translation%20Suffice%3A%20Fooling%20CNNs%20with%20Simple%20Transformations&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue"
+        ]
+      }
+    },
+    {
+      "case_id": "A07",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ2_Report.pdf",
+      "raw_reference": "[4] A. Azulay and Y. Weiss, Why do deep convolutional networks generalize so poorly to small image transformations?, JMLR, 2019.",
+      "gold_notes": "Existing JMLR article.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "4",
+        "title": "Why do deep convolutional networks generalize so poorly to small image transformations?",
+        "authors": [
+          "Weiss"
+        ],
+        "year": 2019,
+        "doi": null,
+        "venue": "JMLR, 2019"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.322,
+        "matched_title": "Why Do Fixed-Effects Models Perform So Poorly?  The Case of Academic    Salaries",
+        "matched_year": 1987,
+        "doi": "10.3386/w2135",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Why%20do%20deep%20convolutional%20networks%20generalize%20so%20poorly%20to%20small%20image%20transformations%3F&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 400 for https://api.openalex.org/works?search=Why+do+deep+convolutional+networks+generalize+so+poorly+to+small+image+transformations%3F&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Why%20do%20deep%20convolutional%20networks%20generalize%20so%20poorly%20to%20small%20image%20transformations%3F&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 400 for https://api.openalex.org/works?search=Why+do+deep+convolutional+networks+generalize+so+poorly+to+small+image+transformations%3F&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A09",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ3_Report.pdf",
+      "raw_reference": "[2] S. Hochreiter and J. Schmidhuber, Long Short-Term Memory, Neural Computation, vol. 9, no. 8, pp. 1735-1780, 1997.",
+      "gold_notes": "Existing Neural Computation article.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "2",
+        "title": "Long Short-Term Memory",
+        "authors": [
+          "Schmidhuber",
+          "Memory"
+        ],
+        "year": 1997,
+        "doi": null,
+        "venue": "Neural Computation, vol"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.63,
+        "matched_title": "Forecasting Cryptocurrency Prices Using Hybrid Long Short – Term Memory and Long Short – Term Memory Variants",
+        "matched_year": 2024,
+        "doi": "10.21203/rs.3.rs-5374266/v1",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Long%20Short-Term%20Memory&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Long+Short-Term+Memory&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Long%20Short-Term%20Memory&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Long+Short-Term+Memory&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A10",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ3_Report.pdf",
+      "raw_reference": "[3] R. Pascanu, T. Mikolov, and Y. Bengio, On the Difficulty of Training Recurrent Neural Networks, Proceedings of ICML, pp. 1310-1318, 2013.",
+      "gold_notes": "Existing ICML paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "3",
+        "title": "On the Difficulty of Training Recurrent Neural Networks",
+        "authors": [
+          "Pascanu",
+          "Bengio",
+          "Networks"
+        ],
+        "year": 2013,
+        "doi": null,
+        "venue": "Proceedings of ICML, pp"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.487,
+        "matched_title": "Training Recurrent Neural Networks for Filtering and Control",
+        "matched_year": 1999,
+        "doi": "10.1201/9781420049176-12",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=On%20the%20Difficulty%20of%20Training%20Recurrent%20Neural%20Networks&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=On+the+Difficulty+of+Training+Recurrent+Neural+Networks&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=On%20the%20Difficulty%20of%20Training%20Recurrent%20Neural%20Networks&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=On+the+Difficulty+of+Training+Recurrent+Neural+Networks&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A13",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ4_Report.pdf",
+      "raw_reference": "[3] J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. Proceedings of NAACL-HLT, pages 4171-4186, 2019.",
+      "gold_notes": "Existing NAACL paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "3",
+        "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+        "authors": [
+          "Devlin",
+          "Chang"
+        ],
+        "year": 2019,
+        "doi": null,
+        "venue": "Proceedings of NAACL-HLT, pages 4171-4186, 2019"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.518,
+        "matched_title": "Spectrum-BERT: Pre-training of Deep Bidirectional Transformers for Spectral Classification of Chinese Liquors_supp1-3374300.docx",
+        "matched_year": 2024,
+        "doi": "10.1109/tim.2024.3374300/mm1",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=BERT%3A%20Pre-training%20of%20Deep%20Bidirectional%20Transformers%20for%20Language%20Understanding&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=BERT%3A+Pre-training+of+Deep+Bidirectional+Transformers+for+Language+Understanding&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=BERT%3A%20Pre-training%20of%20Deep%20Bidirectional%20Transformers%20for%20Language%20Understanding&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=BERT%3A+Pre-training+of+Deep+Bidirectional+Transformers+for+Language+Understanding&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A14",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ4_Report.pdf",
+      "raw_reference": "[4] V. Sanh, L. Debut, J. Chaumond, and T. Wolf. DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter. NeurIPS EMC2 Workshop, 2019.",
+      "gold_notes": "Existing workshop paper; wrapped source lines were recombined.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "4",
+        "title": "DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter",
+        "authors": [
+          "Sanh",
+          "Debut",
+          "Smaller"
+        ],
+        "year": 2019,
+        "doi": null,
+        "venue": "NeurIPS EMC2 Workshop, 2019"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.431,
+        "matched_title": "A smaller, faster, cheaper route to fusion energy",
+        "matched_year": 2021,
+        "doi": "10.1126/article.99526",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=DistilBERT%2C%20a%20Distilled%20Version%20of%20BERT%3A%20Smaller%2C%20Faster%2C%20Cheaper%20and%20Lighter&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=DistilBERT%2C+a+Distilled+Version+of+BERT%3A+Smaller%2C+Faster%2C+Cheaper+and+Lighter&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=DistilBERT%2C%20a%20Distilled%20Version%20of%20BERT%3A%20Smaller%2C%20Faster%2C%20Cheaper%20and%20Lighter&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=DistilBERT%2C+a+Distilled+Version+of+BERT%3A+Smaller%2C+Faster%2C+Cheaper+and+Lighter&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A15",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ4_Report.pdf",
+      "raw_reference": "[5] T. B. Brown et al. Language Models are Few-Shot Learners. Advances in Neural Information Processing Systems, 33:1877-1901, 2020.",
+      "gold_notes": "Existing NeurIPS paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "5",
+        "title": "Language Models are Few-Shot Learners",
+        "authors": [
+          "Brown"
+        ],
+        "year": 1901,
+        "doi": null,
+        "venue": "Advances in Neural Information Processing Systems, 33:1877-1901, 2020"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.649,
+        "matched_title": "Language Models of Code are Few-Shot Commonsense Learners",
+        "matched_year": 2022,
+        "doi": "10.18653/v1/2022.emnlp-main.90",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Language%20Models%20are%20Few-Shot%20Learners&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Language+Models+are+Few-Shot+Learners&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Language%20Models%20are%20Few-Shot%20Learners&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Language+Models+are+Few-Shot+Learners&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A16",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ5_Report.pdf",
+      "raw_reference": "[1] P. Lewis et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. Advances in Neural Information Processing Systems, 33:9459-9474, 2020.",
+      "gold_notes": "Existing NeurIPS paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "1",
+        "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+        "authors": [
+          "Lewis"
+        ],
+        "year": 2020,
+        "doi": null,
+        "venue": "Advances in Neural Information Processing Systems, 33:9459-9474, 2020"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.592,
+        "matched_title": "Multilingual Retrieval-Augmented Generation for Knowledge-Intensive Question Answering Task",
+        "matched_year": 2026,
+        "doi": "10.18653/v1/2026.findings-eacl.35",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Retrieval-Augmented%20Generation%20for%20Knowledge-Intensive%20NLP%20Tasks&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Retrieval-Augmented+Generation+for+Knowledge-Intensive+NLP+Tasks&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Retrieval-Augmented%20Generation%20for%20Knowledge-Intensive%20NLP%20Tasks&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Retrieval-Augmented+Generation+for+Knowledge-Intensive+NLP+Tasks&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A18",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ5_Report.pdf",
+      "raw_reference": "[3] Y. Gao et al. Retrieval-Augmented Generation for Large Language Models: A Survey. arXiv:2312.10997, 2024.",
+      "gold_notes": "Existing arXiv survey.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "3",
+        "title": "Retrieval-Augmented Generation for Large Language Models: A Survey",
+        "authors": [
+          "Gao"
+        ],
+        "year": 2024,
+        "doi": null,
+        "venue": "arXiv:2312.10997, 2024"
+      },
+      "expected_status": "verified",
+      "predicted_status": "partially_matched",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "openalex",
+        "confidence": 0.786,
+        "matched_title": "Graph Retrieval-Augmented Generation for Large Language Models: A Survey",
+        "matched_year": 2024,
+        "doi": "10.2139/ssrn.4895062",
+        "details": "OpenAlex work match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Retrieval-Augmented%20Generation%20for%20Large%20Language%20Models%3A%20A%20Survey&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Retrieval-Augmented%20Generation%20for%20Large%20Language%20Models%3A%20A%20Survey&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue"
+        ]
+      }
+    },
+    {
+      "case_id": "C02",
+      "case_type": "controlled",
+      "source_document": "controlled",
+      "raw_reference": "[22] Y. LeCun, Y. Bengio, and G. Hinton. Deep Learning. Nature, 2015. doi:10.9999/claimguard.invalid.001",
+      "gold_notes": "Real work paired with an intentionally invalid DOI.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "22",
+        "title": "Deep Learning",
+        "authors": [
+          "LeCun"
+        ],
+        "year": 2015,
+        "doi": "10.9999/claimguard.invalid.001",
+        "venue": "Nature, 2015"
+      },
+      "expected_status": "partially_matched",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": false,
+      "predicted_doi_valid": false,
+      "doi_correct": true,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.64,
+        "matched_title": "What’s Deep About Deep Learning?",
+        "matched_year": 2018,
+        "doi": "10.4135/9781506368603.n2",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Deep%20Learning&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Deep+Learning&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Deep%20Learning&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Deep+Learning&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "C04",
+      "case_type": "controlled",
+      "source_document": "controlled",
+      "raw_reference": "[24] J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. NAACL, 2017.",
+      "gold_notes": "Existing work with intentionally wrong year.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "24",
+        "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+        "authors": [
+          "Devlin",
+          "Chang"
+        ],
+        "year": 2017,
+        "doi": null,
+        "venue": "NAACL, 2017"
+      },
+      "expected_status": "partially_matched",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.518,
+        "matched_title": "Spectrum-BERT: Pre-training of Deep Bidirectional Transformers for Spectral Classification of Chinese Liquors_supp1-3374300.docx",
+        "matched_year": 2024,
+        "doi": "10.1109/tim.2024.3374300/mm1",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=BERT%3A%20Pre-training%20of%20Deep%20Bidirectional%20Transformers%20for%20Language%20Understanding&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=BERT%3A+Pre-training+of+Deep+Bidirectional+Transformers+for+Language+Understanding&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=BERT%3A%20Pre-training%20of%20Deep%20Bidirectional%20Transformers%20for%20Language%20Understanding&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=BERT%3A+Pre-training+of+Deep+Bidirectional+Transformers+for+Language+Understanding&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "C05",
+      "case_type": "controlled",
+      "source_document": "controlled",
+      "raw_reference": "[25] J. Smith. Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks. EMNLP-IJCNLP, 2019.",
+      "gold_notes": "Existing work with intentionally wrong author.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "25",
+        "title": "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks",
+        "authors": [
+          "Smith"
+        ],
+        "year": 2019,
+        "doi": null,
+        "venue": "EMNLP-IJCNLP, 2019"
+      },
+      "expected_status": "partially_matched",
+      "predicted_status": "verified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.82,
+        "matched_title": "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks",
+        "matched_year": 2019,
+        "doi": "10.18653/v1/d19-1410",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Sentence-BERT%3A%20Sentence%20Embeddings%20using%20Siamese%20BERT-Networks&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Sentence-BERT%3A%20Sentence%20Embeddings%20using%20Siamese%20BERT-Networks&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue"
+        ]
+      }
+    },
+    {
+      "case_id": "C09",
+      "case_type": "controlled",
+      "source_document": "controlled",
+      "raw_reference": "[29] A. J. Wakefield et al. Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children. The Lancet, 1998. doi:10.1016/S0140-6736(97)11096-0",
+      "gold_notes": "Known retracted Lancet article.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "29",
+        "title": "Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children",
+        "authors": [
+          "Wakefield"
+        ],
+        "year": 1998,
+        "doi": "10.1016/s0140-6736(97)11096-0",
+        "venue": "The Lancet, 1998"
+      },
+      "expected_status": "retracted_or_problematic",
+      "predicted_status": "verified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": true,
+      "predicted_doi_valid": true,
+      "doi_correct": true,
+      "expected_retracted": true,
+      "predicted_retracted": false,
+      "retraction_correct": false,
+      "validation": {
+        "source": "crossref",
+        "confidence": 1.0,
+        "matched_title": "RETRACTED: Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children",
+        "matched_year": 1998,
+        "doi": "10.1016/s0140-6736(97)11096-0",
+        "details": "CrossRef bibliographic match.",
+        "candidate_is_retracted": false,
+        "api_degraded": false,
+        "api_failures": []
+      }
+    }
+  ],
+  "predictions": [
+    {
+      "case_id": "A01",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ1_Report.pdf",
+      "raw_reference": "[1] Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press.",
+      "gold_notes": "Existing scholarly book; no DOI supplied.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "1",
+        "title": "Deep Learning",
+        "authors": [
+          "Goodfellow",
+          "Bengio",
+          "Courville"
+        ],
+        "year": 2016,
+        "doi": null,
+        "venue": "MIT Press"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.639,
+        "matched_title": "What’s Deep About Deep Learning?",
+        "matched_year": 2018,
+        "doi": "10.4135/9781506368603.n2",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Deep%20Learning&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Deep+Learning&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Deep%20Learning&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Deep+Learning&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A02",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ1_Report.pdf",
+      "raw_reference": "[2] Srivastava, N. et al. (2014). Dropout: A Simple Way to Prevent Neural Networks from Overfitting. JMLR, 15.",
+      "gold_notes": "Existing JMLR article.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "2",
+        "title": "Dropout: A Simple Way to Prevent Neural Networks from Overfitting",
+        "authors": [
+          "Srivastava"
+        ],
+        "year": 2014,
+        "doi": null,
+        "venue": "JMLR, 15"
+      },
+      "expected_status": "verified",
+      "predicted_status": "verified",
+      "status_correct": true,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "openalex",
+        "confidence": 0.84,
+        "matched_title": "Dropout: a simple way to prevent neural networks from overfitting",
+        "matched_year": 2014,
+        "doi": null,
+        "details": "OpenAlex work match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Dropout%3A%20A%20Simple%20Way%20to%20Prevent%20Neural%20Networks%20from%20Overfitting&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Dropout%3A%20A%20Simple%20Way%20to%20Prevent%20Neural%20Networks%20from%20Overfitting&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue"
+        ]
+      }
+    },
+    {
+      "case_id": "A03",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ1_Report.pdf",
+      "raw_reference": "[3] Ioffe, S., & Szegedy, C. (2015). Batch Normalization. ICML.",
+      "gold_notes": "Existing ICML paper but the cited title omits the subtitle.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "3",
+        "title": "Batch Normalization",
+        "authors": [
+          "Ioffe",
+          "Szegedy"
+        ],
+        "year": 2015,
+        "doi": null,
+        "venue": "ICML"
+      },
+      "expected_status": "partially_matched",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.63,
+        "matched_title": "Achieving Effective Batch-to-Batch Error Correction through Suppression Correction and Dual MSTUS Normalization",
+        "matched_year": 2026,
+        "doi": "10.1021/acs.analchem.5c05210.s002",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Batch%20Normalization&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Batch+Normalization&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Batch%20Normalization&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Batch+Normalization&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A04",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ1_Report.pdf",
+      "raw_reference": "[7] Krogh, A., & Hertz, J. A. (1992). A Simple Weight Decay Can Improve Generalization. NeurIPS.",
+      "gold_notes": "Existing NeurIPS paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "7",
+        "title": "A Simple Weight Decay Can Improve Generalization",
+        "authors": [
+          "Krogh",
+          "Hertz"
+        ],
+        "year": 1992,
+        "doi": null,
+        "venue": "NeurIPS"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.488,
+        "matched_title": "Using weight decay to optimize the generalization ability of a perceptron",
+        "matched_year": 2002,
+        "doi": "10.1109/icnn.1996.548898",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=A%20Simple%20Weight%20Decay%20Can%20Improve%20Generalization&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=A+Simple+Weight+Decay+Can+Improve+Generalization&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=A%20Simple%20Weight%20Decay%20Can%20Improve%20Generalization&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=A+Simple+Weight+Decay+Can+Improve+Generalization&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A05",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ2_Report.pdf",
+      "raw_reference": "[2] Y. LeCun, L. Bottou, Y. Bengio, and P. Haffner, Gradient-based learning applied to document recognition, Proceedings of the IEEE, 1998.",
+      "gold_notes": "Existing IEEE article.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "2",
+        "title": "Gradient-based learning applied to document recognition",
+        "authors": [
+          "LeCun",
+          "Bottou",
+          "Haffner"
+        ],
+        "year": 1998,
+        "doi": null,
+        "venue": "Proceedings of the IEEE, 1998"
+      },
+      "expected_status": "verified",
+      "predicted_status": "verified",
+      "status_correct": true,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.88,
+        "matched_title": "Gradient-based learning applied to document recognition",
+        "matched_year": 1998,
+        "doi": "10.1109/5.726791",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Gradient-based%20learning%20applied%20to%20document%20recognition&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Gradient-based+learning+applied+to+document+recognition&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Gradient-based%20learning%20applied%20to%20document%20recognition&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Gradient-based+learning+applied+to+document+recognition&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A06",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ2_Report.pdf",
+      "raw_reference": "[3] L. Engstrom, B. Tran, D. Tsipras, L. Schmidt, and A. Madry, A Rotation and a Translation Suffice: Fooling CNNs with Simple Transformations, ICLR, 2019.",
+      "gold_notes": "Existing ICLR paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "3",
+        "title": "A Rotation and a Translation Suffice: Fooling CNNs with Simple Transformations",
+        "authors": [
+          "Engstrom",
+          "Tran",
+          "Tsipras",
+          "Madry",
+          "Transformations"
+        ],
+        "year": 2019,
+        "doi": null,
+        "venue": "ICLR, 2019"
+      },
+      "expected_status": "verified",
+      "predicted_status": "partially_matched",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "openalex",
+        "confidence": 0.69,
+        "matched_title": "A Rotation and a Translation Suffice: Fooling CNNs with Simple Transformations",
+        "matched_year": 2017,
+        "doi": null,
+        "details": "OpenAlex work match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=A%20Rotation%20and%20a%20Translation%20Suffice%3A%20Fooling%20CNNs%20with%20Simple%20Transformations&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=A%20Rotation%20and%20a%20Translation%20Suffice%3A%20Fooling%20CNNs%20with%20Simple%20Transformations&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue"
+        ]
+      }
+    },
+    {
+      "case_id": "A07",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ2_Report.pdf",
+      "raw_reference": "[4] A. Azulay and Y. Weiss, Why do deep convolutional networks generalize so poorly to small image transformations?, JMLR, 2019.",
+      "gold_notes": "Existing JMLR article.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "4",
+        "title": "Why do deep convolutional networks generalize so poorly to small image transformations?",
+        "authors": [
+          "Weiss"
+        ],
+        "year": 2019,
+        "doi": null,
+        "venue": "JMLR, 2019"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.322,
+        "matched_title": "Why Do Fixed-Effects Models Perform So Poorly?  The Case of Academic    Salaries",
+        "matched_year": 1987,
+        "doi": "10.3386/w2135",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Why%20do%20deep%20convolutional%20networks%20generalize%20so%20poorly%20to%20small%20image%20transformations%3F&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 400 for https://api.openalex.org/works?search=Why+do+deep+convolutional+networks+generalize+so+poorly+to+small+image+transformations%3F&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Why%20do%20deep%20convolutional%20networks%20generalize%20so%20poorly%20to%20small%20image%20transformations%3F&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 400 for https://api.openalex.org/works?search=Why+do+deep+convolutional+networks+generalize+so+poorly+to+small+image+transformations%3F&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A08",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ3_Report.pdf",
+      "raw_reference": "[1] Y. Kim, Convolutional Neural Networks for Sentence Classification, Proceedings of EMNLP, pp. 1746-1751, 2014.",
+      "gold_notes": "Existing EMNLP paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "1",
+        "title": "Convolutional Neural Networks for Sentence Classification",
+        "authors": [
+          "Kim",
+          "Classification"
+        ],
+        "year": 2014,
+        "doi": null,
+        "venue": "Proceedings of EMNLP, pp"
+      },
+      "expected_status": "verified",
+      "predicted_status": "verified",
+      "status_correct": true,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.877,
+        "matched_title": "Convolutional Neural Networks for Sentence Classification",
+        "matched_year": 2014,
+        "doi": "10.3115/v1/d14-1181",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Convolutional%20Neural%20Networks%20for%20Sentence%20Classification&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Convolutional+Neural+Networks+for+Sentence+Classification&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Convolutional%20Neural%20Networks%20for%20Sentence%20Classification&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Convolutional+Neural+Networks+for+Sentence+Classification&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A09",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ3_Report.pdf",
+      "raw_reference": "[2] S. Hochreiter and J. Schmidhuber, Long Short-Term Memory, Neural Computation, vol. 9, no. 8, pp. 1735-1780, 1997.",
+      "gold_notes": "Existing Neural Computation article.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "2",
+        "title": "Long Short-Term Memory",
+        "authors": [
+          "Schmidhuber",
+          "Memory"
+        ],
+        "year": 1997,
+        "doi": null,
+        "venue": "Neural Computation, vol"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.63,
+        "matched_title": "Forecasting Cryptocurrency Prices Using Hybrid Long Short – Term Memory and Long Short – Term Memory Variants",
+        "matched_year": 2024,
+        "doi": "10.21203/rs.3.rs-5374266/v1",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Long%20Short-Term%20Memory&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Long+Short-Term+Memory&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Long%20Short-Term%20Memory&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Long+Short-Term+Memory&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A10",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ3_Report.pdf",
+      "raw_reference": "[3] R. Pascanu, T. Mikolov, and Y. Bengio, On the Difficulty of Training Recurrent Neural Networks, Proceedings of ICML, pp. 1310-1318, 2013.",
+      "gold_notes": "Existing ICML paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "3",
+        "title": "On the Difficulty of Training Recurrent Neural Networks",
+        "authors": [
+          "Pascanu",
+          "Bengio",
+          "Networks"
+        ],
+        "year": 2013,
+        "doi": null,
+        "venue": "Proceedings of ICML, pp"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.487,
+        "matched_title": "Training Recurrent Neural Networks for Filtering and Control",
+        "matched_year": 1999,
+        "doi": "10.1201/9781420049176-12",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=On%20the%20Difficulty%20of%20Training%20Recurrent%20Neural%20Networks&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=On+the+Difficulty+of+Training+Recurrent+Neural+Networks&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=On%20the%20Difficulty%20of%20Training%20Recurrent%20Neural%20Networks&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=On+the+Difficulty+of+Training+Recurrent+Neural+Networks&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A11",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ3_Report.pdf",
+      "raw_reference": "[4] A. L. Maas, R. E. Daly, P. T. Pham, D. Huang, A. Y. Ng, and C. Potts, Learning Word Vectors for Sentiment Analysis, Proceedings of ACL-HLT, pp. 142-150, 2011.",
+      "gold_notes": "Existing ACL paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "4",
+        "title": "Learning Word Vectors for Sentiment Analysis",
+        "authors": [
+          "Maas",
+          "Daly",
+          "Pham",
+          "Huang",
+          "Potts",
+          "Analysis"
+        ],
+        "year": 2011,
+        "doi": null,
+        "venue": "Proceedings of ACL-HLT, pp"
+      },
+      "expected_status": "verified",
+      "predicted_status": "verified",
+      "status_correct": true,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "semantic_scholar",
+        "confidence": 0.848,
+        "matched_title": "Learning Word Vectors for Sentiment Analysis",
+        "matched_year": 2011,
+        "doi": null,
+        "details": "Semantic Scholar paper match.",
+        "candidate_is_retracted": false,
+        "api_degraded": false,
+        "api_failures": []
+      }
+    },
+    {
+      "case_id": "A12",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ4_Report.pdf",
+      "raw_reference": "[2] J. Pennington, R. Socher, and C. D. Manning. GloVe: Global Vectors for Word Representation. Proceedings of EMNLP, pages 1532-1543, 2014.",
+      "gold_notes": "Existing EMNLP paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "2",
+        "title": "GloVe: Global Vectors for Word Representation",
+        "authors": [
+          "Pennington"
+        ],
+        "year": 2014,
+        "doi": null,
+        "venue": "Proceedings of EMNLP, pages 1532-1543, 2014"
+      },
+      "expected_status": "verified",
+      "predicted_status": "verified",
+      "status_correct": true,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.87,
+        "matched_title": "Glove: Global Vectors for Word Representation",
+        "matched_year": 2014,
+        "doi": "10.3115/v1/d14-1162",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=GloVe%3A%20Global%20Vectors%20for%20Word%20Representation&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=GloVe%3A+Global+Vectors+for+Word+Representation&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=GloVe%3A%20Global%20Vectors%20for%20Word%20Representation&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=GloVe%3A+Global+Vectors+for+Word+Representation&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A13",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ4_Report.pdf",
+      "raw_reference": "[3] J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. Proceedings of NAACL-HLT, pages 4171-4186, 2019.",
+      "gold_notes": "Existing NAACL paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "3",
+        "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+        "authors": [
+          "Devlin",
+          "Chang"
+        ],
+        "year": 2019,
+        "doi": null,
+        "venue": "Proceedings of NAACL-HLT, pages 4171-4186, 2019"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.518,
+        "matched_title": "Spectrum-BERT: Pre-training of Deep Bidirectional Transformers for Spectral Classification of Chinese Liquors_supp1-3374300.docx",
+        "matched_year": 2024,
+        "doi": "10.1109/tim.2024.3374300/mm1",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=BERT%3A%20Pre-training%20of%20Deep%20Bidirectional%20Transformers%20for%20Language%20Understanding&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=BERT%3A+Pre-training+of+Deep+Bidirectional+Transformers+for+Language+Understanding&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=BERT%3A%20Pre-training%20of%20Deep%20Bidirectional%20Transformers%20for%20Language%20Understanding&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=BERT%3A+Pre-training+of+Deep+Bidirectional+Transformers+for+Language+Understanding&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A14",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ4_Report.pdf",
+      "raw_reference": "[4] V. Sanh, L. Debut, J. Chaumond, and T. Wolf. DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter. NeurIPS EMC2 Workshop, 2019.",
+      "gold_notes": "Existing workshop paper; wrapped source lines were recombined.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "4",
+        "title": "DistilBERT, a Distilled Version of BERT: Smaller, Faster, Cheaper and Lighter",
+        "authors": [
+          "Sanh",
+          "Debut",
+          "Smaller"
+        ],
+        "year": 2019,
+        "doi": null,
+        "venue": "NeurIPS EMC2 Workshop, 2019"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.431,
+        "matched_title": "A smaller, faster, cheaper route to fusion energy",
+        "matched_year": 2021,
+        "doi": "10.1126/article.99526",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=DistilBERT%2C%20a%20Distilled%20Version%20of%20BERT%3A%20Smaller%2C%20Faster%2C%20Cheaper%20and%20Lighter&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=DistilBERT%2C+a+Distilled+Version+of+BERT%3A+Smaller%2C+Faster%2C+Cheaper+and+Lighter&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=DistilBERT%2C%20a%20Distilled%20Version%20of%20BERT%3A%20Smaller%2C%20Faster%2C%20Cheaper%20and%20Lighter&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=DistilBERT%2C+a+Distilled+Version+of+BERT%3A+Smaller%2C+Faster%2C+Cheaper+and+Lighter&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A15",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ4_Report.pdf",
+      "raw_reference": "[5] T. B. Brown et al. Language Models are Few-Shot Learners. Advances in Neural Information Processing Systems, 33:1877-1901, 2020.",
+      "gold_notes": "Existing NeurIPS paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "5",
+        "title": "Language Models are Few-Shot Learners",
+        "authors": [
+          "Brown"
+        ],
+        "year": 1901,
+        "doi": null,
+        "venue": "Advances in Neural Information Processing Systems, 33:1877-1901, 2020"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.649,
+        "matched_title": "Language Models of Code are Few-Shot Commonsense Learners",
+        "matched_year": 2022,
+        "doi": "10.18653/v1/2022.emnlp-main.90",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Language%20Models%20are%20Few-Shot%20Learners&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Language+Models+are+Few-Shot+Learners&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Language%20Models%20are%20Few-Shot%20Learners&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Language+Models+are+Few-Shot+Learners&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A16",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ5_Report.pdf",
+      "raw_reference": "[1] P. Lewis et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. Advances in Neural Information Processing Systems, 33:9459-9474, 2020.",
+      "gold_notes": "Existing NeurIPS paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "1",
+        "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+        "authors": [
+          "Lewis"
+        ],
+        "year": 2020,
+        "doi": null,
+        "venue": "Advances in Neural Information Processing Systems, 33:9459-9474, 2020"
+      },
+      "expected_status": "verified",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.592,
+        "matched_title": "Multilingual Retrieval-Augmented Generation for Knowledge-Intensive Question Answering Task",
+        "matched_year": 2026,
+        "doi": "10.18653/v1/2026.findings-eacl.35",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Retrieval-Augmented%20Generation%20for%20Knowledge-Intensive%20NLP%20Tasks&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Retrieval-Augmented+Generation+for+Knowledge-Intensive+NLP+Tasks&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Retrieval-Augmented%20Generation%20for%20Knowledge-Intensive%20NLP%20Tasks&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Retrieval-Augmented+Generation+for+Knowledge-Intensive+NLP+Tasks&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A17",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ5_Report.pdf",
+      "raw_reference": "[2] N. Reimers and I. Gurevych. Sentence-BERT: Sentence Embeddings using Siamese BERTNetworks. Proceedings of EMNLP-IJCNLP, pages 3982-3992, 2019.",
+      "gold_notes": "Existing EMNLP paper with a minor PDF spacing artifact.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "2",
+        "title": "Sentence-BERT: Sentence Embeddings using Siamese BERTNetworks",
+        "authors": [
+          "Reimers",
+          "Gurevych"
+        ],
+        "year": 2019,
+        "doi": null,
+        "venue": "Proceedings of EMNLP-IJCNLP, pages 3982-3992, 2019"
+      },
+      "expected_status": "verified",
+      "predicted_status": "verified",
+      "status_correct": true,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.867,
+        "matched_title": "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks",
+        "matched_year": 2019,
+        "doi": "10.18653/v1/d19-1410",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Sentence-BERT%3A%20Sentence%20Embeddings%20using%20Siamese%20BERTNetworks&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Sentence-BERT%3A+Sentence+Embeddings+using+Siamese+BERTNetworks&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Sentence-BERT%3A%20Sentence%20Embeddings%20using%20Siamese%20BERTNetworks&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Sentence-BERT%3A+Sentence+Embeddings+using+Siamese+BERTNetworks&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A18",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ5_Report.pdf",
+      "raw_reference": "[3] Y. Gao et al. Retrieval-Augmented Generation for Large Language Models: A Survey. arXiv:2312.10997, 2024.",
+      "gold_notes": "Existing arXiv survey.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "3",
+        "title": "Retrieval-Augmented Generation for Large Language Models: A Survey",
+        "authors": [
+          "Gao"
+        ],
+        "year": 2024,
+        "doi": null,
+        "venue": "arXiv:2312.10997, 2024"
+      },
+      "expected_status": "verified",
+      "predicted_status": "partially_matched",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "openalex",
+        "confidence": 0.786,
+        "matched_title": "Graph Retrieval-Augmented Generation for Large Language Models: A Survey",
+        "matched_year": 2024,
+        "doi": "10.2139/ssrn.4895062",
+        "details": "OpenAlex work match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Retrieval-Augmented%20Generation%20for%20Large%20Language%20Models%3A%20A%20Survey&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Retrieval-Augmented%20Generation%20for%20Large%20Language%20Models%3A%20A%20Survey&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue"
+        ]
+      }
+    },
+    {
+      "case_id": "A19",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ5_Report.pdf",
+      "raw_reference": "[4] N. F. Liu et al. Lost in the Middle: How Language Models Use Long Contexts. Transactions of the Association for Computational Linguistics, 12:157-173, 2024.",
+      "gold_notes": "Existing TACL article.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "4",
+        "title": "Lost in the Middle: How Language Models Use Long Contexts",
+        "authors": [
+          "Liu"
+        ],
+        "year": 2024,
+        "doi": null,
+        "venue": "Transactions of the Association for Computational Linguistics, 12:157-173, 2024"
+      },
+      "expected_status": "verified",
+      "predicted_status": "verified",
+      "status_correct": true,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.88,
+        "matched_title": "Lost in the Middle: How Language Models Use Long Contexts",
+        "matched_year": 2024,
+        "doi": "10.1162/tacl_a_00638",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Lost%20in%20the%20Middle%3A%20How%20Language%20Models%20Use%20Long%20Contexts&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Lost+in+the+Middle%3A+How+Language+Models+Use+Long+Contexts&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Lost%20in%20the%20Middle%3A%20How%20Language%20Models%20Use%20Long%20Contexts&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Lost+in+the+Middle%3A+How+Language+Models+Use+Long+Contexts&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "A20",
+      "case_type": "authentic",
+      "source_document": "NW2_RQ5_Report.pdf",
+      "raw_reference": "[5] F. Shi et al. Large Language Models Can Be Easily Distracted by Irrelevant Context. Proceedings of ICML, 2023.",
+      "gold_notes": "Existing ICML paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "5",
+        "title": "Large Language Models Can Be Easily Distracted by Irrelevant Context",
+        "authors": [
+          "Shi"
+        ],
+        "year": 2023,
+        "doi": null,
+        "venue": "Proceedings of ICML, 2023"
+      },
+      "expected_status": "verified",
+      "predicted_status": "verified",
+      "status_correct": true,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "openalex",
+        "confidence": 0.852,
+        "matched_title": "Large Language Models Can Be Easily Distracted by Irrelevant Context",
+        "matched_year": 2023,
+        "doi": "10.48550/arxiv.2302.00093",
+        "details": "OpenAlex work match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Large%20Language%20Models%20Can%20Be%20Easily%20Distracted%20by%20Irrelevant%20Context&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Large%20Language%20Models%20Can%20Be%20Easily%20Distracted%20by%20Irrelevant%20Context&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue"
+        ]
+      }
+    },
+    {
+      "case_id": "C01",
+      "case_type": "controlled",
+      "source_document": "controlled",
+      "raw_reference": "[21] Y. LeCun, Y. Bengio, and G. Hinton. Deep Learning. Nature, 2015. doi:10.1038/nature14539",
+      "gold_notes": "Correct metadata and resolvable DOI.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "21",
+        "title": "Deep Learning",
+        "authors": [
+          "LeCun"
+        ],
+        "year": 2015,
+        "doi": "10.1038/nature14539",
+        "venue": "Nature, 2015"
+      },
+      "expected_status": "verified",
+      "predicted_status": "verified",
+      "status_correct": true,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": true,
+      "predicted_doi_valid": true,
+      "doi_correct": true,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 1.0,
+        "matched_title": "Deep learning",
+        "matched_year": 2015,
+        "doi": "10.1038/nature14539",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Deep%20Learning&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Deep%20Learning&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue"
+        ]
+      }
+    },
+    {
+      "case_id": "C02",
+      "case_type": "controlled",
+      "source_document": "controlled",
+      "raw_reference": "[22] Y. LeCun, Y. Bengio, and G. Hinton. Deep Learning. Nature, 2015. doi:10.9999/claimguard.invalid.001",
+      "gold_notes": "Real work paired with an intentionally invalid DOI.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "22",
+        "title": "Deep Learning",
+        "authors": [
+          "LeCun"
+        ],
+        "year": 2015,
+        "doi": "10.9999/claimguard.invalid.001",
+        "venue": "Nature, 2015"
+      },
+      "expected_status": "partially_matched",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": false,
+      "predicted_doi_valid": false,
+      "doi_correct": true,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.64,
+        "matched_title": "What’s Deep About Deep Learning?",
+        "matched_year": 2018,
+        "doi": "10.4135/9781506368603.n2",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Deep%20Learning&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Deep+Learning&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Deep%20Learning&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Deep+Learning&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "C03",
+      "case_type": "controlled",
+      "source_document": "controlled",
+      "raw_reference": "[23] N. Srivastava et al. Dropout: A Simple Way to Prevent Neural Networks from Overfitting. JMLR, 2014. doi:10.1038/nature14539",
+      "gold_notes": "Chimeric citation: valid DOI resolves to a different work.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "23",
+        "title": "Dropout: A Simple Way to Prevent Neural Networks from Overfitting",
+        "authors": [
+          "Srivastava"
+        ],
+        "year": 2014,
+        "doi": "10.1038/nature14539",
+        "venue": "JMLR, 2014"
+      },
+      "expected_status": "unverified",
+      "predicted_status": "unverified",
+      "status_correct": true,
+      "expected_exists": false,
+      "predicted_exists": false,
+      "exists_correct": true,
+      "expected_doi_valid": true,
+      "predicted_doi_valid": true,
+      "doi_correct": true,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.389,
+        "matched_title": "Deep learning",
+        "matched_year": 2015,
+        "doi": "10.1038/nature14539",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Dropout%3A%20A%20Simple%20Way%20to%20Prevent%20Neural%20Networks%20from%20Overfitting&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Dropout%3A%20A%20Simple%20Way%20to%20Prevent%20Neural%20Networks%20from%20Overfitting&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue"
+        ]
+      }
+    },
+    {
+      "case_id": "C04",
+      "case_type": "controlled",
+      "source_document": "controlled",
+      "raw_reference": "[24] J. Devlin, M.-W. Chang, K. Lee, and K. Toutanova. BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding. NAACL, 2017.",
+      "gold_notes": "Existing work with intentionally wrong year.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "24",
+        "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+        "authors": [
+          "Devlin",
+          "Chang"
+        ],
+        "year": 2017,
+        "doi": null,
+        "venue": "NAACL, 2017"
+      },
+      "expected_status": "partially_matched",
+      "predicted_status": "unverified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": false,
+      "exists_correct": false,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.518,
+        "matched_title": "Spectrum-BERT: Pre-training of Deep Bidirectional Transformers for Spectral Classification of Chinese Liquors_supp1-3374300.docx",
+        "matched_year": 2024,
+        "doi": "10.1109/tim.2024.3374300/mm1",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=BERT%3A%20Pre-training%20of%20Deep%20Bidirectional%20Transformers%20for%20Language%20Understanding&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=BERT%3A+Pre-training+of+Deep+Bidirectional+Transformers+for+Language+Understanding&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=BERT%3A%20Pre-training%20of%20Deep%20Bidirectional%20Transformers%20for%20Language%20Understanding&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=BERT%3A+Pre-training+of+Deep+Bidirectional+Transformers+for+Language+Understanding&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "C05",
+      "case_type": "controlled",
+      "source_document": "controlled",
+      "raw_reference": "[25] J. Smith. Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks. EMNLP-IJCNLP, 2019.",
+      "gold_notes": "Existing work with intentionally wrong author.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "25",
+        "title": "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks",
+        "authors": [
+          "Smith"
+        ],
+        "year": 2019,
+        "doi": null,
+        "venue": "EMNLP-IJCNLP, 2019"
+      },
+      "expected_status": "partially_matched",
+      "predicted_status": "verified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.82,
+        "matched_title": "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks",
+        "matched_year": 2019,
+        "doi": "10.18653/v1/d19-1410",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Sentence-BERT%3A%20Sentence%20Embeddings%20using%20Siamese%20BERT-Networks&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Sentence-BERT%3A%20Sentence%20Embeddings%20using%20Siamese%20BERT-Networks&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue"
+        ]
+      }
+    },
+    {
+      "case_id": "C06",
+      "case_type": "controlled",
+      "source_document": "controlled",
+      "raw_reference": "[26] A. Example and B. Fiction. Quantum Dropout Eliminates All Neural Network Errors. Journal of Fabricated Learning, 2025.",
+      "gold_notes": "Intentionally fabricated title and venue.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "26",
+        "title": "Quantum Dropout Eliminates All Neural Network Errors",
+        "authors": [
+          "Example",
+          "Fiction"
+        ],
+        "year": 2025,
+        "doi": null,
+        "venue": "Journal of Fabricated Learning, 2025"
+      },
+      "expected_status": "unverified",
+      "predicted_status": "unverified",
+      "status_correct": true,
+      "expected_exists": false,
+      "predicted_exists": false,
+      "exists_correct": true,
+      "expected_doi_valid": null,
+      "predicted_doi_valid": null,
+      "doi_correct": null,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.62,
+        "matched_title": "Softer is Better: Tweaking Quantum Dropout to Enhance Quantum Neural Network Trainability",
+        "matched_year": 2025,
+        "doi": "10.1109/qcnc64685.2025.00076",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Quantum%20Dropout%20Eliminates%20All%20Neural%20Network%20Errors&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue; openalex: HTTP 429 for https://api.openalex.org/works?search=Quantum+Dropout+Eliminates+All+Neural+Network+Errors&per-page=3&mailto=ezo.contus%40gmail.com",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Quantum%20Dropout%20Eliminates%20All%20Neural%20Network%20Errors&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+          "openalex: HTTP 429 for https://api.openalex.org/works?search=Quantum+Dropout+Eliminates+All+Neural+Network+Errors&per-page=3&mailto=ezo.contus%40gmail.com"
+        ]
+      }
+    },
+    {
+      "case_id": "C07",
+      "case_type": "controlled",
+      "source_document": "controlled",
+      "raw_reference": "[27] A. Example. Universal Citation Integrity Engine. Imaginary Proceedings, 2025. doi:10.9999/claimguard.invalid.002",
+      "gold_notes": "Intentionally fabricated reference and invalid DOI.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "27",
+        "title": "Universal Citation Integrity Engine",
+        "authors": [
+          "Example"
+        ],
+        "year": 2025,
+        "doi": "10.9999/claimguard.invalid.002",
+        "venue": "Imaginary Proceedings, 2025"
+      },
+      "expected_status": "unverified",
+      "predicted_status": "unverified",
+      "status_correct": true,
+      "expected_exists": false,
+      "predicted_exists": false,
+      "exists_correct": true,
+      "expected_doi_valid": false,
+      "predicted_doi_valid": false,
+      "doi_correct": true,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 0.493,
+        "matched_title": "A Universal Citation Database",
+        "matched_year": 1997,
+        "doi": "10.5210/fm.v2i4.522",
+        "details": "CrossRef bibliographic match. Degraded API coverage: semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Universal%20Citation%20Integrity%20Engine&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue",
+        "candidate_is_retracted": false,
+        "api_degraded": true,
+        "api_failures": [
+          "semantic_scholar: HTTP 429 for https://api.semanticscholar.org/graph/v1/paper/search?query=Universal%20Citation%20Integrity%20Engine&limit=3&fields=title,year,externalIds,abstract,isOpenAccess,openAccessPdf,authors,venue"
+        ]
+      }
+    },
+    {
+      "case_id": "C08",
+      "case_type": "controlled",
+      "source_document": "controlled",
+      "raw_reference": "[28] M. R. Mehra et al. Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis. The Lancet, 2020. doi:10.1016/S0140-6736(20)31180-6",
+      "gold_notes": "Known retracted Lancet article.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "28",
+        "title": "Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis",
+        "authors": [
+          "Mehra"
+        ],
+        "year": 2020,
+        "doi": "10.1016/s0140-6736(20)31180-6",
+        "venue": "The Lancet, 2020"
+      },
+      "expected_status": "retracted_or_problematic",
+      "predicted_status": "retracted_or_problematic",
+      "status_correct": true,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": true,
+      "predicted_doi_valid": true,
+      "doi_correct": true,
+      "expected_retracted": true,
+      "predicted_retracted": true,
+      "retraction_correct": true,
+      "validation": {
+        "source": "crossref",
+        "confidence": 1.0,
+        "matched_title": "RETRACTED: Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis",
+        "matched_year": 2020,
+        "doi": "10.1016/s0140-6736(20)31180-6",
+        "details": "CrossRef bibliographic match.",
+        "candidate_is_retracted": true,
+        "api_degraded": false,
+        "api_failures": []
+      }
+    },
+    {
+      "case_id": "C09",
+      "case_type": "controlled",
+      "source_document": "controlled",
+      "raw_reference": "[29] A. J. Wakefield et al. Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children. The Lancet, 1998. doi:10.1016/S0140-6736(97)11096-0",
+      "gold_notes": "Known retracted Lancet article.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "29",
+        "title": "Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children",
+        "authors": [
+          "Wakefield"
+        ],
+        "year": 1998,
+        "doi": "10.1016/s0140-6736(97)11096-0",
+        "venue": "The Lancet, 1998"
+      },
+      "expected_status": "retracted_or_problematic",
+      "predicted_status": "verified",
+      "status_correct": false,
+      "expected_exists": true,
+      "predicted_exists": true,
+      "exists_correct": true,
+      "expected_doi_valid": true,
+      "predicted_doi_valid": true,
+      "doi_correct": true,
+      "expected_retracted": true,
+      "predicted_retracted": false,
+      "retraction_correct": false,
+      "validation": {
+        "source": "crossref",
+        "confidence": 1.0,
+        "matched_title": "RETRACTED: Ileal-lymphoid-nodular hyperplasia, non-specific colitis, and pervasive developmental disorder in children",
+        "matched_year": 1998,
+        "doi": "10.1016/s0140-6736(97)11096-0",
+        "details": "CrossRef bibliographic match.",
+        "candidate_is_retracted": false,
+        "api_degraded": false,
+        "api_failures": []
+      }
+    },
+    {
+      "case_id": "C10",
+      "case_type": "controlled",
+      "source_document": "controlled",
+      "raw_reference": "[30] N. Reimers and I. Gurevych. Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks. EMNLP-IJCNLP, 2019. doi:10.18653/v1/N19-1423",
+      "gold_notes": "Chimeric citation: valid DOI resolves to the BERT paper.",
+      "parser_record_count": 1,
+      "parsed": {
+        "index": "30",
+        "title": "Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks",
+        "authors": [
+          "Reimers",
+          "Gurevych"
+        ],
+        "year": 2019,
+        "doi": "10.18653/v1/n19-1423",
+        "venue": "EMNLP-IJCNLP, 2019"
+      },
+      "expected_status": "unverified",
+      "predicted_status": "unverified",
+      "status_correct": true,
+      "expected_exists": false,
+      "predicted_exists": false,
+      "exists_correct": true,
+      "expected_doi_valid": true,
+      "predicted_doi_valid": true,
+      "doi_correct": true,
+      "expected_retracted": false,
+      "predicted_retracted": false,
+      "retraction_correct": true,
+      "validation": {
+        "source": "semantic_scholar",
+        "confidence": 0.557,
+        "matched_title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+        "matched_year": 2019,
+        "doi": "10.18653/v1/N19-1423",
+        "details": "Semantic Scholar paper match.",
+        "candidate_is_retracted": false,
+        "api_degraded": false,
+        "api_failures": []
+      }
+    }
+  ],
+  "limitations": [
+    "Gold labels were manually assigned to authentic report references and controlled perturbations.",
+    "The benchmark is small; retraction metrics have only two positive cases.",
+    "API coverage and rate limits can change results over time.",
+    "DOI validity means resolution to matching metadata, not legal or scientific validity of a work."
+  ]
+}

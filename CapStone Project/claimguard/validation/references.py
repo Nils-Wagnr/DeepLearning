@@ -188,6 +188,8 @@ class ReferenceValidator:
             )
 
         best = max(candidates, key=lambda item: item.get("score", 0.0))
+        best["api_failures"] = failures
+        best["api_no_match_sources"] = no_match_sources
         status = _status_from_candidate(reference, best)
         return ReferenceValidation(
             reference_index=reference.index,
@@ -197,7 +199,10 @@ class ReferenceValidator:
             matched_title=best.get("title"),
             matched_year=best.get("year"),
             doi=best.get("doi") or reference.doi,
-            details=best.get("details", ""),
+            details=(
+                best.get("details", "")
+                + (" Degraded API coverage: " + "; ".join(failures) if failures else "")
+            ),
             metadata=best,
         )
 
@@ -294,6 +299,7 @@ def _extract_title(entry: str, year: int | None) -> str | None:
         return _clean_title(quoted.group(1))
 
     work = DOI_RE.sub("", entry)
+    work = ENTRY_START_RE.sub("", work).strip()
     if year:
         apa_match = re.search(rf"\(?{year}\)?[a-z]?\s*[.)]?\s*", work)
         if apa_match:
@@ -301,6 +307,21 @@ def _extract_title(entry: str, year: int | None) -> str | None:
             for sentence in _split_reference_sentences(after_year):
                 if _looks_like_title_candidate(sentence):
                     return _clean_title(sentence)
+
+    ieee_remainder = _strip_leading_ieee_authors(work)
+    if ieee_remainder != work:
+        # Comma-style IEEE entries put the venue immediately after the title;
+        # period-style entries are already handled by sentence splitting.
+        title_region = re.split(
+            r",\s*(?=(?:proceedings|journal|jmlr|iclr|icml|neurips|"
+            r"neural computation|transactions|advances|arxiv|vol\.|pp\.))",
+            ieee_remainder,
+            maxsplit=1,
+            flags=re.IGNORECASE,
+        )[0]
+        sentence = _split_reference_sentences(title_region)[0] if title_region else ""
+        if _looks_like_title_candidate(sentence):
+            return _clean_title(sentence)
 
     parts = _split_reference_sentences(work)
     for part in parts:
@@ -335,6 +356,21 @@ def _extract_authors(entry: str, year_match: re.Match[str] | None) -> list[str]:
     pieces = re.split(r"\s+and\s+|;", author_blob)
     cleaned = [piece.strip(" .,") for piece in pieces if piece.strip(" .,")]
     return _dedupe([_last_author_token(piece) for piece in cleaned if _last_author_token(piece)])
+
+
+def _strip_leading_ieee_authors(entry: str) -> str:
+    """Remove a leading initial--surname author list from an IEEE-style entry."""
+
+    initials = r"(?:[A-Z]\.(?:-[A-Z]\.)?\s*)+"
+    name = rf"{initials}[A-Z][A-Za-z'’\-]+"
+    separator = r"(?:,\s+and\s+|\s+and\s+|,\s*)"
+    match = re.match(
+        rf"^{name}(?:{separator}{name})*(?:\s+et\s+al\.)?",
+        entry,
+    )
+    if not match:
+        return entry
+    return entry[match.end() :].lstrip(" ,.")
 
 
 def _extract_venue(entry: str, title: str | None) -> str | None:
@@ -387,12 +423,15 @@ def _looks_like_reference_entry(entry: str) -> bool:
 
 
 def _split_inline_entries(entry: str) -> list[str]:
-    markers = re.findall(r"(?:^|\s)(?:\[\d+\]|\d+[\.)])\s+", entry)
+    # Restrict unbracketed markers to one--three digits.  Four-digit publication
+    # years such as ``2015.`` are sentence content, not bibliography indices.
+    marker_pattern = r"(?:^|\s)(?:\[\d+\]|\d{1,3}[\.)])\s+"
+    markers = re.findall(marker_pattern, entry)
     if len(markers) <= 1:
         return [entry]
     numbered = [
         part.strip()
-        for part in re.split(r"(?=\s*(?:\[\d+\]|\d+[\.)])\s+)", entry)
+        for part in re.split(r"(?=\s*(?:\[\d+\]|\d{1,3}[\.)])\s+)", entry)
         if part.strip()
     ]
     numbered = [part for part in numbered if _looks_like_reference_entry(part)]
@@ -538,7 +577,13 @@ def _reference_match_score(
         + (venue_score * 0.04)
     )
     if doi_score == 1.0:
-        weighted = max(weighted, 0.96)
+        # A DOI resolving is not sufficient for bibliographic identity: a
+        # chimeric citation can combine a real DOI with a different title.
+        year_consistent = not (reference.year and year) or reference.year == year
+        if title_score >= 0.8 and year_consistent:
+            weighted = max(weighted, 0.96)
+        elif title_score >= 0.6 and year_consistent:
+            weighted = max(weighted, 0.75)
     return round(max(0.0, min(1.0, weighted)), 3)
 
 
@@ -679,7 +724,7 @@ def _status_from_candidate(reference: Reference, candidate: dict[str, Any]) -> s
     if candidate.get("is_retracted"):
         return "retracted_or_problematic"
     score = float(candidate.get("score", 0.0))
-    if score >= 0.88:
+    if score >= 0.82:
         return "verified"
     if score >= 0.65:
         return "partially_matched"

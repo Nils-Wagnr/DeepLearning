@@ -1,4 +1,9 @@
-from claimguard.validation.references import ReferenceParser, ReferenceValidator
+from claimguard.models import Reference
+from claimguard.validation.references import (
+    ReferenceParser,
+    ReferenceValidator,
+    _reference_match_score,
+)
 
 
 def test_reference_parser_extracts_core_fields() -> None:
@@ -89,3 +94,60 @@ def test_reference_parser_handles_unquoted_ieee_author_lists() -> None:
     assert reference.title == "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks"
     assert reference.year == 2020
     assert reference.venue.startswith("In Advances")
+
+
+def test_reference_parser_does_not_treat_year_as_inline_index() -> None:
+    text = (
+        "[21] Y. LeCun, Y. Bengio, and G. Hinton. Deep Learning. Nature, 2015. "
+        "doi:10.1038/nature14539"
+    )
+
+    references = ReferenceParser().parse(text)
+
+    assert len(references) == 1
+    assert references[0].year == 2015
+    assert references[0].doi == "10.1038/nature14539"
+
+
+def test_reference_parser_extracts_comma_style_ieee_title() -> None:
+    text = (
+        "[2] Y. LeCun, L. Bottou, Y. Bengio, and P. Haffner, "
+        "Gradient-based learning applied to document recognition, "
+        "Proceedings of the IEEE, 1998."
+    )
+
+    reference = ReferenceParser().parse(text)[0]
+
+    assert reference.title == "Gradient-based learning applied to document recognition"
+
+
+def test_reference_parser_extracts_et_al_period_style_title() -> None:
+    text = (
+        "[5] T. B. Brown et al. Language Models are Few-Shot Learners. "
+        "Advances in Neural Information Processing Systems, 2020."
+    )
+
+    reference = ReferenceParser().parse(text)[0]
+
+    assert reference.title == "Language Models are Few-Shot Learners"
+
+
+def test_matching_doi_does_not_override_conflicting_title_and_year() -> None:
+    reference = Reference(
+        raw_text="Dropout citation with a chimeric DOI",
+        title="Dropout: A Simple Way to Prevent Neural Networks from Overfitting",
+        authors=["Srivastava"],
+        year=2014,
+        doi="10.1038/nature14539",
+    )
+
+    score = _reference_match_score(
+        reference,
+        title="Deep learning",
+        year=2015,
+        doi="10.1038/nature14539",
+        candidate_authors=["LeCun", "Bengio", "Hinton"],
+        candidate_venue="Nature",
+    )
+
+    assert score < 0.65
