@@ -19,6 +19,13 @@ reusable (but not empirically completed) Module-6 comparison scaffold:
 All optional network and model features are opt-in. The base application remains deterministic
 and runnable offline.
 
+## Repository scope
+
+This repository intentionally contains the executable ClaimGuard implementation together with
+the data, benchmarks, saved model adapter, and evaluation artifacts required to run and reproduce
+the code. The written capstone report and presentation are maintained separately and are not part
+of this code repository.
+
 ## Repository layout
 
 - `apps/`: interactive Streamlit application.
