@@ -50,7 +50,7 @@ Alle vier Backends sahen dieselbe Evidenz. Die Heuristik gewinnt diesen kleinen 
 ## Folie 10
 
 Nils — 55 Sekunden
-Je zwei konkrete Stärken und Schwächen nennen. Fast-DetectGPT erzeugte in diesem kleinen Set keinen menschlichen Fehlalarm, übersah aber 7 von 15 generierten Texten. Der offizielle Datensatz enthält keine Zitiermarker; eine Korrelation wird daher nicht behauptet. Private Berichte wurden nicht an den externen Detektor gesendet.
+Je zwei konkrete Stärken und Schwächen nennen. In manuellen Läufen am 7. Juli 2026 lieferten Semantic-Scholar-Anfragen ohne API-Key und OpenAlex-Anfragen mit konfiguriertem mailto-Parameter wiederholt HTTP 429, auch nach mehreren Minuten Wartezeit und mit einer neuen Eingabedatei. Das ist eine beobachtete Dienstbedingung und kein systematischer API-Verfügbarkeitsbenchmark; fehlende Abstract- oder Volltextevidenz kann dadurch zu unzureichender Evidenz führen. Fast-DetectGPT erzeugte in diesem kleinen Set keinen menschlichen Fehlalarm, übersah aber 7 von 15 generierten Texten. Der offizielle Datensatz enthält keine Zitiermarker; eine Korrelation wird daher nicht behauptet. Private Berichte wurden nicht an den externen Detektor gesendet.
 
 ## Folie 11
 

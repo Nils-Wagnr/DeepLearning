@@ -50,7 +50,7 @@ All four backends saw the same retrieved evidence. The heuristic wins this small
 ## Slide 10
 
 Nils — 55 seconds
-Give two concrete successes and two failures. Fast-DetectGPT had no human false positives in this small set, but missed 7 of 15 generated passages. The official benchmark has no citation markers, so no AI-score/citation correlation is claimed. Private reports were not sent to the external detector.
+Give two concrete successes and two failures. In manual runs on 7 July 2026, Semantic Scholar requests without an API key and OpenAlex requests with a configured mailto parameter repeatedly returned HTTP 429, even after waiting several minutes and changing the input file. Present this as an observed service condition, not a systematic API-availability benchmark; it can reduce abstract/full-text evidence and lead to insufficient-evidence results. Fast-DetectGPT had no human false positives in this small set, but missed 7 of 15 generated passages. The official benchmark has no citation markers, so no AI-score/citation correlation is claimed. Private reports were not sent to the external detector.
 
 ## Slide 11
 

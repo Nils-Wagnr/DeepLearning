@@ -1,5 +1,6 @@
 # Install this profile in a separate Python 3.9/3.10 virtual environment.
 # The official repository pins Transformers 4.31 and was tested on Python 3.9;
 # installing it into ClaimGuard's current Transformers 5 environment would downgrade it.
+# This profile is intentionally isolated from the main LoRA/RAG environment.
 -r requirements.txt
 binoculars @ git+https://github.com/ahans30/Binoculars.git@main

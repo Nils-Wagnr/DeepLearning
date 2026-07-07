@@ -308,6 +308,14 @@ def _verification_prompt(claim: str, evidence: list[EvidencePassage]) -> str:
     snippets = "\n".join(
         f"[{index}] {item.text}" for index, item in enumerate(evidence[:5], start=1)
     )
+    return (
+        "Classify the claim using exactly one status: supported, partially_supported, "
+        "not_supported, contradicted, or insufficient_evidence.\n"
+        "supported means the evidence directly establishes the full claim; contradicted means "
+        "it explicitly establishes the opposite. Use insufficient_evidence when the evidence is "
+        "too weak or irrelevant. Return JSON with status, confidence (0..1), and a concise rationale.\n\n"
+        f"CLAIM:\n{claim}\n\nEVIDENCE:\n{snippets or '[none]'}"
+    )
 
 
 def _no_rag_prompt(claim: str) -> str:
@@ -320,14 +328,6 @@ def _no_rag_prompt(claim: str) -> str:
         "insufficient_evidence means you cannot judge reliably. Return JSON with status, "
         "confidence (0..1), and a concise rationale.\n\n"
         f"CLAIM:\n{claim}\n\nRETRIEVED EVIDENCE:\n[none]"
-    )
-    return (
-        "Classify the claim using exactly one status: supported, partially_supported, "
-        "not_supported, contradicted, or insufficient_evidence.\n"
-        "supported means the evidence directly establishes the full claim; contradicted means "
-        "it explicitly establishes the opposite. Use insufficient_evidence when the evidence is "
-        "too weak or irrelevant. Return JSON with status, confidence (0..1), and a concise rationale.\n\n"
-        f"CLAIM:\n{claim}\n\nEVIDENCE:\n{snippets or '[none]'}"
     )
 
 

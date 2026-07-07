@@ -1,0 +1,6 @@
+[server]
+# Transformers exposes many optional lazy modules. Streamlit's automatic source
+# watcher probes all of them and produces misleading torchvision import errors,
+# although ClaimGuard only processes text. Reload the app manually after edits.
+fileWatcherType = "none"
+

@@ -1,3 +1,6 @@
+# Optional LoRA training and local verifier stack.
+# Install this on top of the RAG profile. On Windows/NVIDIA, install
+# requirements-torch-cuda.txt first to pin the matching Torch wheel.
 -r requirements-rag.txt
 
 torch>=2.2.0

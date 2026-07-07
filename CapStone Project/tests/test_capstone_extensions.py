@@ -74,6 +74,8 @@ def test_ollama_backend_uses_shared_verdict(monkeypatch) -> None:
         model_verifiers.LABELS
     )
     assert captured["payload"]["format"]["required"] == ["status", "confidence", "rationale"]
+    assert "CLAIM:\nClaim" in captured["payload"]["prompt"]
+    assert "EVIDENCE:\n[1] Evidence" in captured["payload"]["prompt"]
 
 
 def test_openai_backend_parses_responses_api_output(monkeypatch) -> None:

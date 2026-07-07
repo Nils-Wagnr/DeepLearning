@@ -156,7 +156,7 @@ LoRA enables parameter-efficient adaptation \cite{hu2022}. Binoculars uses cross
 \textbf{Core module} & \textbf{Implemented components} & \textbf{Output} & \textbf{Evaluation evidence} & \textbf{Limitations} \\
 \midrule
 1: Claim extraction and citation presence & Section-aware sentence types, citation linking, inherited citations, severity rules & Sentence label, cited indices, missing-citation flag/severity & 50 real sentences: accuracy .520, Macro-F1 .437; citation-needed F1 .267 & Single annotator; rules confuse definitions, methods, and interpretations \\
-2: Bibliographic validation & IEEE-like parser; identity/DOI matching; Crossref, Semantic Scholar, OpenAlex; retraction flags & Parsed record, candidate, DOI, confidence, validation/problem status & 30 references: parser 1.000; status Acc. .467/F1 .412; DOI 7/7; retraction F1 .667 & Manual small gold set; 26/30 degraded API coverage; two retraction positives \\
+2: Bibliographic validation & IEEE-like parser; identity/DOI matching; Crossref, Semantic Scholar, OpenAlex; retraction flags & Parsed record, candidate, DOI, confidence, validation/problem status & 30 references: parser 1.000; status Acc. .467/F1 .412; DOI 7/7; retraction F1 .667 & Manual small gold set; 26/30 degraded API coverage; repeated S2/OpenAlex HTTP 429; two retraction positives \\
 3: Deep claim--source verification/RAG & Chunking, lexical/embedding retrieval, heuristic/Ollama/OpenAI/LoRA interfaces & Evidence chunks, five-way verdict, rationale, backend metadata & 30 controlled cases: Macro-F1 heuristic .868, Ollama .728, OpenAI .518, LoRA .172 & Synthetic short passages; incomplete full text; monetary cost not logged \\
 \bottomrule
 \end{tabularx}
@@ -166,7 +166,7 @@ LoRA enables parameter-efficient adaptation \cite{hu2022}. Binoculars uses cross
 
 The parser accepts PDF and plain text, cleans extraction artifacts, separates body, references, and supplied evidence, and propagates section headings. Sentence splitting protects initials, abbreviations, decimal values, and IEEE citation markers. The claim module assigns one of five types: factual claim, methodological statement, opinion/interpretation, background/definition, or non-claim. Rules combine empirical verbs, numerical patterns, method cues, hedging, and definitional constructions. A factual sentence outside methods or results is flagged when it lacks a same-sentence or safely inherited citation; severity rises for numerical, causal, universal, or explicit prior-work assertions.
 
-The reference module extracts index, authors, title, venue, year, and DOI and repairs common PDF artifacts. A parsed DOI is normalized and used for DOI-specific Crossref, Semantic Scholar, and OpenAlex lookups before title search; matching scores combine DOI, title, author, year, and venue. DOI resolution alone cannot prove identity: after a benchmark exposed chimeric citations, exact-DOI boosting was constrained by title and year consistency. Crossref retraction relations/subtypes and OpenAlex's \texttt{is\_retracted} field can produce \texttt{retracted\_or\_problematic}. Coverage remains partial because Semantic Scholar supplies no retraction flag, DOI resolution is not a complete registry audit, and public services can throttle queries. Candidate metadata remains visible rather than being silently accepted.
+The reference module extracts index, authors, title, venue, year, and DOI and repairs common PDF artifacts. A parsed DOI is normalized and used for DOI-specific Crossref, Semantic Scholar, and OpenAlex lookups before title search; matching scores combine DOI, title, author, year, and venue. DOI resolution alone cannot prove identity: after a benchmark exposed chimeric citations, exact-DOI boosting was constrained by title and year consistency. Crossref retraction relations/subtypes and OpenAlex's \texttt{is\_retracted} field can produce \texttt{retracted\_or\_problematic}. Coverage remains partial because Semantic Scholar supplies no retraction flag, DOI resolution is not a complete registry audit, and public services can throttle queries. In manual runs on 7 July 2026, Semantic Scholar requests without an API key and OpenAlex requests with a configured \texttt{mailto} parameter repeatedly returned HTTP 429, including after waiting several minutes and changing the input file. This records the observed service condition rather than a systematic API-availability benchmark. Candidate metadata and API failures remain visible rather than being silently accepted.
 
 Evidence from abstracts, supplied passages, metadata, or accessible full text is split into overlapping chunks. Lexical retrieval normalizes tokens, removes stop words, lightly stems terms, and scores overlap. Semantic retrieval encodes claims and chunks with \texttt{all-MiniLM-L6-v2} and normalized cosine similarity. Retrieval is restricted to the cited reference when possible, reducing contamination from unrelated works.
 
@@ -295,7 +295,7 @@ SciFact LoRA & 30 & .300 & .172 & 6.0 ms & no tokens & partial $\rightarrow$ ins
 \label{tab:local_frontier}
 \end{table}
 
-Ollama/OpenAI agreement was .567 (17/30). The local model exceeded the frontier model by .210 Macro-F1, while OpenAI was faster on this hardware/network run. OpenAI's main error was collapsing \emph{not supported} into \emph{insufficient evidence}; Ollama over-predicted full support for partial evidence. This controlled benchmark provides no case where frontier quality justifies its external-service dependency or unlogged monetary cost. That conclusion is benchmark-specific, not a general model ranking.
+Ollama/OpenAI agreement was .567 (17/30). The local model exceeded the frontier model by .210 Macro-F1, while OpenAI was faster on this hardware/network run. OpenAI's main error was collapsing \emph{not supported} into \emph{insufficient evidence}; Ollama over-predicted full support for partial evidence. In this controlled benchmark, we did not observe a quality advantage that would justify routine frontier use over the local model, especially because monetary cost was not logged. This conclusion is benchmark-specific and should not be read as a general model ranking.
 
 \subsection{Metadata-search and internal baselines}
 
@@ -351,7 +351,7 @@ ClaimGuard's strongest property is its end-to-end audit trail: a reviewer can mo
 \midrule
 Layout false positive & PDF headers and title text enter sentence stream & RQ5 title/header flagged as an uncited claim & Layout-aware parsing; exclude front matter \\
 Claim-type confusion & Mixed rhetorical roles and narrow rules & 9/15 method statements predicted factual & Learned section-aware model with abstention \\
-Metadata/API failure & Near-neighbors and throttled services & Status Acc. .467; degraded coverage in 26/30 cases & Require identity agreement; cache/backoff; show candidates \\
+Metadata/API failure & Near-neighbors and throttled services & Status Acc. .467; degraded coverage in 26/30 cases; repeated S2/OpenAlex HTTP 429 in manual runs & Require identity agreement; cache/backoff; show candidates \\
 Access bias & Paywall/non-OA or abstract-only evidence & No source-level rate measured; missing full text can yield insufficient evidence & Separate access failure from support; licensed/OA retrieval \\
 Taxonomy/model bias & SciFact has three labels; prompts may avoid contradiction & LoRA transfer F1 .172; Ollama contradiction F1 .000 & Align labels; class-balanced prompts/data \\
 \bottomrule
@@ -360,7 +360,7 @@ Taxonomy/model bias & SciFact has three labels; prompts may avoid contradiction 
 \label{tab:failure_modes}
 \end{table}
 
-Access bias deserves special emphasis: paywalled or non-open-access works are harder to verify than sources with complete machine-readable text. Consequently, \emph{insufficient evidence} may describe retrieval or access limits rather than an unsupported claim, and may systematically favor open-access literature. API timeouts and incomplete deposits add similar missingness. The evaluation is small and single-annotator; Module~2 has only seven DOI checks and two retraction positives, while the local/frontier comparison uses synthetic short evidence.
+Access bias deserves special emphasis: paywalled or non-open-access works are harder to verify than sources with complete machine-readable text. Consequently, \emph{insufficient evidence} may describe retrieval, throttling, or access limits rather than an unsupported claim, and may systematically favor open-access literature. The repeated HTTP 429 responses observed for both Semantic Scholar and OpenAlex show that changing the submitted file does not necessarily restore metadata coverage because rate limits apply to the service/client request stream rather than to one document. API timeouts and incomplete deposits add similar missingness. The evaluation is small and single-annotator; Module~2 has only seven DOI checks and two retraction positives, while the local/frontier comparison uses synthetic short evidence.
 
 False positives are consequential in academic assessment. Common knowledge, inherited citations, extraction errors, and cautious scientific language can all trigger incorrect flags. AI-text scores are particularly unsuitable as authorship proof \cite{sadasivan2023,weberwulff2023}. ClaimGuard therefore avoids misconduct labels and requires source inspection. Fast-DetectGPT's perfect precision on 15 human passages must not be generalized: it missed 7/15 generated passages, and edited or paraphrased text was not tested. Citation association also remains unmeasured because the provenance-labeled benchmark contains no citation markers; private student reports were not transmitted to the external API for an exploratory analysis. Future work should add double annotation, authentic claim--source labels, broader DOI/retraction cases, an external-tool benchmark, and a consented, preregistered AI-detection test including edited/paraphrased text and citation behavior.
 
@@ -410,6 +410,13 @@ Experiments used Python 3.14.3, PyTorch 2.11.0 with CUDA 12.8, an NVIDIA RTX 307
 \end{itemize}
 API identifiers are retained locally; credentials are excluded.
 
+\subsection{Minimal reproduction command}
+From the \path{CapStone Project/} repository root, after installing the base dependencies, the following PowerShell command reproduces the deterministic 30-case five-label benchmark reported as ``Five-way verification, lexical'' in Table~\ref{tab:results}:
+\begin{lstlisting}
+python -m scripts.run_evaluation --benchmark data/benchmark/claimguard_benchmark.csv --output outputs/evaluation/evaluation_lexical.json --verifier heuristic
+\end{lstlisting}
+The generated JSON contains aggregate and per-label metrics, the confusion matrix, individual predictions, retrieved evidence, and runtime metadata. This minimal run requires neither an external API key nor Ollama; the model-comparison and API-dependent commands are documented in the repository README.
+
 \subsection{Verifier prompt}
 \begin{verbatim}
 Classify the claim using exactly one status: supported,
@@ -419,6 +426,6 @@ Return JSON with status, confidence (0..1), and a concise rationale.
 \end{verbatim}
 
 \subsection{LoRA and execution details}
-The adapter used rank 8, alpha 16, query/value projections, an effective batch size of 16, three epochs, and 740,355 saved trainable parameters (1.09\% of 67,696,134 loaded parameters). Training took 30.8 seconds; \path{adapter_model.safetensors} is 2,965,276 bytes (2.83 MiB). Reproduction commands and response samples are stored with the project outputs.
+The adapter used rank 8, alpha 16, query/value projections, an effective batch size of 16, three epochs, and 740,355 saved trainable parameters (1.09\% of 67,696,134 loaded parameters). Training took 30.8 seconds; \path{adapter_model.safetensors} is 2,965,276 bytes (2.83 MiB). Additional reproduction commands and response samples are documented in the repository README and stored with the project outputs.
 
 \end{document}

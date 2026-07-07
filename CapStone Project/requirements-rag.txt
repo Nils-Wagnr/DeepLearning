@@ -1,3 +1,5 @@
+# Optional embedding-retrieval stack for RAG evidence search.
+# Install this on top of the base profile when you want semantic retrieval.
 -r requirements.txt
 
 numpy>=1.26.0

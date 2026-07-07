@@ -1,3 +1,5 @@
+# Contributor tooling for tests and presentation generation.
+# This stays light-weight and does not pull in the heavy ML stacks.
 -r requirements.txt
 
 pytest>=8.2.0

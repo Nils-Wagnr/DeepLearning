@@ -410,11 +410,11 @@ def build_deck() -> Presentation:
     add_bullets(s, 7.18, 2.35, 4.95, 3.25, [
         "PDF extraction introduces spacing/heading noise",
         "Real claim detection generalizes poorly",
-        "API metadata may time out or rate-limit",
+        "Repeated S2/OpenAlex HTTP 429 in manual runs",
         "Fast-DetectGPT missed 7/15 generated passages",
     ], size=16, color=INK, gap=16)
     textbox(s, 1.25, 6.55, 10.85, 0.3, "Ethical boundary: a flag prioritizes human review; it never proves misconduct or AI authorship.", size=14.5, color=NAVY, bold=True, align=PP_ALIGN.CENTER)
-    add_notes(s, "Nils — 55 seconds\nGive two concrete successes and two failures. Fast-DetectGPT had no human false positives in this small set, but missed 7 of 15 generated passages. The official benchmark has no citation markers, so no AI-score/citation correlation is claimed. Private reports were not sent to the external detector.")
+    add_notes(s, "Nils — 55 seconds\nGive two concrete successes and two failures. In manual runs on 7 July 2026, Semantic Scholar requests without an API key and OpenAlex requests with a configured mailto parameter repeatedly returned HTTP 429, even after waiting several minutes and changing the input file. Present this as an observed service condition, not a systematic API-availability benchmark; it can reduce abstract/full-text evidence and lead to insufficient-evidence results. Fast-DetectGPT had no human false positives in this small set, but missed 7 of 15 generated passages. The official benchmark has no citation markers, so no AI-score/citation correlation is claimed. Private reports were not sent to the external detector.")
 
     # 11 — Conclusion
     s = new_slide(prs, 11, "Takeaways", "Nick + Nils", "0:35", "Conclusion")

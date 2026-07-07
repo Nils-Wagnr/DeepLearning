@@ -39,8 +39,13 @@ comparison, and JSON export. Install and start it from inside `CapStone Project/
 
 ```powershell
 python -m pip install -e ".[ui]"
-streamlit run apps/streamlit_app.py
+python -m streamlit run apps/streamlit_app.py
 ```
+
+ClaimGuard disables Streamlit's automatic source watcher in `.streamlit/config.toml`. This avoids
+misleading `No module named 'torchvision'` messages caused when Streamlit inspects optional vision
+modules inside `transformers`; ClaimGuard itself does not require `torchvision`. Restart Streamlit
+manually after changing application code.
 
 The default heuristic mode runs locally and is recommended for a quick demonstration. Ollama,
 OpenAI, SciFact-LoRA, scholarly APIs, and AI-text detection can be selected in the sidebar when
@@ -65,15 +70,31 @@ copy .env.example .env
 Dependency profiles are deliberately separated:
 
 - `requirements.txt`: small, CPU-only base application.
-- `requirements-rag.txt`: NumPy and Sentence Transformers.
+- `requirements-dev.txt`: tests plus presentation-generation tooling.
+- `requirements-rag.txt`: semantic retrieval on top of the base profile.
 - `requirements-lora.txt`: RAG plus Torch, Datasets, PEFT, and Accelerate.
-- `requirements-binoculars.txt`: official Binoculars integration and its model stack.
+- `requirements-binoculars.txt`: official Binoculars integration in a separate Python 3.10 environment.
 - `requirements-torch-cuda.txt`: pinned CUDA 12.8 Torch wheel for this Windows/NVIDIA setup.
 
 Keeping the large model stacks out of the base requirements makes installation and grading more
 reliable, especially on Windows.
 
+Typical combinations:
+
+- Base CLI/offline demo: `requirements.txt`
+- Frontend demo: `pip install -e ".[ui]"` or base plus Streamlit
+- Tests and presentation scripts: `requirements-dev.txt`
+- Embedding retrieval: `requirements-rag.txt`
+- LoRA training/inference: `requirements-torch-cuda.txt` then `requirements-lora.txt`
+- Official Binoculars: separate `.venv-binoculars` plus `requirements-binoculars.txt`
+
 The application now loads `.env` automatically. Never commit `.env`; it is ignored by Git.
+
+If you also want tests and the PowerPoint/PDF generation scripts, install:
+
+```powershell
+python -m pip install -r requirements-dev.txt
+```
 
 ## 2. Basic offline analysis
 

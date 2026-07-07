@@ -15,25 +15,21 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest>=8.2.0"]
+dev = ["pytest>=8.2.0", "python-pptx>=1.0.2"]
 ui = ["streamlit>=1.41.0"]
 rag = [
   "numpy>=1.26.0",
   "sentence-transformers>=3.0.0",
   "faiss-cpu>=1.8.0; platform_system != 'Windows'",
 ]
-ai = [
-  "torch>=2.2.0",
-  "transformers>=4.44.0",
-  "binoculars @ git+https://github.com/ahans30/Binoculars.git",
-]
 lora = [
   "torch>=2.2.0",
-  "transformers>=4.44.0",
-  "datasets>=2.20.0",
-  "peft>=0.12.0",
-  "accelerate>=0.33.0",
+  "transformers>=4.44.0,<6",
+  "datasets>=2.20.0,<5",
+  "peft>=0.12.0,<1",
+  "accelerate>=0.33.0,<2",
   "sentencepiece>=0.2.0",
+  "protobuf>=5.27.0",
 ]
 
 [project.scripts]
