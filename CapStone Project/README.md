@@ -28,8 +28,6 @@ and runnable offline.
 - `outputs/evaluation/`: reportable metrics and comparison artifacts.
 - `outputs/examples/`: example document analyses.
 - `outputs/models/`: the selected deployable LoRA adapter only.
-- `docs/report/`: LaTeX report source and compiled PDF.
-- `docs/presentation/`: final German deck/PDF with source, notes, and media in subdirectories.
 
 ## Interactive frontend
 
@@ -353,7 +351,8 @@ writes `training_report.json`. SciFact is CC BY-NC 2.0; review its license befor
 
 The completed adapter in this workspace is `outputs/models/scifact-lora`, trained from
 `distilbert-base-uncased` on 1,261 training and 450 validation pairs. It reached 0.409 validation
-Accuracy and 0.353 Macro-F1. See `docs/FINAL_RESULTS.md` for transfer results and caveats.
+Accuracy and 0.353 Macro-F1. See `outputs/evaluation/README.md` for transfer results, artifact
+provenance, reproduction commands, and caveats.
 
 Compare the trained adapter against temperature-zero Ollama prompting and a majority baseline on
 the same deterministic, balanced SciFact subset (30 cases per native label):
@@ -452,21 +451,10 @@ benchmark, because the gold labels describe claim--evidence relations while no e
 
 The real-RQ annotation file contains 50 manually reviewed sentences, ten from each RQ report.
 It is deliberately kept separate from the synthetic regression benchmark. Current measured
-results and the exact experimental status are summarized in `docs/FINAL_RESULTS.md`.
+results and the exact experimental status are summarized in `outputs/evaluation/README.md`.
 
 The mapping from report tables to saved artifacts and exact commands is in
 `outputs/evaluation/README.md`.
-
-Build the report twice so references and page labels settle:
-
-```powershell
-Set-Location docs/report
-pdflatex -interaction=nonstopmode -halt-on-error ClaimGuard_Technical_Report.tex
-pdflatex -interaction=nonstopmode -halt-on-error ClaimGuard_Technical_Report.tex
-Set-Location ../..
-```
-
-The main-text page count ends at the `mainend` label; references and the appendix follow it.
 
 ## 9. Optional Module 6: comparison with existing tools
 
@@ -499,9 +487,8 @@ reference parsing and venue extraction, fuzzy matching, RAG retrieval, shared mo
 schemas, AI-detection safeguards, evaluation, tool comparison, Markdown output, and full-pipeline
 smoke tests.
 
-Report, presentation, and human-annotation checklists live in `docs/`. The local/frontier
-comparison is complete; the external-tool and no-RAG comparisons remain incomplete and must not
-be claimed until their output files contain full runs.
+The local/frontier comparison is complete; the external-tool and no-RAG comparisons remain
+incomplete and must not be claimed until their output files contain full runs.
 
 ## Architecture
 
